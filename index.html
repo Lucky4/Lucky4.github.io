@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Lucky4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lucky4">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Lucky4">
+<meta property="og:description" content="竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lucky4">
+<meta name="twitter:description" content="竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。">
+  
+    <link rel="alternate" href="/atom.xml" title="Lucky4" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lucky4</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Git操作小记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/16/Git操作小记/" class="article-date">
+  <time datetime="2017-06-16T07:15:06.000Z" itemprop="datePublished">2017-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/16/Git操作小记/">Git操作小记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">克隆远程服务器端的代码到本地代码仓库</div><div class="line">git clone [url]</div><div class="line">将本地代码仓库添加到远程仓库</div><div class="line">git remote add [shortname] [url]</div></pre></td></tr></table></figure>
+<h2 id="更新提交"><a href="#更新提交" class="headerlink" title="更新提交"></a>更新提交</h2><p>文件状态: 已跟踪、未跟踪，已跟踪指纳入版本控制的管理的文件，该种文件已经纳入缓冲区，它可又有两种状态为未修改和已修改。而未跟踪文件指未纳入缓冲区的文件。</p>
+<p>![git_state][images/git_state.png]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">跟踪某个文件</div><div class="line">git add &lt;filename&gt;</div><div class="line">.选项会把已修改的和添加的文件放入缓冲区不包括被删除文件</div><div class="line">git add .</div><div class="line">-u会把更新的文件和被删除文件放入缓冲去区</div><div class="line">git add .-u</div><div class="line">-A提交所有变化</div><div class="line">git add -A</div><div class="line">提交更新并加上提交注释</div><div class="line">git commit -m</div><div class="line">修改最后一次提交,比如发现漏掉了几个文件没有加，或者提交信息写错了</div><div class="line">git commit --amend</div></pre></td></tr></table></figure></p>
+<h2 id="显示信息"><a href="#显示信息" class="headerlink" title="显示信息"></a>显示信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">确定文件状态</div><div class="line">git status</div><div class="line">查看提交历史，会显示commit id等信息，对于版本回退会有很大帮助，退出按q键</div><div class="line">git log</div><div class="line">--graph 选项可以以一种便于查看的方式显示提交信息</div><div class="line">git log --graph</div><div class="line">查看具体修改了什么地方</div><div class="line">git diff</div></pre></td></tr></table></figure>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">创建并切换分支</div><div class="line">git checkout -b &lt;branchname&gt;</div><div class="line">合并分支一般在master上合并其他分支</div><div class="line">git merge &lt;branchname&gt;</div><div class="line">删除分支</div><div class="line">git branch -d &lt;branchname&gt;</div><div class="line">删除远程分支</div><div class="line">git push [远程名] :&lt;branchname&gt;</div><div class="line">衍合</div><div class="line">git rebase &lt;target branchname&gt;</div><div class="line">等价于（master为target branchname）</div><div class="line">git rebase master server</div></pre></td></tr></table></figure>
+<h2 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">回退到某次提交（即HEAD指针回到某个状态,之前的commit都没有变化）</div><div class="line">git reset &lt;commit id&gt;</div><div class="line">或者</div><div class="line">git reset --hard &lt;commit id前6位&gt;</div><div class="line">回退到某次提交，相当于一次新的commit</div><div class="line">git revert &lt;commit id&gt;</div></pre></td></tr></table></figure>
+<h2 id="保持分支同步更新"><a href="#保持分支同步更新" class="headerlink" title="保持分支同步更新"></a>保持分支同步更新</h2><p>克隆操作会自动使用默认的master 和origin 名字。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">到远程仓库中拉取所有你本地仓库中还没有的数据,但不会自动合并</div><div class="line">git fetch [remote-name]</div><div class="line">到远程仓库中拉取所有你本地仓库中还没有的数据,并自动合并</div><div class="line">git pull</div><div class="line">推送数据到远程仓库</div><div class="line">git push [remote-name] [branch-name]</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cj4333d0a0001rsopk6leakb5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Django-REST-framework使用小记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/26/Django-REST-framework使用小记/" class="article-date">
+  <time datetime="2017-05-26T05:55:55.000Z" itemprop="datePublished">2017-05-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/26/Django-REST-framework使用小记/">Django_REST_framework使用小记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="何为REST"><a href="#何为REST" class="headerlink" title="何为REST"></a>何为REST</h2><p>即”Representational State Transfer”，翻译为”表现层状态转化”，该概念来源于作者Roy Thomas Fielding在其<a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm" target="_blank" rel="external">博士论文</a>中的内容，我们根据其中的几句话大概理解下：</p>
+<blockquote>
+<p>REST is a hybrid style derived from several of the network-based architectural styles and combined with additional constraints that define a uniform connector interface.</p>
+</blockquote>
+<p>大概意为REST是一种的软件（这里即WEB）架构风格，它提供了一个唯一的连接接口。</p>
+<blockquote>
+<p>REST provides a set of architectural constraints that, when applied as a whole, emphasizes scalability of component interactions, generality of interfaces, independent deployment of components, and intermediary components to reduce interaction latency, enforce security, and encapsulate legacy systems.</p>
+</blockquote>
+<p>大概意为REST这种架构风格提供了一些限制，包括可控制的交互、一般的接口、独立的开发环境、中间件、安全性、封装性等功能。</p>
+<p>所有以上说的目的就是要实现一种前后端分离的架构模式，后端只负责提业务需要用到的数据API，前端只负责调用后端提供的API数据作展示，这些行为都要遵守REST风格。</p>
+<h2 id="设计RESTful-API"><a href="#设计RESTful-API" class="headerlink" title="设计RESTful API"></a>设计RESTful API</h2><p>本人借鉴了<a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="external">阮一峰的文章</a>，摘抄了以下几点，都为暂时遇到的，以后可能会更新。</p>
+<ol>
+<li>路径（Endpoint）： 路径又称”终点”，表示API的具体网址。在RESTful架构中，每个网址代表一种资源。</li>
+<li>HTTP动词：对于资源的具体操作类型，由HTTP动词表示。常用的HTTP动词有下面五个。<ul>
+<li>GET：从服务器取出资源。</li>
+<li>POST：在服务器新建一个资源。</li>
+<li>PUT：在服务器更新资源（客户端提供改变后的完整资源）。</li>
+<li>PATCH：在服务器更新资源（客户端提供改变的属性）。</li>
+<li>DELETE：从服务器删除资源。</li>
+</ul>
+</li>
+<li>状态码（Status Codes）:服务器向用户返回的状态码和提示信息，常见的有以下一些。<ul>
+<li>200 OK - 服务器成功返回用户请求的数据，该操作是幂等的（Idempotent）。</li>
+<li>201 CREATED - 用户新建或修改数据成功。</li>
+<li>403 Forbidden - 表示用户得到授权（与401错误相对），但是访问是被禁止的。</li>
+<li>404 NOT FOUND - 用户发出的请求针对的是不存在的记录，服务器没有进行操作，该操作是幂等的。</li>
+<li>415 UNSUPPORTED_MEDIA_TYPE - 请求的格式不受请求页面的支持。</li>
+<li>500 INTERNAL SERVER ERROR - 服务器发生错误，用户将无法判断发出的请求是否成功。</li>
+</ul>
+</li>
+</ol>
+<p>理解以上几点我们便可以写一些普通的RESTful API了。</p>
+<h2 id="Django-REST-framework-使用"><a href="#Django-REST-framework-使用" class="headerlink" title="Django REST framework 使用"></a>Django REST framework 使用</h2><h3 id="Serializers"><a href="#Serializers" class="headerlink" title="Serializers"></a>Serializers</h3><p>所谓serializing目的就是要将后端返回给前端的querysets 或者 model instances（模型实例）转化Python的数据类型然后渲染为JSON、XML等数据格式返回给前端，而deserializing目的就是将前端提交的数据转化为后端的格式进行操作。有多种声明serializer的方式我这里介绍2种。</p>
+<p>我们的Model模型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">from django.contrib.auth.models import User</div><div class="line">from django.db import models</div><div class="line"></div><div class="line">class UserProfile(models.Model):</div><div class="line">    user = models.OneToOneField(User, related_name=&apos;profile&apos;)</div><div class="line">    birthday = models.DateField(u&apos;生日&apos;, blank=True, null=True)</div></pre></td></tr></table></figure></p>
+<p>第一种：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from rest_framework import serializers</div><div class="line"></div><div class="line">class UserSerializer(serializers.ModelSerializer):</div><div class="line">    email = serializers.ReadOnlyField()</div><div class="line">    profile = UserProfileSerializer()</div><div class="line"></div><div class="line">    class Meta:</div><div class="line">        model = User</div><div class="line">        fields = (&apos;id&apos;, &apos;email&apos;, &apos;username&apos;, &apos;first_name&apos;, &apos;last_name&apos;, &apos;profile&apos;)</div></pre></td></tr></table></figure></p>
+<p>serializer与Django的forms有很大地方是很类似的但是有几个地方是值得说明的：</p>
+<ol>
+<li>serializer会默认提供一个字段，根据继承的父类，若是Serializer则提供id，若继承HyperlinkedSerializer则会提供类似于url形式的主键字段。</li>
+<li>serializer提供了多重字段，比如ReadOnlyField表示只读。</li>
+<li>erializer还提供了表示模型之间关系的字段如PrimaryKeyRelatedField，我们这里不作详细说明，以后遇到补充。</li>
+</ol>
+<p>第二种：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">from django.contrib.auth.models import User</div><div class="line">from .models import UserProfile</div><div class="line">from rest_framework import serializers</div><div class="line"></div><div class="line">class UserSerializer(serializers.Serializer):</div><div class="line">    email = serializers.ReadOnlyField()</div><div class="line">    username = serializers.CharField()</div><div class="line">    first_name = serializers.CharField()</div><div class="line">    last_name = serializers.CharField()</div><div class="line"></div><div class="line">class UserProfileSerializer(serializers.ModelSerializer):</div><div class="line">    class Meta:</div><div class="line">    model = UserProfile</div><div class="line">         fields = (&apos;id&apos;, &apos;birthday&apos;, &apos;code_language&apos;, &apos;challenge_default&apos;)</div></pre></td></tr></table></figure></p>
+<p>采用继承ModelSerializer的方式比上面的方式更加简洁，它会自动的将生命的model字段转化为serializer字段，值得注意的是我们profile这个字段，其以嵌套的方式声明了调用UserProfileSerializer，这样就可以在update的时候在一个serializer中序列两个模型的字段。</p>
+<h3 id="Permissions"><a href="#Permissions" class="headerlink" title="Permissions"></a>Permissions</h3><p>所谓的Permissions其作用就是对请求request做出限制，它有两个方法has_permission和has_obj_permission，需要先满足has_permission才能在执行has_obj_permission，我们一般就用一个就行了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">from rest_framework import permissions</div><div class="line"></div><div class="line">class IsOwnerOrReadOnly(permissions.BasePermission):</div><div class="line">    def has_object_permission(self, request, view, obj):</div><div class="line">        if request.method in permissions.SAFE_METHODS:</div><div class="line">            return True</div><div class="line"></div><div class="line">        return obj.owner == request.user</div></pre></td></tr></table></figure>
+<p>这个限制了，若请求类型属于SAFE_METHODS元组中，则可以访问，若不在，只有是对象的拥有者才可以进行PUT、POST等非SAFE_METHODS中类型的请求。</p>
+<h3 id="Class-based-Views"><a href="#Class-based-Views" class="headerlink" title="Class-based Views"></a>Class-based Views</h3><p>基于类的视图，每个类继承类一些基础类，获得继承的基础类的包含的方法，可继承的基础类有APIView、mixins.<em>(</em>代表各种操作的类)、viewsets.<em>(</em>包括各种viewset，每种viewset都包含特定的方法)等，我们这里介绍第二种。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">from django.contrib.auth.models import User</div><div class="line">from rest_framework import mixins</div><div class="line">from rest_framework import viewsets</div><div class="line">from accounts.permissions import UserProfilePermission</div><div class="line">from accounts.serializers import UserSerializer</div><div class="line"></div><div class="line">class UserProfileViewSet(mixins.RetrieveModelMixin,</div><div class="line">                         mixins.UpdateModelMixin,</div><div class="line">                         viewsets.GenericViewSet):</div><div class="line">    queryset = User.objects.all()</div><div class="line">    serializer_class = UserSerializer</div><div class="line">    permission_classes = (UserProfilePermission,)</div></pre></td></tr></table></figure>
+<p>类中的三个属性是缺一不可，分别代表返回特定model的queryset、要使用的serializer以及使用该API需要的权限。继承的GenericViewSet只包含get_object, get_queryset两个方法，不包含其他方法，使用该类可自由的继承实现特定的方法。mixins.RetrieveModelMixin类包括了GET操作的方法，UpdateModelMixin类包括了PUT操作方法所以这里我们只实现了以上两种操作，对于访问该API的其他方法，我们都会返回404或405状态码。</p>
+<h3 id="Routers"><a href="#Routers" class="headerlink" title="Routers"></a>Routers</h3><p>由于我们使用了第二种方式定义了视图，所以我们使用Routers定义url资源，其他方式我们暂且不表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import patterns, include, url</div><div class="line">from rest_framework import routers</div><div class="line">from accounts.api import UserProfileViewSet</div><div class="line">from rest_framework import routers</div><div class="line"></div><div class="line">router = routers.DefaultRouter()</div><div class="line">router.register(r&apos;profile&apos;, UserProfileViewSet)</div><div class="line"></div><div class="line">urlpatterns = patterns(</div><div class="line">  	&apos;api&apos;,</div><div class="line">  	url(r&apos;^&apos;, include(router.urls)),</div><div class="line">  	url(r&apos;^auth/&apos;, include(&apos;rest_framework.urls&apos;, namespace=&apos;rest_framework&apos;)),</div><div class="line">)</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>到这里我们就完成了一个API的设计，总体来说使用框架来实现API还是很方便的，通过对这个框架的使用我觉的自己还有一些知识需要巩固，包括HTTP协议、Python的面向对象设计等。只会使用框架还是很单薄的，对自己的成长还是帮助甚微的。</p>
+<p>最后一句话与大家共勉“行百里者半于九十。此言末路之难也”。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cj4333czv0000rsopqr08c6ac" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/16/Git操作小记/">Git操作小记</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/26/Django-REST-framework使用小记/">Django_REST_framework使用小记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Lucky4<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

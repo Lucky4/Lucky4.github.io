@@ -100,7 +100,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cj8r17cet0004zoopscn0uoul" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cj91wq2n70004twopow3zzqmb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
@@ -170,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cj8r17cex0005zoop4dwwjgb5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cj91wq2oh000ctwopcl5y1pdq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
@@ -224,7 +224,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cj8r17ce90000zoop9osdl7ho" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cj91wq2n70003twop3as917l5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li></ul>
@@ -261,6 +261,8 @@
         <h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">克隆远程服务器端的代码到本地代码仓库</div><div class="line">git clone [url]</div><div class="line">将本地代码仓库添加到远程仓库</div><div class="line">git remote add [shortname] [url]</div></pre></td></tr></table></figure>
 <h2 id="更新提交"><a href="#更新提交" class="headerlink" title="更新提交"></a>更新提交</h2><p>文件状态: 已跟踪、未跟踪，已跟踪指纳入版本控制的管理的文件，该种文件已经纳入缓冲区，它可又有两种状态为未修改和已修改。而未跟踪文件指未纳入缓冲区的文件。</p>
 <p>![git_state][images/git_state.png]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">跟踪某个文件</div><div class="line">git add &lt;filename&gt;</div><div class="line">.选项会把已修改的和添加的文件放入缓冲区不包括被删除文件</div><div class="line">git add .</div><div class="line">-u会把更新的文件和被删除文件放入缓冲去区</div><div class="line">git add .-u</div><div class="line">-A提交所有变化</div><div class="line">git add -A</div><div class="line">提交更新并加上提交注释</div><div class="line">git commit -m</div><div class="line">修改最后一次提交,比如发现漏掉了几个文件没有加，或者提交信息写错了</div><div class="line">git commit --amend</div></pre></td></tr></table></figure></p>
+<p>当分支与master冲突的文件是.mo二进制文件时，此时我们没法手动rebase，那么我们可以使用如下操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git rebase master</div><div class="line">git add -u</div><div class="line">git rebase --continue</div></pre></td></tr></table></figure></p>
+<p>和我们正常的rebase是一样的。</p>
 <h2 id="显示信息"><a href="#显示信息" class="headerlink" title="显示信息"></a>显示信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">确定文件状态</div><div class="line">git status</div><div class="line">查看提交历史，会显示commit id等信息，对于版本回退会有很大帮助，退出按q键</div><div class="line">git log</div><div class="line">--graph 选项可以以一种便于查看的方式显示提交信息</div><div class="line">git log --graph</div><div class="line">查看具体修改了什么地方</div><div class="line">git diff</div></pre></td></tr></table></figure>
 <h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">创建并切换分支</div><div class="line">git checkout -b &lt;branchname&gt;</div><div class="line">合并分支一般在master上合并其他分支</div><div class="line">git merge &lt;branchname&gt;</div><div class="line">删除分支</div><div class="line">git branch -d &lt;branchname&gt;</div><div class="line">删除远程分支</div><div class="line">git push [远程名] :&lt;branchname&gt;</div><div class="line">衍合</div><div class="line">git rebase &lt;target branchname&gt;</div><div class="line">等价于（master为target branchname）</div><div class="line">git rebase master server</div></pre></td></tr></table></figure>
 <h2 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">回退到某次提交（即HEAD指针回到某个状态,之前的commit都没有变化）</div><div class="line">git reset &lt;commit id&gt;</div><div class="line">或者</div><div class="line">git reset --hard &lt;commit id前6位&gt;</div><div class="line">回退到某次提交，相当于一次新的commit</div><div class="line">git revert &lt;commit id&gt;</div></pre></td></tr></table></figure>
@@ -270,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cj8r17cep0003zooptlc1v6gb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cj91wq2mr0000twopxgjv6lr4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -361,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cj8r17ceh0001zooplspu7u33" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cj91wq2mr0001twoplzndu3e5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>

@@ -64,6 +64,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-开始使用JavaScript环境包管理工具之npm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/28/开始使用JavaScript环境包管理工具之npm/" class="article-date">
+  <time datetime="2017-10-28T06:55:42.000Z" itemprop="datePublished">2017-10-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/28/开始使用JavaScript环境包管理工具之npm/">开始使用JavaScript环境包管理工具之npm</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是npm"><a href="#什么是npm" class="headerlink" title="什么是npm"></a>什么是npm</h2><p>npm 是一个js包管理工具，可以帮助分享你的代码、使用别人分享的代码，并且提供简单的方式管理不同版本的代码。</p>
+<h2 id="安装Node-js和更新npm"><a href="#安装Node-js和更新npm" class="headerlink" title="安装Node.js和更新npm"></a>安装Node.js和更新npm</h2><p>使用npm工具需要首先安装Node.js环境，Node环境可以到官方网站下载，下载后环境内就可以使用npm命令管理js包代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">更新npm：</div><div class="line">npm install npm@latest –g</div><div class="line">查看npm版本：</div><div class="line">npm –v</div></pre></td></tr></table></figure></p>
+<h2 id="npm安装包的方式"><a href="#npm安装包的方式" class="headerlink" title="npm安装包的方式"></a>npm安装包的方式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">本地安装：</div><div class="line">npm install &lt;package_name&gt; 通过类似require的方式使用</div><div class="line">全局安装：</div><div class="line">npm install –g &lt;package_name&gt;</div></pre></td></tr></table></figure>
+<h2 id="管理本地安装包package-json"><a href="#管理本地安装包package-json" class="headerlink" title="管理本地安装包package.json"></a>管理本地安装包package.json</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">创建package.json:</div><div class="line">npm init –yes 根据当前文件夹生成package.json</div><div class="line">设置package.json初始信息：</div><div class="line">npm set init.license &quot;MIT&quot;</div></pre></td></tr></table></figure>
+<h2 id="指明项目依赖到package-json"><a href="#指明项目依赖到package-json" class="headerlink" title="指明项目依赖到package.json"></a>指明项目依赖到package.json</h2><p>dependencies：应用需要依赖的包<br>devDependencies：开发环境需要依赖的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">在package.json的dependencies添加入口：</div><div class="line">npm install &lt;package_name&gt; --save</div><div class="line">在package.json的devDependencies添加入口：</div><div class="line">npm install &lt;package_name&gt; --save-dev</div><div class="line">按照package.json安装依赖：</div><div class="line">npm install</div></pre></td></tr></table></figure></p>
+<h2 id="更新安装包"><a href="#更新安装包" class="headerlink" title="更新安装包"></a>更新安装包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">更新package.json中的依赖包：</div><div class="line">npm update</div><div class="line">更新全局安装的包：</div><div class="line">npm update –g</div></pre></td></tr></table></figure>
+<h2 id="卸载安装包"><a href="#卸载安装包" class="headerlink" title="卸载安装包"></a>卸载安装包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">卸载：</div><div class="line">npm uninstall &lt;package_name&gt;</div><div class="line">卸载同时在package.json中移除依赖：</div><div class="line">npm uninstall –save &lt;package_name&gt;</div><div class="line">卸载全局安装的包：</div><div class="line">npm uninstall –g &lt;package_name&gt;</div></pre></td></tr></table></figure>
+<h2 id="CLI-Commands"><a href="#CLI-Commands" class="headerlink" title="CLI Commands"></a>CLI Commands</h2><p>npm 提供了命令行界面命令来管理使用npm<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">查看已安装包：</div><div class="line">npm ls &lt;scope&gt;</div></pre></td></tr></table></figure></p>
+<p>未完待续，之后会把学习中遇到的命令以及npm的理念的等核心内容整理。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/28/开始使用JavaScript环境包管理工具之npm/" data-id="cj9azg4i1000604opg1v5gvm1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-简单谈谈callback" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/10/14/简单谈谈callback/" class="article-date">
@@ -100,7 +147,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cj91wq2n70004twopow3zzqmb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cj9azg4i6000704opig3fhn97" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
@@ -170,7 +217,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cj91wq2oh000ctwopcl5y1pdq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cj9azg4if000804oprfbeq4ub" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
@@ -224,7 +271,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cj91wq2n70003twop3as917l5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cj9azg4hr000304op6w5em8ov" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li></ul>
@@ -272,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cj91wq2mr0000twopxgjv6lr4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cj9azg4gk000004opxqqj5hua" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -363,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cj91wq2mr0001twoplzndu3e5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cj9azg4hw000404opzj9bch0c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
@@ -387,7 +434,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li></ul>
     </div>
   </div>
 
@@ -397,7 +444,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Django/" style="font-size: 20px;">Django</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a>
+      <a href="/tags/Django/" style="font-size: 20px;">Django</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a>
     </div>
   </div>
 
@@ -419,6 +466,10 @@
       <ul>
         
           <li>
+            <a href="/2017/10/28/开始使用JavaScript环境包管理工具之npm/">开始使用JavaScript环境包管理工具之npm</a>
+          </li>
+        
+          <li>
             <a href="/2017/10/14/简单谈谈callback/">简单谈谈callback</a>
           </li>
         
@@ -432,10 +483,6 @@
         
           <li>
             <a href="/2017/06/16/Git操作小记/">Git操作小记</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/26/Django-REST-framework使用小记/">Django_REST_framework使用小记</a>
           </li>
         
       </ul>

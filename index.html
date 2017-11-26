@@ -64,6 +64,95 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JavaScript引用类型之RegExp正则" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/26/JavaScript引用类型之RegExp正则/" class="article-date">
+  <time datetime="2017-11-26T03:47:14.000Z" itemprop="datePublished">2017-11-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/26/JavaScript引用类型之RegExp正则/">JavaScript引用类型之RegExp正则</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>两种写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">字面量对象形式</div><div class="line">var expression = /pattern/flags;</div><div class="line">构造函数形式</div><div class="line">var expression = new RegExp(pattern, flags);</div></pre></td></tr></table></figure></p>
+<p>pattern</p>
+<pre><code>- 正则表达式的文本
+</code></pre><p>flag</p>
+<pre><code>- 如果指定，标志可以具有以下值的任意组合：
+    - g
+        - 全局匹配;找到所有匹配，而不是在第一个匹配后停止
+    - i
+        - 忽略大小写
+    - m
+        - 多行; 将开始和结束字符（^和$）视为在多行上工作（也就是，分别匹配每一行的开始和结束（由 \n 或 \r 分割），而不只是只匹配整个输入字符串的最开始和最末尾处。
+</code></pre><p>使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var expression = /ab+c/i;</div><div class="line">var expression = new RegExp(&quot;ab+c&quot;, &apos;i&apos;);</div></pre></td></tr></table></figure></p>
+<p>两种写法区别：</p>
+<pre><code>- 正则文本的写法
+    - 使用字面量的方式不需写引号。
+    - 对于\.等需要转义字符，使用构造函数方式需要两次转义（new RegExp(&quot;\\\a+c&quot;, &quot;i&quot;)）。
+- 编译
+    - 使用字面量正则对象提供表达式编译状态，表达式不会再每一次迭代中都被重新编译。而使用构造函数方式的正则对象，提供运行时编译即每次迭代会重新编译，导致每次正则对象的执行结果都是相同的。
+</code></pre><h2 id="正则表达式中特殊字符的含义"><a href="#正则表达式中特殊字符的含义" class="headerlink" title="正则表达式中特殊字符的含义"></a>正则表达式中特殊字符的含义</h2><p>字符类别</p>
+<pre><code>- 字符&quot;.&quot;——匹配任意字符。
+- 字符&quot;\d&quot;——匹配任意阿拉伯数字。等价于[0-9]。
+- 字符&quot;\D&quot;——匹配任意一个不是阿拉伯数字的字符。等价于[^0-9]。
+- 字符&quot;\w&quot;——匹配任意来自基本拉丁字母表中的字母数字字符，还包括下划线。等价于 [A-Za-z0-9_]。
+- 字符&quot;\W&quot;——匹配任意不是基本拉丁字母表中单词（字母数字下划线）字符的字符。等价于 [^A-Za-z0-9_]。
+- 字符&quot;\s&quot;——匹配一个空白符，包括空格、制表符、换页符、换行符和其他 Unicode 空格。
+- 等
+</code></pre><p>字符集合</p>
+<pre><code>- 字符&quot;[xyz]&quot;——一个字符集合，也叫字符组。匹配集合中的任意一个字符。你可以使用连字符&apos;-&apos;指定一个范围。
+- 字符&quot;[^xyz]&quot;——一个反义或补充字符集，也叫反义字符组。也就是说，它匹配任意不在括号内的字符。你也可以通过使用连字符 &apos;-&apos; 指定一个范围内的字符。
+</code></pre><p>边界</p>
+<pre><code>- 字符&quot;^&quot;——匹配输入开始。如果多行（multiline）标志被设为 true，该字符也会匹配一个断行（line break）符后的开始处。
+- 字符&quot;$&quot;——匹配输入结尾。如果多行（multiline）标志被设为 true，该字符也会匹配一个断行（line break）符的前的结尾处。
+</code></pre><p>分组</p>
+<pre><code>- 字符&quot;(x)&quot;——匹配 x 并且捕获匹配项。被匹配的子字符串可以在结果数组的元素 [1], ..., [n] 中找到，或在被定义的 RegExp 对象的属性 $1, ..., $9 中找到。
+- 字符&quot;(?:x)&quot;——捕获括号。匹配项不能够从结果数组的元素 [1], ..., [n] 或已被定义的 RegExp 对象的属性 $1, ..., $9 再次访问到。
+</code></pre><p>数量词</p>
+<pre><code>- 字符&quot;x*&quot;——匹配前面的模式 x 0 或多次。
+- 字符&quot;x+&quot;——匹配前面的模式 x 1 或多次。等价于 {1,}。
+- 字符&quot;x?&quot;——匹配前面的模式 x 0 或 1 次。如果在数量词 *、+、? 或 {}, 任意一个后面紧跟该符号（?），会使数量词变为非贪婪（ non-greedy） ，即匹配次数最小化。反之，默认情况下，是贪婪的（greedy），即匹配次数最大化。
+- 字符&quot;x|y&quot;——匹配 x 或 y。
+- 字符&quot;x{n}&quot;——n 是一个正整数。前面的模式 x 连续出现 n 次时匹配。
+- 字符&quot;x{n,}&quot;——n 是一个正整数。前面的模式 x 连续出现至少 n 次时匹配。
+- 字符&quot;x{n,m}&quot;——n 和 m 为正整数。前面的模式 x 连续出现至少 n 次，至多 m 次时匹配。
+</code></pre><h2 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h2><p>由于应用中使用较少，这里不赘述。</p>
+<h2 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h2><p>RegExp.prototype.exec()</p>
+<pre><code>- 在目标字符串中执行一次正则匹配操作。返回匹配结果。
+</code></pre><p>RegExp.prototype.test()</p>
+<pre><code>- 测试当前正则是否能匹配目标字符串。返回true or false。
+</code></pre><h2 id="类属性"><a href="#类属性" class="headerlink" title="类属性"></a>类属性</h2><p>RegExp.$1, …, RegExp.$9</p>
+<pre><code>- 是包含括号子串匹配的正则表达式的静态和只读属性。
+- 相关链接https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp/n
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/26/JavaScript引用类型之RegExp正则/" data-id="cjagbrldz0003h8op7kbkccal" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-开始使用JavaScript环境包管理工具之npm" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/10/28/开始使用JavaScript环境包管理工具之npm/" class="article-date">
@@ -99,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/28/开始使用JavaScript环境包管理工具之npm/" data-id="cj9azg4i1000604opg1v5gvm1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/28/开始使用JavaScript环境包管理工具之npm/" data-id="cjagbrlfa000eh8opb1xb6gve" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
@@ -147,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cj9azg4i6000704opig3fhn97" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cjagbrlfp000hh8opjuhidb92" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
@@ -217,7 +306,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cj9azg4if000804oprfbeq4ub" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cjagbrldz0004h8ops7ukn8br" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
@@ -271,7 +360,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cj9azg4hr000304op6w5em8ov" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cjagbrleu000bh8op66jq1f6h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li></ul>
@@ -319,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cj9azg4gk000004opxqqj5hua" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cjagbrldj0001h8opf1z23d96" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -410,7 +499,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cj9azg4hw000404opzj9bch0c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cjagbrld40000h8opb7d8n5vi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
@@ -434,7 +523,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li></ul>
     </div>
   </div>
 
@@ -444,7 +533,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Django/" style="font-size: 20px;">Django</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a>
+      <a href="/tags/Django/" style="font-size: 20px;">Django</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a>
     </div>
   </div>
 
@@ -453,7 +542,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -464,6 +553,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/11/26/JavaScript引用类型之RegExp正则/">JavaScript引用类型之RegExp正则</a>
+          </li>
         
           <li>
             <a href="/2017/10/28/开始使用JavaScript环境包管理工具之npm/">开始使用JavaScript环境包管理工具之npm</a>
@@ -479,10 +572,6 @@
         
           <li>
             <a href="/2017/07/28/ES6介绍之Arrow-functions/">ES6介绍之Arrow-functions</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/16/Git操作小记/">Git操作小记</a>
           </li>
         
       </ul>

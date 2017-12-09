@@ -92,7 +92,8 @@
 <p>定义这样一个函数</p>
 <p>function doRepeat(func, times, wait) {}</p>
 <p>调用这个函数能返回一个新的函数，比如传入的是alert，这个函数的调用就是var repeatFunc = doRepeat(alert, 10, 5000);</p>
-<p>调用返回的这个新函数，如：repeatFun(“helloworld”);</p>
+<p>调用返回的这个新函数，如：repeatFun(“hello world”);</p>
+<p>那么hello world会显示10次，每次间隔5秒。</p>
 </blockquote>
 <p>方法一：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function doRepeat(func, times, wait) &#123;</div><div class="line">  var count = 0;</div><div class="line"></div><div class="line">  var f = function(aa) &#123;</div><div class="line">    setTimeout(function() &#123;</div><div class="line">      func(aa);</div><div class="line">      count++;</div><div class="line">      if (count &lt; times) &#123;</div><div class="line">        f();</div><div class="line">      &#125;</div><div class="line">    &#125;, wait);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  return f;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>方法二：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function doRepeat(func, times, wait) &#123;</div><div class="line">  var count = 0;</div><div class="line"></div><div class="line">  return function(aa) &#123;</div><div class="line">    var id = setInterval(function() &#123;</div><div class="line">      func(aa);</div><div class="line">      count++;</div><div class="line">      if (count == times) &#123;</div><div class="line">        clearInterval(id);</div><div class="line">      &#125;</div><div class="line">    &#125;, wait);</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -120,7 +121,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/09/刚学就用上了之闭包/" data-id="cjayrktqg00084oop4tc7rwav" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/09/刚学就用上了之闭包/" data-id="cjaznc60z0005g8op06euu7wz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -168,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/处理Django中session小记/" data-id="cjayrktq000054ooplc3f9g02" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/处理Django中session小记/" data-id="cjaznc61f0008g8optnpznvjy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Seesion/">Seesion</a></li></ul>
@@ -266,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/26/JavaScript引用类型之RegExp正则/" data-id="cjayrktq000044oopzq4an0fy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/26/JavaScript引用类型之RegExp正则/" data-id="cjaznc60z0003g8optipc6g18" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -313,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/28/开始使用JavaScript环境包管理工具之npm/" data-id="cjayrktqg00094oop0fnup363" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/28/开始使用JavaScript环境包管理工具之npm/" data-id="cjaznc61f0009g8opfaan9p1w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
@@ -361,7 +362,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cjayrktqg000d4oop1aurkdjj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cjaznc61f000dg8opu52ywvlf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -431,7 +432,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cjayrktqg000b4oopnwuvoy76" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cjaznc61f000bg8opmvufbdft" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
@@ -485,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cjayrktq000034ooppplbhbgn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cjaznc60k0001g8op59pmmara" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -533,7 +534,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cjayrktpl00014oopod0iycuj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cjaznc60z0004g8oplb4ul5mq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -624,7 +625,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cjayrktpl00004oop6nwockm8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cjaznc60k0000g8opzrvci3ki" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>

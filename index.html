@@ -53,7 +53,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -63,6 +63,74 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-刚学就用上了之闭包" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/09/刚学就用上了之闭包/" class="article-date">
+  <time datetime="2017-12-09T01:56:15.000Z" itemprop="datePublished">2017-12-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/09/刚学就用上了之闭包/">刚学就用上了之闭包</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="说来也巧"><a href="#说来也巧" class="headerlink" title="说来也巧"></a>说来也巧</h2><p>最近投了一个实习岗位，约在周三笔试，之前一天扫了一眼闭包，结果第二天就遇到了，一个很简单的问题，但答得并不是尽如人意，可见编程这东西看永远是不行的。</p>
+<p>描述：</p>
+<blockquote>
+<p>定义这样一个函数</p>
+<p>function doRepeat(func, times, wait) {}</p>
+<p>调用这个函数能返回一个新的函数，比如传入的是alert，这个函数的调用就是var repeatFunc = doRepeat(alert, 10, 5000);</p>
+<p>调用返回的这个新函数，如：repeatFun(“helloworld”);</p>
+</blockquote>
+<p>方法一：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function doRepeat(func, times, wait) &#123;</div><div class="line">  var count = 0;</div><div class="line"></div><div class="line">  var f = function(aa) &#123;</div><div class="line">    setTimeout(function() &#123;</div><div class="line">      func(aa);</div><div class="line">      count++;</div><div class="line">      if (count &lt; times) &#123;</div><div class="line">        f();</div><div class="line">      &#125;</div><div class="line">    &#125;, wait);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  return f;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>方法二：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function doRepeat(func, times, wait) &#123;</div><div class="line">  var count = 0;</div><div class="line"></div><div class="line">  return function(aa) &#123;</div><div class="line">    var id = setInterval(function() &#123;</div><div class="line">      func(aa);</div><div class="line">      count++;</div><div class="line">      if (count == times) &#123;</div><div class="line">        clearInterval(id);</div><div class="line">      &#125;</div><div class="line">    &#125;, wait);</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>分析：由于昨天刚看完闭包，所以第一眼看这题就想到用闭包的方式去做，之所以没答好的原因主要是因为，对setTimeout和setInterval这两个函数的使用不熟练，唉，js的东西实在太多了，后悔入坑。我会在之后的博客中介绍相关知识。</p>
+<p>了解闭包，我们先介绍匿名，因为很多闭包中返回的函数包括匿名函数。</p>
+<h2 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var functionName = function(arg0, arg1, arg2) &#123;</div><div class="line">  //函数体</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如上面的例子，function关键字后没有标识符，这种情况下的函数叫做匿名函数。<br>匿名函数有多重用法，上面把匿名函数赋值给了变量functionName(函数可以理解为指向函数对象的指针),这种情况下也叫做拉姆达表达式。还可以将匿名函数用一对括号包裹，之后调用如(function{})();形式，构造一个块级作用域。</p>
+<p>说明：</p>
+<ul>
+<li>使用匿名函数时注意函数声明提升。</li>
+<li>在匿名函数中定义的任何变量，都会在执行结束时被销毁。</li>
+</ul>
+<p>匿名函数的一个应用之一就是闭包。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>描述：闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见方式，就是在一个函数内部创建另一个函数。</p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function createComparisonFunction(propertyName) &#123;</div><div class="line">  return function(object1, object2) &#123;</div><div class="line">    var value1 = object1[propertyName];</div><div class="line">    var value2 = object2[propertyName];</div><div class="line">    </div><div class="line">    if (value1 &lt; value2) &#123;</div><div class="line">      return -1;</div><div class="line">    &#125; else if (value1 &gt; value2) &#123;</div><div class="line">      return 1;</div><div class="line">    &#125; else &#123;</div><div class="line">      return 0;</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>要理解闭包的执行原理，就必须理解JavaScript中的执行环境、作用域链以及活动对象，全局变量对象，这里不表。</p>
+<h2 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h2><p>JavaScript没有块级作用域的概念（注意回想那个经典的面试例子变量i），不过可以使用闭包来实现块级作用域。</p>
+<p>块级作用域的语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(function() &#123;&#125;)();</div></pre></td></tr></table></figure></p>
+<p>一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function outputNumbers(count) &#123;</div><div class="line">  (function () &#123;</div><div class="line">    for (var i=0; i &lt; count; i++) &#123;</div><div class="line">      alert(i);</div><div class="line">    &#125;</div><div class="line">  &#125;)();</div><div class="line"></div><div class="line">  alert(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行时会报错，说明i在块级作用域中。</p>
+<h2 id="模块模式-单例模式"><a href="#模块模式-单例模式" class="headerlink" title="模块模式(单例模式)"></a>模块模式(单例模式)</h2><p>所谓单例，指的就是只有一个实例的对象。实现如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var singleton = function() &#123;</div><div class="line">  var privateVariable = 10;</div><div class="line"></div><div class="line">  function privateFunction() &#123;</div><div class="line">    return false;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  return &#123;</div><div class="line">    publicProperty: true,</div><div class="line"></div><div class="line">    publicMethod: function() &#123;</div><div class="line">      privateVariable++;</div><div class="line">      return privateFunction();</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;();</div></pre></td></tr></table></figure></p>
+<p>这种模式在需要对单例进行某些初始化，同时需要维护其私有变量时是非常有用的。</p>
+<p>内容参考：《JavaScript高级程序设计》</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/09/刚学就用上了之闭包/" data-id="cjayrktqg00084oop4tc7rwav" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-处理Django中session小记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -100,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/处理Django中session小记/" data-id="cjaoja9rr0004boopfxxtc4zj" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/12/02/处理Django中session小记/" data-id="cjayrktq000054ooplc3f9g02" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Seesion/">Seesion</a></li></ul>
@@ -198,7 +266,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/26/JavaScript引用类型之RegExp正则/" data-id="cjaoja9rf0001booprujqyfnz" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/11/26/JavaScript引用类型之RegExp正则/" data-id="cjayrktq000044oopzq4an0fy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -245,7 +313,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/28/开始使用JavaScript环境包管理工具之npm/" data-id="cjaoja9rv0005booptejfp6i2" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/28/开始使用JavaScript环境包管理工具之npm/" data-id="cjayrktqg00094oop0fnup363" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
@@ -293,10 +361,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cjaoja9s70009booptlvfj79i" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cjayrktqg000d4oop1aurkdjj" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
 
     </footer>
   </div>
@@ -363,7 +431,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cjaoja9t0000lboopbjnagql3" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cjayrktqg000b4oopnwuvoy76" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
@@ -417,10 +485,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cjaoja9s20008boopatz54vzz" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cjayrktq000034ooppplbhbgn" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
 
     </footer>
   </div>
@@ -465,7 +533,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cjaoja9rp0003boopghiftfvp" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cjayrktpl00014oopod0iycuj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -556,7 +624,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cjaoja9r20000boopwxnxftr9" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cjayrktpl00004oop6nwockm8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
@@ -578,9 +646,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Labels</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seesion/">Seesion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seesion/">Seesion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li></ul>
     </div>
   </div>
 
@@ -590,14 +658,14 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Django/" style="font-size: 20px;">Django</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/Seesion/" style="font-size: 10px;">Seesion</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a>
+      <a href="/tags/Django/" style="font-size: 15px;">Django</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Seesion/" style="font-size: 10px;">Seesion</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
@@ -607,9 +675,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/12/09/刚学就用上了之闭包/">刚学就用上了之闭包</a>
+          </li>
         
           <li>
             <a href="/2017/12/02/处理Django中session小记/">处理Django中session小记</a>
@@ -625,10 +697,6 @@
         
           <li>
             <a href="/2017/10/14/简单谈谈callback/">简单谈谈callback</a>
-          </li>
-        
-          <li>
-            <a href="/2017/09/26/网站前后端分离模式下国际化问题小记/">网站前后端分离模式下国际化问题小记</a>
           </li>
         
       </ul>

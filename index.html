@@ -64,6 +64,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-BOM学习" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/10/BOM学习/" class="article-date">
+  <time datetime="2017-12-09T18:04:35.000Z" itemprop="datePublished">2017-12-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/10/BOM学习/">BOM学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>JavaScript由三个核心部分组成，分别是ECMAScript、BOM、DOM。</p>
+<h2 id="文档对象模型BOM"><a href="#文档对象模型BOM" class="headerlink" title="文档对象模型BOM"></a>文档对象模型BOM</h2><p>BOM提供了很多访问浏览器窗口的接口，包括window对象、location对象、navigator对象、history对象。</p>
+<h3 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a>window对象</h3><p>我的上一篇博客记录了关于setInterval和setTimeout的使用，它们都是window对象的方法。</p>
+<ul>
+<li>setTimeout(arg0, arg1) 超时调用</li>
+<li>setInterval(arg0, arg1) 间歇调用</li>
+</ul>
+<p>它们都接受两个参数，第一个是要执行的代码，第二个是以毫秒形式表示的时间。</p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setTimeout(function() &#123;</div><div class="line">  alert(&quot;Hello world!&quot;);</div><div class="line">&#125;, 1000);</div></pre></td></tr></table></figure></p>
+<p>第二个参数表示等待的时间毫秒数，但经过该时间后指定的代码不一定会执行。JavaScript是一个单线程的解释器，因此一定时间内只能执行一段代码。为了控制要执行的代码，就有一个JavaScript任务队列。这些任务会按照将它们添加到队列的顺序执行。setTimeout()的第二个参数告诉JavaScript在过多长时间把当前任务添加到队列中。如果队列是空的，那么添加的代码会立即执行；如果队列不是空的，那么它就要等前面的代码执行完了以后再执行。</p>
+<p>调用setTimeout()会返回一个ID，通过调用clearTimeout()，并将ID作为参数，可以取消未执行的调用计划。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var timeoutId = setTimeout(function() &#123;</div><div class="line">  alert(&quot;Hello world!&quot;);</div><div class="line">&#125;, 1000);</div><div class="line"></div><div class="line">clearTimeout(timeoutId);</div></pre></td></tr></table></figure>
+<p>setInterval()的返回参数同样返回ID，通过clearInterval()，将ID作为参数，来取消未执行的间歇调用。</p>
+<p>在使用这两个函数时我们最需要学到的就是setTimeout()和setInterval()之间的相互转化。那就是在使用setTimeout()的时候采用递归调用自己的方式来实现setInterval()的效果。</p>
+<p>最后避免使用间歇调用，推荐超时调用。</p>
+<p>参考：《JavaScript高级程序设计》</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/10/BOM学习/" data-id="cjazpbi3o0000ocop02lc8mb2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-刚学就用上了之闭包" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/12/09/刚学就用上了之闭包/" class="article-date">
@@ -121,7 +175,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/09/刚学就用上了之闭包/" data-id="cjaznc60z0005g8op06euu7wz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/09/刚学就用上了之闭包/" data-id="cjazpbi460004ocopyow452r8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -169,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/02/处理Django中session小记/" data-id="cjaznc61f0008g8optnpznvjy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/02/处理Django中session小记/" data-id="cjazpbi4g0008ocop7esg1czx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Seesion/">Seesion</a></li></ul>
@@ -267,7 +321,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/11/26/JavaScript引用类型之RegExp正则/" data-id="cjaznc60z0003g8optipc6g18" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/26/JavaScript引用类型之RegExp正则/" data-id="cjazpbi4x000hocop2jtxmc7q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -314,7 +368,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/28/开始使用JavaScript环境包管理工具之npm/" data-id="cjaznc61f0009g8opfaan9p1w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/28/开始使用JavaScript环境包管理工具之npm/" data-id="cjazpbi4l000aocopbgbkfl0w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
@@ -362,7 +416,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cjaznc61f000dg8opu52ywvlf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/14/简单谈谈callback/" data-id="cjazpbi4s000cocopjujz3fmv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -432,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cjaznc61f000bg8opmvufbdft" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/26/网站前后端分离模式下国际化问题小记/" data-id="cjazpbi4u000eocopyiuu32jy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
@@ -486,7 +540,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cjaznc60k0001g8op59pmmara" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/28/ES6介绍之Arrow-functions/" data-id="cjazpbi440003ocopew1xalfs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
@@ -534,7 +588,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cjaznc60z0004g8oplb4ul5mq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cjazpbi4d0005ocopcokf7c3i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
@@ -625,7 +679,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cjaznc60k0000g8opzrvci3ki" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cjazpbi3v0001ocoph84hno3y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
@@ -681,6 +735,10 @@
       <ul>
         
           <li>
+            <a href="/2017/12/10/BOM学习/">BOM学习</a>
+          </li>
+        
+          <li>
             <a href="/2017/12/09/刚学就用上了之闭包/">刚学就用上了之闭包</a>
           </li>
         
@@ -694,10 +752,6 @@
         
           <li>
             <a href="/2017/10/28/开始使用JavaScript环境包管理工具之npm/">开始使用JavaScript环境包管理工具之npm</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/14/简单谈谈callback/">简单谈谈callback</a>
           </li>
         
       </ul>

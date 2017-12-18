@@ -64,6 +64,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Git操作小记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/16/Git操作小记/" class="article-date">
+  <time datetime="2017-06-16T07:15:06.000Z" itemprop="datePublished">2017-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/16/Git操作小记/">Git操作小记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">克隆远程服务器端的代码到本地代码仓库</div><div class="line">git clone [url]</div><div class="line">将本地代码仓库添加到远程仓库</div><div class="line">git remote add [shortname] [url]</div></pre></td></tr></table></figure>
+<h2 id="更新提交"><a href="#更新提交" class="headerlink" title="更新提交"></a>更新提交</h2><p>文件状态: 已跟踪、未跟踪，已跟踪指纳入版本控制的管理的文件，该种文件已经纳入缓冲区，它可又有两种状态为未修改和已修改。而未跟踪文件指未纳入缓冲区的文件。</p>
+<p>![git_state][images/git_state.png]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">跟踪某个文件</div><div class="line">git add &lt;filename&gt;</div><div class="line">.选项会把已修改的和添加的文件放入缓冲区不包括被删除文件</div><div class="line">git add .</div><div class="line">-u会把更新的文件和被删除文件放入缓冲去区</div><div class="line">git add .-u</div><div class="line">-A提交所有变化</div><div class="line">git add -A</div><div class="line">提交更新并加上提交注释</div><div class="line">git commit -m</div><div class="line">修改最后一次提交,比如发现漏掉了几个文件没有加，或者提交信息写错了</div><div class="line">git commit --amend</div></pre></td></tr></table></figure></p>
+<p>当分支与master冲突的文件是.mo二进制文件时，此时我们没法手动rebase，那么我们可以使用如下操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git rebase master</div><div class="line">git add -u</div><div class="line">git rebase --continue</div></pre></td></tr></table></figure></p>
+<p>和我们正常的rebase是一样的。</p>
+<h2 id="显示信息"><a href="#显示信息" class="headerlink" title="显示信息"></a>显示信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">确定文件状态</div><div class="line">git status</div><div class="line">查看提交历史，会显示commit id等信息，对于版本回退会有很大帮助，退出按q键</div><div class="line">git log</div><div class="line">--graph 选项可以以一种便于查看的方式显示提交信息</div><div class="line">git log --graph</div><div class="line">查看具体修改了什么地方</div><div class="line">git diff</div></pre></td></tr></table></figure>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">创建并切换分支</div><div class="line">git checkout -b &lt;branchname&gt;</div><div class="line">合并分支一般在master上合并其他分支</div><div class="line">git merge &lt;branchname&gt;</div><div class="line">删除分支</div><div class="line">git branch -d &lt;branchname&gt;</div><div class="line">删除远程分支</div><div class="line">git push [远程名] :&lt;branchname&gt;</div><div class="line">衍合</div><div class="line">git rebase &lt;target branchname&gt;</div><div class="line">等价于（master为target branchname）</div><div class="line">git rebase master server</div></pre></td></tr></table></figure>
+<h2 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">回退到某次提交（即HEAD指针回到某个状态,之前的commit都没有变化）</div><div class="line">git reset &lt;commit id&gt;</div><div class="line">或者</div><div class="line">git reset --hard &lt;commit id前6位&gt;</div><div class="line">回退到某次提交，相当于一次新的commit</div><div class="line">git revert &lt;commit id&gt;</div></pre></td></tr></table></figure>
+<h2 id="保持分支同步更新"><a href="#保持分支同步更新" class="headerlink" title="保持分支同步更新"></a>保持分支同步更新</h2><p>克隆操作会自动使用默认的master 和origin 名字。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">到远程仓库中拉取所有你本地仓库中还没有的数据,但不会自动合并</div><div class="line">git fetch [remote-name]</div><div class="line">到远程仓库中拉取所有你本地仓库中还没有的数据,并自动合并</div><div class="line">git pull</div><div class="line">推送数据到远程仓库</div><div class="line">git push [remote-name] [branch-name]</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/16/Git操作小记/" data-id="cjbbqvvc600080oopc9t8pw71" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Django-REST-framework使用小记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/05/26/Django-REST-framework使用小记/" class="article-date">
@@ -143,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cjb6t24ff0005xgop28s93c62" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2017/05/26/Django-REST-framework使用小记/" data-id="cjbbqvvba00010oops1psakky" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li></ul>
@@ -171,7 +219,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seesion/">Seesion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seesion/">Seesion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li></ul>
     </div>
   </div>
 
@@ -181,7 +229,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Django/" style="font-size: 15px;">Django</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Seesion/" style="font-size: 10px;">Seesion</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a>
+      <a href="/tags/Django/" style="font-size: 15px;">Django</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Seesion/" style="font-size: 10px;">Seesion</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a>
     </div>
   </div>
 
@@ -203,6 +251,10 @@
       <ul>
         
           <li>
+            <a href="/2017/12/18/React-ref属性/">React-ref属性</a>
+          </li>
+        
+          <li>
             <a href="/2017/12/15/JavaScript事件对象中e-target和e-currentTarget区别/">JavaScript事件对象中e.target和e.currentTarget区别</a>
           </li>
         
@@ -216,10 +268,6 @@
         
           <li>
             <a href="/2017/12/02/处理Django中session小记/">处理Django中session小记</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/26/JavaScript引用类型之RegExp正则/">JavaScript引用类型之RegExp正则</a>
           </li>
         
       </ul>

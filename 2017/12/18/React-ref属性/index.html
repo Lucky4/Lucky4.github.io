@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>React-ref属性 | Lucky4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ref属性介绍在React典型的数据流中，修改子组件都是通过重新渲染新的props来完成的。但是，当你想要在数据流之外修改子组件，就需要React提供的ref属性。 ref在元素中声明，代表着该元素提供了可以操作的DOM操作（React组件中提供的是虚拟DOM操作）。 使用场景 处理focus、text selection 处理交互动画 与第三方DOM库集成  使用方式 使用回调函数1234567">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-ref属性">
+<meta property="og:url" content="http://yoursite.com/2017/12/18/React-ref属性/index.html">
+<meta property="og:site_name" content="Lucky4">
+<meta property="og:description" content="ref属性介绍在React典型的数据流中，修改子组件都是通过重新渲染新的props来完成的。但是，当你想要在数据流之外修改子组件，就需要React提供的ref属性。 ref在元素中声明，代表着该元素提供了可以操作的DOM操作（React组件中提供的是虚拟DOM操作）。 使用场景 处理focus、text selection 处理交互动画 与第三方DOM库集成  使用方式 使用回调函数1234567">
+<meta property="og:updated_time" content="2017-12-18T05:13:15.638Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-ref属性">
+<meta name="twitter:description" content="ref属性介绍在React典型的数据流中，修改子组件都是通过重新渲染新的props来完成的。但是，当你想要在数据流之外修改子组件，就需要React提供的ref属性。 ref在元素中声明，代表着该元素提供了可以操作的DOM操作（React组件中提供的是虚拟DOM操作）。 使用场景 处理focus、text selection 处理交互动画 与第三方DOM库集成  使用方式 使用回调函数1234567">
+  
+    <link rel="alternate" href="/atom.xml" title="Lucky4" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lucky4</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-React-ref属性" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/18/React-ref属性/" class="article-date">
+  <time datetime="2017-12-18T04:13:15.000Z" itemprop="datePublished">2017-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React-ref属性
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ref属性介绍"><a href="#ref属性介绍" class="headerlink" title="ref属性介绍"></a>ref属性介绍</h2><p>在React典型的数据流中，修改子组件都是通过重新渲染新的props来完成的。但是，当你想要在数据流之外修改子组件，就需要React提供的ref属性。</p>
+<p>ref在元素中声明，代表着该元素提供了可以操作的DOM操作（React组件中提供的是虚拟DOM操作）。</p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
+<li>处理focus、text selection</li>
+<li>处理交互动画</li>
+<li>与第三方DOM库集成</li>
+</ul>
+<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><ol>
+<li>使用回调函数<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">class CustomTextInput extends React.Component &#123;</div><div class="line">  constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    this.focusTextInput = this.focusTextInput.bind(this);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  focusTextInput() &#123;</div><div class="line">    this.textInput.focus();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;input</div><div class="line">          type=&quot;text&quot;</div><div class="line">          ref=&#123;(input) =&gt; &#123; this.textInput = input; &#125;&#125; /&gt;</div><div class="line">        &lt;input</div><div class="line">          type=&quot;button&quot;</div><div class="line">          value=&quot;Focus the text input&quot;</div><div class="line">          onClick=&#123;this.focusTextInput&#125;</div><div class="line">        /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>点击按钮后，input输入框会focus。</p>
+<p>React会在组件加载后调用ref回调函数，在componentDidMount函数周期之前invoke或在componentDidUpdate周期中执行。</p>
+<p>需要注意的是，由于 this.refs.[refName] 属性获取的是真实 DOM ，所以必须等到虚拟 DOM 插入文档以后，才能使用这个属性，否则会报错。</p>
+<ol>
+<li>使用ref属性名<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var MyComponent = React.createClass(&#123;</div><div class="line">  handleClick: function() &#123;</div><div class="line">    this.refs.myTextInput.focus();</div><div class="line">  &#125;,</div><div class="line">  render: function() &#123;</div><div class="line">    return (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;input type=&quot;text&quot; ref=&quot;myTextInput&quot; /&gt;</div><div class="line">        &lt;input type=&quot;button&quot; value=&quot;Focus the text input&quot; onClick=&#123;this.handleClick&#125; /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>React不建议用refs，因为有许多弊端。<a href="https://github.com/facebook/react/pull/8333#issuecomment-271648615" target="_blank" rel="external">https://github.com/facebook/react/pull/8333#issuecomment-271648615</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/18/React-ref属性/" data-id="cjbbqvvbp00040oopmrqjk4dd" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/15/JavaScript事件对象中e-target和e-currentTarget区别/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">JavaScript事件对象中e.target和e.currentTarget区别</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seesion/">Seesion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Django/" style="font-size: 15px;">Django</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Seesion/" style="font-size: 10px;">Seesion</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/18/React-ref属性/">React-ref属性</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/15/JavaScript事件对象中e-target和e-currentTarget区别/">JavaScript事件对象中e.target和e.currentTarget区别</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/10/BOM学习/">BOM学习</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/09/刚学就用上了之闭包/">刚学就用上了之闭包</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/02/处理Django中session小记/">处理Django中session小记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Lucky4<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

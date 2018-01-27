@@ -18,6 +18,34 @@
 <li>对搜索引擎的支持的不足</li>
 <li>开发和调试工具的缺乏</li>
 </ol>
+<h2 id="核心-XMLHttpRequest"><a href="#核心-XMLHttpRequest" class="headerlink" title="核心:XMLHttpRequest"></a>核心:XMLHttpRequest</h2><p>解释：</p>
+<blockquote>
+<p>XMLHttpRequest 是一个 API，它为客户端提供了在客户端和服务器之间传输数据的功能。它提供了一个通过 URL 来获取数据的简单方式，并且不会使整个页面刷新。这使得网页只更新一部分页面而不会打扰到用户。XMLHttpRequest 在 AJAX 中被大量使用。</p>
+</blockquote>
+<p>历史：</p>
+<blockquote>
+<p>XMLHttpRequest 最初由微软设计，随后被 Mozilla、Apple 和 Google采纳。如今，该对象已经被 W3C组织标准化。 通过它，你可以很容易的取回一个 URL 上的资源数据。尽管名字里有 XML，但 XMLHttpRequest 可以取回所有类型的数据资源，并不局限于 XML。而且除了 HTTP ，它还支持 file 和 ftp 协议。</p>
+</blockquote>
+<p>构造函数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">XMLHttpRequest()</div></pre></td></tr></table></figure></p>
+<p>属性：</p>
+<ol>
+<li><p>onreadystatechange<br>一个方法（回调函数），当readyState属性改变时会调用它。</p>
+</li>
+<li><p>readyState<br>一个整型数字，代表请求的5种状态。<br>值&emsp;&emsp;状态&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;描述<br>0&emsp;&emsp;UNSENT（未打开）&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;open()方法还未被调用<br>1&emsp;&emsp;OPENED（未发送）&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;open()方法已被调用<br>2&emsp;&emsp;HEADERS_RECEIVED（以获取响应头）&emsp;send()方法已被调用，响应头和响应状态已经返回<br>3&emsp;&emsp;LOADING（正在下载响应体）&emsp;&emsp;&emsp;&emsp;&emsp;响应体下载中；responseText中已经获取了部分数据<br>4&emsp;&emsp;DONE（请求完成）&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;整个请求过程已经完毕</p>
+</li>
+<li><p>response<br>响应实体，多中类型，失败为null。</p>
+</li>
+<li><p>responseText<br>响应实体为文本,失败为null。</p>
+</li>
+<li><p>responseType<br>期待响应的类型</p>
+</li>
+<li><p>responseXML<br>响应的类型是Document</p>
+</li>
+<li><p>status<br>响应的状态码</p>
+</li>
+<li><p>statusText<br>响应的状态信息</p>
+</li>
+</ol>
 <h2 id="使用XMLHttpRequest对象发送Ajax请求的基本步骤"><a href="#使用XMLHttpRequest对象发送Ajax请求的基本步骤" class="headerlink" title="使用XMLHttpRequest对象发送Ajax请求的基本步骤"></a>使用XMLHttpRequest对象发送Ajax请求的基本步骤</h2><ol>
 <li>创建XMLHttpRequest对象</li>
 <li>告诉XMLHttpRequest对象由哪一个函数处理响应</li>

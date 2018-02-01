@@ -59,7 +59,22 @@
 <li><p>setRequestHeader(header, value)<br>设置请求的header，使用原生ajax的时候，发送请求需要设置的包括Access-Control-Allow-Origin，Content-Type头信息。</p>
 </li>
 </ol>
-<h2 id="使用XMLHttpRequest对象发送Ajax请求的基本步骤"><a href="#使用XMLHttpRequest对象发送Ajax请求的基本步骤" class="headerlink" title="使用XMLHttpRequest对象发送Ajax请求的基本步骤"></a>使用XMLHttpRequest对象发送Ajax请求的基本步骤</h2><ol>
+<p>事件接口：</p>
+<ol>
+<li><p>loadstart<br>Progress has begun.</p>
+</li>
+<li><p>progress<br>In progress.</p>
+</li>
+<li><p>error<br>Progression failed.</p>
+</li>
+<li><p>abort<br>Progression is terminated.</p>
+</li>
+<li><p>timeout<br>Progression is terminated due to preset time expiring.</p>
+</li>
+<li><p>load<br>Progression is successful.</p>
+</li>
+<li><p>loadend<br>Progress has stopped.</p>
+<h2 id="使用XMLHttpRequest对象发送Ajax请求的基本步骤"><a href="#使用XMLHttpRequest对象发送Ajax请求的基本步骤" class="headerlink" title="使用XMLHttpRequest对象发送Ajax请求的基本步骤"></a>使用XMLHttpRequest对象发送Ajax请求的基本步骤</h2></li>
 <li>创建XMLHttpRequest对象。</li>
 <li>告诉XMLHttpRequest对象由哪一个函数处理响应。</li>
 <li>使用XMLHttpRequest对象的open方法，设置请求类型，请求地址以及是否采用异步。</li>

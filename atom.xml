@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-02-10T17:25:23.103Z</updated>
+  <updated>2018-02-12T18:16:01.020Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript深拷贝</title>
+    <link href="http://yoursite.com/2018/02/13/JavaScript%E6%B7%B1%E6%8B%B7%E8%B4%9D/"/>
+    <id>http://yoursite.com/2018/02/13/JavaScript深拷贝/</id>
+    <published>2018-02-12T17:28:18.000Z</published>
+    <updated>2018-02-12T18:16:01.020Z</updated>
+    
+    <content type="html"><![CDATA[<p>只针对Object类型的深拷贝，自己总结的三种方式，分别为：递归的方式、广度优先遍历的方式、使用JSON.parse()方法。</p><ol><li><p>递归：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">copy</span>(<span class="params">source</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> key, target</div><div class="line">  <span class="keyword">if</span> (type(source) === <span class="string">"object"</span>) &#123;</div><div class="line">    target = &#123;&#125;</div><div class="line">    <span class="keyword">for</span> (key <span class="keyword">in</span> source) &#123;</div><div class="line">      <span class="keyword">if</span> (type(source[key]) === <span class="string">"array"</span> || <span class="string">"object"</span>) &#123;</div><div class="line">        target[key] = copy(source[key])</div><div class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (source[key] !== <span class="literal">undefined</span>) target[key] = source[key]</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> target</div><div class="line">&#125;</div></pre></td></tr></table></figure></li><li><p>广度优先遍历</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">copy</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> obj = &#123;&#125;;</div><div class="line">    <span class="keyword">var</span> originQueue = [data];</div><div class="line">    <span class="keyword">var</span> copyQueue = [obj];</div><div class="line">    <span class="keyword">while</span>(originQueue.length &gt; <span class="number">0</span>)&#123;</div><div class="line">        <span class="keyword">var</span> _data = originQueue.shift();</div><div class="line">        <span class="keyword">var</span> _obj = copyQueue.shift();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> _data)&#123;</div><div class="line">            <span class="keyword">var</span> _value = _data[key]</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">typeof</span> _value !== <span class="string">'object'</span>)&#123;</div><div class="line">                _obj[key] = _value;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                originQueue.push(_value);</div><div class="line">                _obj[key] = &#123;&#125;;</div><div class="line">                copyQueue.push(_obj[key]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> obj;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li><li><p>JSON</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(source))</div></pre></td></tr></table></figure></li></ol><p>参考: <a href="http://blog.csdn.net/sysuzhyupeng/article/details/70340598" target="_blank" rel="external">http://blog.csdn.net/sysuzhyupeng/article/details/70340598</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;只针对Object类型的深拷贝，自己总结的三种方式，分别为：递归的方式、广度优先遍历的方式、使用JSON.parse()方法。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;递归：&lt;/p&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class
+      
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScript判断变量类型</title>

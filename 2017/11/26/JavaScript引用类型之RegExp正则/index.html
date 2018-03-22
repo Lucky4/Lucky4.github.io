@@ -6,6 +6,8 @@
 <li>m<br>  多行; 将开始和结束字符（^和$）视为在多行上工作（也就是，分别匹配每一行的开始和结束（由 \n 或 \r 分割），而不只是只匹配整个输入字符串的最开始和最末尾处。</li>
 </ul>
 <p>使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var expression = /ab+c/i;</div><div class="line">var expression = new RegExp(&quot;ab+c&quot;, &apos;i&apos;);</div></pre></td></tr></table></figure></p>
+<p>返回信息：<br>[匹配到的字符串和所有被记住的子字符串、index（在输入的字符串中匹配到的以0开始的索引值。）、input（初始字符串。）]</p>
+<p>例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="string">"https://map.baidu.com/"</span>, <span class="string">"map.baidu.com"</span>, <span class="attr">index</span>: <span class="number">0</span>, <span class="attr">input</span>: <span class="string">"https://map.baidu.com/x/y/z"</span>]</div></pre></td></tr></table></figure></p>
 <p>两种写法区别：</p>
 <ul>
 <li>正则文本的写法<br>  使用字面量的方式不需写引号。<br>  对于.等需要转义字符，使用构造函数方式需要两次转义（new RegExp(“\\a+c”, “i”)）。</li>

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/12/10/BOM%E5%AD%A6%E4%B9%A0/</loc>
+    
+    <lastmod>2018-03-22T04:14:11.673Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/11/26/JavaScript%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%B9%8BRegExp%E6%AD%A3%E5%88%99/</loc>
     
     <lastmod>2018-03-22T03:46:28.303Z</lastmod>
@@ -131,13 +138,6 @@
     <loc>http://yoursite.com/2017/12/19/JavaScript%E4%B8%80%E4%B8%AA%E5%9B%B0%E6%83%91%E5%B7%B2%E4%B9%85%E7%9A%84%E8%AF%AD%E6%B3%95/</loc>
     
     <lastmod>2018-02-08T17:52:07.471Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/12/10/BOM%E5%AD%A6%E4%B9%A0/</loc>
-    
-    <lastmod>2018-02-08T17:50:39.907Z</lastmod>
     
   </url>
   

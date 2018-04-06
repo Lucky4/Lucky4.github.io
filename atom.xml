@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-03T05:05:51.688Z</updated>
+  <updated>2018-04-06T04:42:07.164Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript数组常用api</title>
+    <link href="http://yoursite.com/2018/04/06/JavaScript%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8api/"/>
+    <id>http://yoursite.com/2018/04/06/JavaScript数组常用api/</id>
+    <published>2018-04-06T04:26:35.000Z</published>
+    <updated>2018-04-06T04:42:07.164Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="sort-方法"><a href="#sort-方法" class="headerlink" title="sort()方法"></a>sort()方法</h2><blockquote><p>语法：arr.sort(compareFunction)</p></blockquote><p>compareFunction可选，用来指定按某种顺序进行排列的函数。</p><p>sort()方法会把数组中元素转换为字符（调用toString()方法），根据每个字符Unicode位点进行排序。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> values = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">15</span>];</div><div class="line">values.sort();</div><div class="line">alert(values);       <span class="comment">// 0, 1, 10, 15, 5</span></div></pre></td></tr></table></figure></p><p>比较函数接受两个参数，若第一个参数小于第二个参数则返回负数；若第一个参数等于第二个参数则返回整数；若第一个参数大于第二个参数则返回整数。一个比较函数的例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">compareFunction(a, b) &#123;</div><div class="line">  <span class="keyword">if</span> (a &lt; b) <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (a &gt; b) <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">  <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">values.sort(compareFunction);</div><div class="line">alert(values);       <span class="comment">// 0, 1, 5, 10, 15</span></div></pre></td></tr></table></figure></p><p>当 compareFunction 较为复杂，使用 map 辅助排序将会是一个好主意。基本思想是首先将数组中的每个元素比较的实际值取出来，排序后再将数组恢复。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 需要被排序的数组</span></div><div class="line"><span class="keyword">var</span> list = [<span class="string">'Delta'</span>, <span class="string">'alpha'</span>, <span class="string">'CHARLIE'</span>, <span class="string">'bravo'</span>];</div><div class="line"></div><div class="line"><span class="comment">// 对需要排序的数字和位置的临时存储</span></div><div class="line"><span class="keyword">var</span> mapped = list.map(<span class="function"><span class="keyword">function</span>(<span class="params">el, i</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123; <span class="attr">index</span>: i, <span class="attr">value</span>: el.toLowerCase() &#125;;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// 按照多个值排序数组</span></div><div class="line">mapped.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> +(a.value &gt; b.value) || +(a.value === b.value) - <span class="number">1</span>;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 根据索引得到排序的结果</span></div><div class="line"><span class="keyword">var</span> result = mapped.map(<span class="function"><span class="keyword">function</span>(<span class="params">el</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> list[el.index];</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p><p>最后要说的是JavaScript数组中使用的排序算法是in-place类型的，为了节省内存，是不稳定的，因为基于非相邻元素比较的排序算法都是不稳定的。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;sort-方法&quot;&gt;&lt;a href=&quot;#sort-方法&quot; class=&quot;headerlink&quot; title=&quot;sort()方法&quot;&gt;&lt;/a&gt;sort()方法&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;语法：arr.sort(compareFunction)&lt;/p&gt;
+&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>React Diff Algorithm</title>
@@ -466,29 +491,6 @@
     
     
       <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>开始使用JavaScript环境包管理工具之npm</title>
-    <link href="http://yoursite.com/2017/10/28/%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8JavaScript%E7%8E%AF%E5%A2%83%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E4%B9%8Bnpm/"/>
-    <id>http://yoursite.com/2017/10/28/开始使用JavaScript环境包管理工具之npm/</id>
-    <published>2017-10-28T06:55:42.000Z</published>
-    <updated>2017-10-28T07:08:51.421Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="什么是npm"><a href="#什么是npm" class="headerlink" title="什么是npm"></a>什么是npm</h2><p>npm 是一个js包管理工具，可以帮助分享你的代码、使用别人分享的代码，并且提供简单的方式管理不同版本的代码。</p><h2 id="安装Node-js和更新npm"><a href="#安装Node-js和更新npm" class="headerlink" title="安装Node.js和更新npm"></a>安装Node.js和更新npm</h2><p>使用npm工具需要首先安装Node.js环境，Node环境可以到官方网站下载，下载后环境内就可以使用npm命令管理js包代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">更新npm：</div><div class="line">npm install npm@latest –g</div><div class="line">查看npm版本：</div><div class="line">npm –v</div></pre></td></tr></table></figure></p><h2 id="npm安装包的方式"><a href="#npm安装包的方式" class="headerlink" title="npm安装包的方式"></a>npm安装包的方式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">本地安装：</div><div class="line">npm install &lt;package_name&gt; 通过类似require的方式使用</div><div class="line">全局安装：</div><div class="line">npm install –g &lt;package_name&gt;</div></pre></td></tr></table></figure><h2 id="管理本地安装包package-json"><a href="#管理本地安装包package-json" class="headerlink" title="管理本地安装包package.json"></a>管理本地安装包package.json</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">创建package.json:</div><div class="line">npm init –yes 根据当前文件夹生成package.json</div><div class="line">设置package.json初始信息：</div><div class="line">npm set init.license &quot;MIT&quot;</div></pre></td></tr></table></figure><h2 id="指明项目依赖到package-json"><a href="#指明项目依赖到package-json" class="headerlink" title="指明项目依赖到package.json"></a>指明项目依赖到package.json</h2><p>dependencies：应用需要依赖的包<br>devDependencies：开发环境需要依赖的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">在package.json的dependencies添加入口：</div><div class="line">npm install &lt;package_name&gt; --save</div><div class="line">在package.json的devDependencies添加入口：</div><div class="line">npm install &lt;package_name&gt; --save-dev</div><div class="line">按照package.json安装依赖：</div><div class="line">npm install</div></pre></td></tr></table></figure></p><h2 id="更新安装包"><a href="#更新安装包" class="headerlink" title="更新安装包"></a>更新安装包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">更新package.json中的依赖包：</div><div class="line">npm update</div><div class="line">更新全局安装的包：</div><div class="line">npm update –g</div></pre></td></tr></table></figure><h2 id="卸载安装包"><a href="#卸载安装包" class="headerlink" title="卸载安装包"></a>卸载安装包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">卸载：</div><div class="line">npm uninstall &lt;package_name&gt;</div><div class="line">卸载同时在package.json中移除依赖：</div><div class="line">npm uninstall –save &lt;package_name&gt;</div><div class="line">卸载全局安装的包：</div><div class="line">npm uninstall –g &lt;package_name&gt;</div></pre></td></tr></table></figure><h2 id="CLI-Commands"><a href="#CLI-Commands" class="headerlink" title="CLI Commands"></a>CLI Commands</h2><p>npm 提供了命令行界面命令来管理使用npm<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">查看已安装包：</div><div class="line">npm ls &lt;scope&gt;</div></pre></td></tr></table></figure></p><p>未完待续，之后会把学习中遇到的命令以及npm的理念的等核心内容整理。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;什么是npm&quot;&gt;&lt;a href=&quot;#什么是npm&quot; class=&quot;headerlink&quot; title=&quot;什么是npm&quot;&gt;&lt;/a&gt;什么是npm&lt;/h2&gt;&lt;p&gt;npm 是一个js包管理工具，可以帮助分享你的代码、使用别人分享的代码，并且提供简单的方式管理不同版本的代码
-      
-    
-    </summary>
-    
-    
-      <category term="npm" scheme="http://yoursite.com/tags/npm/"/>
     
   </entry>
   

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-17T18:13:47.543Z</updated>
+  <updated>2018-04-19T03:46:57.925Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>随便记录的笔试题</title>
+    <link href="http://yoursite.com/2018/04/19/%E9%9A%8F%E4%BE%BF%E8%AE%B0%E5%BD%95%E7%9A%84%E7%AC%94%E8%AF%95%E9%A2%98/"/>
+    <id>http://yoursite.com/2018/04/19/随便记录的笔试题/</id>
+    <published>2018-04-19T03:28:01.000Z</published>
+    <updated>2018-04-19T03:46:57.925Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="2018春季百度前端笔试题"><a href="#2018春季百度前端笔试题" class="headerlink" title="2018春季百度前端笔试题"></a>2018春季百度前端笔试题</h2><h4 id="选择题"><a href="#选择题" class="headerlink" title="选择题"></a>选择题</h4><ul><li>建立一个堆的复杂度？</li><li>给定一串数字(1, 34, 56, 76, 3, 65)哈希函数H(key) = key % 7，采用链地址法，求查找成功时的平均查找长度？</li><li>HTTP报文相关字段，如cache等。</li><li>‘1’ + 0, ‘1’ - 0, ‘1’ * 0</li><li>时间片轮询调度算法？</li><li>触发进程调度的原因？<br><br></li></ul><h4 id="编程题"><a href="#编程题" class="headerlink" title="编程题"></a>编程题</h4><ol><li>一个表有三个字段id，price，sales，下面有多条数据，写一段JavaScript代码，如sort(‘price’, ‘asc’)函数，将表中数据按price升序。<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">tbody</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>id<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>price<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>900<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>1<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>10.0<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>400<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>2<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>40.5<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>500<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">tbody</span>&gt;</span></div></pre></td></tr></table></figure></li></ol><p><br></p><h4 id="问答题"><a href="#问答题" class="headerlink" title="问答题"></a>问答题</h4><p>现代JavaScript中有哪些犯法可以优化回调陷阱的问题？<br><br></p><h4 id="设计题"><a href="#设计题" class="headerlink" title="设计题"></a>设计题</h4><p>参照一下性能优化建议，设计一个JavaScript工具库，实现在任意HTML中运行该库可以计算出该页面的性能得分。（如dom元素小于200位100分，大于1000为0分）。</p><ul><li>减少DOM元素数量。</li><li>推迟加载非关键JavaScript(defer,async)。</li><li>减少使用iframe。</li><li>样式表置于顶部，JavaScript置于底部。</li><li>不要在HTML中缩放图像。</li><li>为图片资源响应头指定Expires或者Cache-Control并进行Gzip压缩。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;2018春季百度前端笔试题&quot;&gt;&lt;a href=&quot;#2018春季百度前端笔试题&quot; class=&quot;headerlink&quot; title=&quot;2018春季百度前端笔试题&quot;&gt;&lt;/a&gt;2018春季百度前端笔试题&lt;/h2&gt;&lt;h4 id=&quot;选择题&quot;&gt;&lt;a href=&quot;#选择题&quot; c
+      
+    
+    </summary>
+    
+    
+      <category term="笔试题" scheme="http://yoursite.com/tags/%E7%AC%94%E8%AF%95%E9%A2%98/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScript模块化简介</title>
@@ -468,29 +491,6 @@
     
     
       <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>处理Django中session小记</title>
-    <link href="http://yoursite.com/2017/12/02/%E5%A4%84%E7%90%86Django%E4%B8%ADsession%E5%B0%8F%E8%AE%B0/"/>
-    <id>http://yoursite.com/2017/12/02/处理Django中session小记/</id>
-    <published>2017-12-01T22:42:36.000Z</published>
-    <updated>2018-02-08T17:53:28.399Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="来龙去脉"><a href="#来龙去脉" class="headerlink" title="来龙去脉"></a>来龙去脉</h2><p>每个网站的用户在登录之后都会有重置密码的功能，如果有两个用户同时登录到一个账号，并且用户A在登录后重置了密码，而用户B却没有退出登陆的情况下，用户B就可以在继续操做账号，所以我们就要在A执行操作后，让B不能够访问账号，那么如何解决这个问题呢？</p><h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>HTTP协议是无状态的，服务器判断一个用户是否为登录状态的方法就是通过判断客户端请求的cookie中的sessionid，如果sessionid和服务器端保存的session中的id相同，那么这个客户端就可以被认为是合法的用户。（注意：服务器端保存的某个账号的session有很多个，session中的许多信息是相同的，比如user_id，username等，但是sessionid确实不同的。）</p><p>那么我们的解决方法就可以分为以下几步：</p><ol><li>某个用户重置密码</li><li>立即将数据库中session表进行过滤，删除userid为这个重置用户的id的所有session</li><li>根据请求信息，重写生成session，响应返回</li></ol><h2 id="Django中处理session的坑"><a href="#Django中处理session的坑" class="headerlink" title="Django中处理session的坑"></a>Django中处理session的坑</h2><p>Django中session model：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Session</span><span class="params">(AbstractBaseSession)</span>:</span></div><div class="line">    objects = SessionManager()</div><div class="line"></div><div class="line"><span class="meta">    @classmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_session_store_class</span><span class="params">(cls)</span>:</span></div><div class="line">        <span class="keyword">from</span> django.contrib.sessions.backends.db <span class="keyword">import</span> SessionStore</div><div class="line">        <span class="keyword">return</span> SessionStore</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span><span class="params">(AbstractBaseSession.Meta)</span>:</span></div><div class="line">        db_table = <span class="string">'django_session'</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseSessionManager</span><span class="params">(models.Manager)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(self, session_dict)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        Return the given session dictionary serialized and encoded as a string.</div><div class="line">        """</div><div class="line">        session_store_class = self.model.get_session_store_class()</div><div class="line">        <span class="keyword">return</span> session_store_class().encode(session_dict)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">save</span><span class="params">(self, session_key, session_dict, expire_date)</span>:</span></div><div class="line">        s = self.model(session_key, self.encode(session_dict), expire_date)</div><div class="line">        <span class="keyword">if</span> session_dict:</div><div class="line">            s.save()</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            s.delete()  <span class="comment"># Clear sessions with no data.</span></div><div class="line">        <span class="keyword">return</span> s</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AbstractBaseSession</span><span class="params">(models.Model)</span>:</span></div><div class="line">    session_key = models.CharField(_(<span class="string">'session key'</span>), max_length=<span class="number">40</span>, primary_key=<span class="keyword">True</span>)</div><div class="line">    session_data = models.TextField(_(<span class="string">'session data'</span>))</div><div class="line">    expire_date = models.DateTimeField(_(<span class="string">'expire date'</span>), db_index=<span class="keyword">True</span>)</div><div class="line"></div><div class="line">    objects = BaseSessionManager()</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></div><div class="line">        abstract = <span class="keyword">True</span></div><div class="line">        verbose_name = _(<span class="string">'session'</span>)</div><div class="line">        verbose_name_plural = _(<span class="string">'sessions'</span>)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.session_key</div><div class="line"></div><div class="line"><span class="meta">    @classmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_session_store_class</span><span class="params">(cls)</span>:</span></div><div class="line">        <span class="keyword">raise</span> NotImplementedError</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_decoded</span><span class="params">(self)</span>:</span></div><div class="line">        session_store_class = self.get_session_store_class()</div><div class="line">        <span class="keyword">return</span> session_store_class().decode(self.session_data)</div></pre></td></tr></table></figure></p><p>从session的模型中我们可以看出，session_data是通过编码后保存的，session_data中就包含请求的user_id，当我们要删除所有请求user的session的时候就需要根据这个user_id来查找，即session模型不支持反向查询，所以我们在处理这的时候需要查询出所有session，然后对每个session执行get_decoded方法来查找判断user_id。这个放下效率肯定会很低下，不过暂时也没有想到更好的方法。。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;来龙去脉&quot;&gt;&lt;a href=&quot;#来龙去脉&quot; class=&quot;headerlink&quot; title=&quot;来龙去脉&quot;&gt;&lt;/a&gt;来龙去脉&lt;/h2&gt;&lt;p&gt;每个网站的用户在登录之后都会有重置密码的功能，如果有两个用户同时登录到一个账号，并且用户A在登录后重置了密码，而用户B却没有
-      
-    
-    </summary>
-    
-    
-      <category term="Seesion" scheme="http://yoursite.com/tags/Seesion/"/>
     
   </entry>
   

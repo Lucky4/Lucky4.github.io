@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-06-02T17:48:13.592Z</updated>
+  <updated>2018-06-07T22:38:18.039Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,16 +21,16 @@
     <link href="http://yoursite.com/2018/06/03/Python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/"/>
     <id>http://yoursite.com/2018/06/03/Python内置函数/</id>
     <published>2018-06-02T17:45:51.000Z</published>
-    <updated>2018-06-02T17:48:13.592Z</updated>
+    <updated>2018-06-07T22:38:18.039Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="循环工具"><a href="#循环工具" class="headerlink" title="循环工具"></a>循环工具</h2><p>filter()<br>map()<br>reduce()</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="循环工具"><a href="#循环工具" class="headerlink" title="循环工具"></a>循环工具</h2><p>len()<br>range()<br><br></p><h2 id="迭代工具"><a href="#迭代工具" class="headerlink" title="迭代工具"></a>迭代工具</h2><p>filter()<br>map()<br>reduce()<br><br></p><h2 id="二进制表示"><a href="#二进制表示" class="headerlink" title="二进制表示"></a>二进制表示</h2><p>bin()<br><br></p><h2 id="极值"><a href="#极值" class="headerlink" title="极值"></a>极值</h2><p>max()<br>min()<br><br></p><h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><p>int()<br>str()</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h2 id=&quot;循环工具&quot;&gt;&lt;a href=&quot;#循环工具&quot; class=&quot;headerlink&quot; title=&quot;循环工具&quot;&gt;&lt;/a&gt;循环工具&lt;/h2&gt;&lt;p&gt;filter()&lt;br&gt;map()&lt;br&gt;reduce()&lt;/p&gt;
-
+        &lt;h2 id=&quot;循环工具&quot;&gt;&lt;a href=&quot;#循环工具&quot; class=&quot;headerlink&quot; title=&quot;循环工具&quot;&gt;&lt;/a&gt;循环工具&lt;/h2&gt;&lt;p&gt;len()&lt;br&gt;range()&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&quot;迭代工具&quot;&gt;&lt;a href=&quot;#迭代工具&quot; cla
       
     
     </summary>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-06-07T22:38:18.039Z</updated>
+  <updated>2018-06-12T22:40:00.799Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,16 +21,15 @@
     <link href="http://yoursite.com/2018/06/03/Python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/"/>
     <id>http://yoursite.com/2018/06/03/Python内置函数/</id>
     <published>2018-06-02T17:45:51.000Z</published>
-    <updated>2018-06-07T22:38:18.039Z</updated>
+    <updated>2018-06-12T22:40:00.799Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="循环工具"><a href="#循环工具" class="headerlink" title="循环工具"></a>循环工具</h2><p>len()<br>range()<br><br></p><h2 id="迭代工具"><a href="#迭代工具" class="headerlink" title="迭代工具"></a>迭代工具</h2><p>filter()<br>map()<br>reduce()<br><br></p><h2 id="二进制表示"><a href="#二进制表示" class="headerlink" title="二进制表示"></a>二进制表示</h2><p>bin()<br><br></p><h2 id="极值"><a href="#极值" class="headerlink" title="极值"></a>极值</h2><p>max()<br>min()<br><br></p><h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><p>int()<br>str()</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="循环工具"><a href="#循环工具" class="headerlink" title="循环工具"></a>循环工具</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">len()</div><div class="line">range(start, end, step)</div><div class="line">xrange(start, end, step) <span class="comment"># 与range函数的区别就是，该函数是一个一个生成值的。</span></div></pre></td></tr></table></figure><p>要学会利用range函数生成倒序的序列<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>, <span class="number">-1</span>, <span class="number">-1</span>):</div><div class="line">    <span class="keyword">print</span> i <span class="comment"># 5, 4, 3, 2, 1, 0</span></div></pre></td></tr></table></figure></p><p><br></p><h2 id="迭代工具"><a href="#迭代工具" class="headerlink" title="迭代工具"></a>迭代工具</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">filter()</div><div class="line">map()</div><div class="line">reduce()</div></pre></td></tr></table></figure><p><br></p><h2 id="二进制表示"><a href="#二进制表示" class="headerlink" title="二进制表示"></a>二进制表示</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin()</div></pre></td></tr></table></figure><p><br></p><h2 id="极值"><a href="#极值" class="headerlink" title="极值"></a>极值</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">max()</div><div class="line">min()</div></pre></td></tr></table></figure><p><br></p><h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int()</div><div class="line">str()</div></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h2 id=&quot;循环工具&quot;&gt;&lt;a href=&quot;#循环工具&quot; class=&quot;headerlink&quot; title=&quot;循环工具&quot;&gt;&lt;/a&gt;循环工具&lt;/h2&gt;&lt;p&gt;len()&lt;br&gt;range()&lt;br&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h2 id=&quot;迭代工具&quot;&gt;&lt;a href=&quot;#迭代工具&quot; cla
+        &lt;h2 id=&quot;循环工具&quot;&gt;&lt;a href=&quot;#循环工具&quot; class=&quot;headerlink&quot; title=&quot;循环工具&quot;&gt;&lt;/a&gt;循环工具&lt;/h2&gt;&lt;figure class=&quot;highlight py&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;
       
     
     </summary>

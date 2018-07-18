@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 大疆创新2019届秋招前端笔试题 · Lucky4</title><meta name="description" content="大疆创新2019届秋招前端笔试题 - Lucky4"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Lucky4"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">大疆创新2019届秋招前端笔试题</h1><div class="post-info">Jul 15, 2018</div><div class="post-content"><p>一、选择题</p>
+<ol>
+<li><p>以下描述不正确的是？<br>A. GET请求不可以携带body<br>B. cache-control: no-cache表示浏览器不存储资源内容<br>C. componentWillReceiveProps在componentShouldUpdate之后执行<br>D. vue的双向绑定对数组不生效<br>解析：ABC。<br>对A，知识点主要是GET方法和POST方法的区别，GET方法可以携带body，不同的库函数和浏览器对其支持不同，一般不使用，参考链接（<a href="https://www.zhihu.com/question/28586791）。" target="_blank" rel="external">https://www.zhihu.com/question/28586791）。</a><br>对B，知识点为HTTP缓存，参考链接（<a href="https://segmentfault.com/a/1190000010775131）。" target="_blank" rel="external">https://segmentfault.com/a/1190000010775131）。</a><br><br></p>
+</li>
+<li><p>以下哪种情况会产生死锁？<br>A. 竞争不可抢占性资源引起死锁<br>B. 进程产生死循环<br>C. 竞争可消耗资源引起死锁<br>D. 进程推进顺序不当引起死锁<br>解析：ACD。<br>死锁：多个进程在运行过程中因竞争资源而造成的一种僵局，当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。<br>产生死锁的原因归结为两点：1）竞争资源，指的是不可剥夺性资源和临时性资源。2）进程的推进顺序非法。<br>死循环，如while True，不会引起死锁。<br><br></p>
+</li>
+<li><p>异步任务有哪些？<br>A. setTimeout<br>B. setInterval<br>C. Promise.resolve<br>D. localStorage.setItem<br>解析：ABC<br>localStorage.setItem用于本地存储<br><br></p>
+</li>
+<li><p>html5语义化的作用有？<br>A. 让页面内容结构化，便于浏览器搜索引擎解析（SEO）<br>B. 保证页面在无样式时也是容易阅读的<br>C. 用正确的标签做正确的事<br>D. 便于维护理解<br>解析：ABD<br><br></p>
+</li>
+<li><p>下面正则表达式不可以匹配www.dji.com的是？<br>A. ^\w+.\w+-\w+.\w+$<br>B. [w]{0,3}.[a-z-]<em>.[a-z]+<br>C. [c-w.]{3,10}[.][c-w.][.][a]<br>D. ^\w.</em>com$<br>解析：ACD<br><br></p>
+</li>
+<li><p>Math.round(-7.5),Math.round(-7.6)的结果分别是？<br>A. -7,-7<br>B. -7,-8<br>C. -8,-8<br>D. -7,-9<br>解析：B,四舍五入。<br><br></p>
+</li>
+<li><p>用二分法查找长度为20的、排好序的线性表，查找不成功时，最多需要比较多少次？<br>A. 3<br>B. 4<br>C. 5<br>D. 6<br>解析：C,（向上取整）log|<em>20</em>| + 1<br><br></p>
+</li>
+<li><p>[1<2<3, 3<2<1]?="" a.="" [false,true]="" b.="" [false,false]="" c.="" [true,true]="" d.="" [true,false]="" 解析：c,="" <br=""></2<3,></p>
+</li>
+<li><p>2==[[[2]]]的答案是？<br>A. 1<br>B. error<br>C. undefined<br>D. true<br>解析：D,<br><br></p>
+</li>
+<li><p>在浏览器控制台，执行以下代码，运行的结果分别是：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="number">1</span>,</div><div class="line">  <span class="attr">b</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name++;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">a.b() <span class="comment">// 2</span></div><div class="line">c=a.b</div><div class="line">c() <span class="comment">// '1'</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><br></p>
+<ol>
+<li><p>因为浏览器的限制，目前浏览器端html5及js还不能实现的功能是（以60版本chrome为基准）？<br>A. 离线消息推送<br>B. 读写本地文件<br>C. 绘制webgl<br>D. 将视频呢用canvas<em>x0008</em>逐帧绘制<br>解析：A<br><br></p>
+</li>
+<li><p>console.log(1+-+++-+1)答案是：<br>A. 2<br>B. 1<br>C. 0<br>D. error<br>解析：D<br><br></p>
+</li>
+<li><p>-8的二进制反码表示为？<br>A. 01111000<br>B. 11110111<br>C. 11111000<br>D. 11111001<br>解析：C<br><br></p>
+</li>
+<li><p>int l=2;int x=(l++) + (l++) + (l++);执行结束后，x的值是？<br>A. 6<br>B. 7<br>C. 8<br>D. 9<br>解析：D<br><br></p>
+</li>
+</ol>
+<p>二、问答题</p>
+<ol>
+<li><p>手写快速排序算法？<br><br></p>
+</li>
+<li><p>如何将浮点数点左边的数每三位添加一个逗号，如12000000.11转化为12,000,000.11？<br><br></p>
+</li>
+<li><p>链表与数组的区别？<br><br></p>
+</li>
+<li><p>进程间的通信方式有哪些？<br>进程通信，是指进程之间的信息交换。进程间的同步和互斥属于低级通信；高级通信，指用户可直接利用操作系统提供的一组通信命令高效地传送大量数据的一种通信方式。相比低级通信，效率高，对用户透明，减少通信程序编制的复杂性。高级通信的几种方式：<br>##<strong>管道（pipe）</strong>：指用于连接一个读进程和写进程以实现他们之间通信的一个共享文件。管道的特点是：只支持半双工通信（单向传输），只能在父子进程中使用。<br>##<strong>命名管道（FIFO）</strong> ： 有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。<br>##<strong>消息队列（message queue）</strong>：消息队列是由消息组成的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。相比于 FIFO，消息队列可以独立于读写进程存在，从而避免了 FIFO 中同步管道的打开和关闭时可能产生的困难；避免了 FIFO 的同步阻塞问题，不需要进程自己提供同步方法；读进程可以根据消息类型有选择地接收消息，而不像 FIFO 那样只能默认地接收。<br>##<strong>信号量</strong>：信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。<br>##<strong>共享内存</strong>：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号两，配合使用，来实现进程间的同步和通信。<br>##<strong>套接字</strong>：与其它通信机制不同的是，它可用于不同机器间的进程通信。</p>
+</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/07/17/Python源码剖析多线程机制/" class="prev">上一篇</a><a href="/2018/06/03/Python内置函数/" class="next">下一篇</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

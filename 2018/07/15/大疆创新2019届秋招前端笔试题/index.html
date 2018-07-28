@@ -2,8 +2,21 @@
 <ol>
 <li><p>以下描述不正确的是？<br>A. GET请求不可以携带body<br>B. cache-control: no-cache表示浏览器不存储资源内容<br>C. componentWillReceiveProps在componentShouldUpdate之后执行<br>D. vue的双向绑定对数组不生效<br>解析：ABC。<br>对A，知识点主要是GET方法和POST方法的区别，GET方法可以携带body，不同的库函数和浏览器对其支持不同，一般不使用，参考链接（<a href="https://www.zhihu.com/question/28586791）。" target="_blank" rel="external">https://www.zhihu.com/question/28586791）。</a><br>对B，知识点为HTTP缓存，参考链接（<a href="https://segmentfault.com/a/1190000010775131）。" target="_blank" rel="external">https://segmentfault.com/a/1190000010775131）。</a><br><br></p>
 </li>
-<li><p>以下哪种情况会产生死锁？<br>A. 竞争不可抢占性资源引起死锁<br>B. 进程产生死循环<br>C. 竞争可消耗资源引起死锁<br>D. 进程推进顺序不当引起死锁<br>解析：ACD。<br>死锁：多个进程在运行过程中因竞争资源而造成的一种僵局，当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。<br>产生死锁的原因归结为两点：1）竞争资源，指的是不可剥夺性资源和临时性资源。2）进程的推进顺序非法。<br>死循环，如while True，不会引起死锁。<br><br></p>
+<li><p>以下哪种情况会产生死锁？<br>A. 竞争不可抢占性资源引起死锁<br>B. 进程产生死循环<br>C. 竞争可消耗资源引起死锁<br>D. 进程推进顺序不当引起死锁<br>解析：ACD。<br>死锁：多个进程在运行过程中因竞争资源而造成的一种僵局，当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。<br>产生死锁的原因归结为两点：</p>
 </li>
+</ol>
+<ul>
+<li>竞争资源，指的是不可剥夺性资源和临时性资源。</li>
+<li>进程的推进顺序非法。</li>
+</ul>
+<p>死锁的必要条件：</p>
+<ul>
+<li>互斥：进程对所分配到的资源具有排他性使用，即在一段时间内某资源只由一个进程占用。</li>
+<li>请求和保持条件：进程已经保持了至少一个资源，但又提出了新的资源请求，而该资源又已被其他进程占有，此时请求进程阻塞，但又对自己已获得的其它资源保持不放。</li>
+<li>不剥夺条件：指进程已获得资源，在未使用完之前，不能被剥夺只能使用完自己释放。</li>
+<li>环路等待：发生死锁时，必然存在一个进程——资源环形链。<br>死循环，如while True，不会引起死锁。<br><br></li>
+</ul>
+<ol>
 <li><p>异步任务有哪些？<br>A. setTimeout<br>B. setInterval<br>C. Promise.resolve<br>D. localStorage.setItem<br>解析：ABC<br>localStorage.setItem用于本地存储<br><br></p>
 </li>
 <li><p>html5语义化的作用有？<br>A. 让页面内容结构化，便于浏览器搜索引擎解析（SEO）<br>B. 保证页面在无样式时也是容易阅读的<br>C. 用正确的标签做正确的事<br>D. 便于维护理解<br>解析：ABD<br><br></p>
@@ -44,4 +57,4 @@
 <li><p>进程间的通信方式有哪些？<br>进程通信，是指进程之间的信息交换。进程间的同步和互斥属于低级通信；高级通信，指用户可直接利用操作系统提供的一组通信命令高效地传送大量数据的一种通信方式。相比低级通信，效率高，对用户透明，减少通信程序编制的复杂性。高级通信的几种方式：<br>##<strong>管道（pipe）</strong>：指用于连接一个读进程和写进程以实现他们之间通信的一个共享文件。管道的特点是：只支持半双工通信（单向传输），只能在父子进程中使用。<br>##<strong>命名管道（FIFO）</strong> ： 有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。<br>##<strong>消息队列（message queue）</strong>：消息队列是由消息组成的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。相比于 FIFO，消息队列可以独立于读写进程存在，从而避免了 FIFO 中同步管道的打开和关闭时可能产生的困难；避免了 FIFO 的同步阻塞问题，不需要进程自己提供同步方法；读进程可以根据消息类型有选择地接收消息，而不像 FIFO 那样只能默认地接收。<br>##<strong>信号量</strong>：信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。<br>##<strong>共享内存</strong>：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号两，配合使用，来实现进程间的同步和通信。<br>##<strong>套接字</strong>：与其它通信机制不同的是，它可用于不同机器间的进程通信。</p>
 </li>
 </ol>
-</div></article></div></main><footer><div class="paginator"><a href="/2018/07/17/Python源码剖析多线程机制/" class="prev">上一篇</a><a href="/2018/06/03/Python内置函数/" class="next">下一篇</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/07/17/Python源码剖析多线程机制/" class="prev">PREV</a><a href="/2018/06/03/Python内置函数/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

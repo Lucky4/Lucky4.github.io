@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-07-18T23:47:01.616Z</updated>
+  <updated>2018-08-02T19:36:20.828Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数组与链表</title>
+    <link href="http://yoursite.com/2018/08/03/%E6%95%B0%E7%BB%84%E4%B8%8E%E9%93%BE%E8%A1%A8/"/>
+    <id>http://yoursite.com/2018/08/03/数组与链表/</id>
+    <published>2018-08-02T18:12:08.000Z</published>
+    <updated>2018-08-02T19:36:20.828Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>C中的数组是一种将标量类型数据聚集成更大数据类型的方式。</p><h3 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a>基本规则</h3><p>对于数据类型T和整数T，声明<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">T A[N]</div></pre></td></tr></table></figure></p><p>有两个效果。</p><ul><li>首先，在存储器中分配了L*N字节的连续区域（L是数据类型T的大小），我们用a来表示起始位置。</li><li>其次，引入标识符A，作为指向数组开头的指针，指针的值是a。数组元素i的地址为a+L*i。</li></ul><h3 id="动态分配的数组"><a href="#动态分配的数组" class="headerlink" title="动态分配的数组"></a>动态分配的数组</h3><p>在许多应用程序中，我们需要代码能够对动态分配的任意大小的数组进行操作。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> * var_matrix;</div><div class="line"><span class="function">var matrix <span class="title">new_var_matrix</span><span class="params">(<span class="keyword">int</span> n)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> (var_matrix)<span class="built_in">calloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>), n * n)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p><p>注意：在C中，堆（一个可以用来存放数据结构的存储池）中的存储分配是用的库函数malloc或calloc。它们要求程度用free函数来释放已分配的空间。在Java中是由gc的进程自动完成的。</p><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p>C中的struct声明创建一个结构数据类型，将可能不同类型的对象聚合到一个对象中。</p><h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rec</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> i;</div><div class="line">    <span class="keyword">int</span> j;</div><div class="line">    <span class="keyword">int</span> a[<span class="number">3</span>];</div><div class="line">    <span class="keyword">int</span> *p;</div><div class="line">&#125;;</div></pre></td></tr></table></figure><p>这个结构包含四个域————两个整数、一个数组和一个指针。</p><h2 id="0-4-8-20"><a href="#0-4-8-20" class="headerlink" title="0    4    8               20"></a>0    4    8               20</h2><h2 id="i-j-a-0-a-1-a-2-p"><a href="#i-j-a-0-a-1-a-2-p" class="headerlink" title="|  i |  j |a[0] a[1] a[2]  |  p   |"></a>|  i |  j |a[0] a[1] a[2]  |  p   |</h2><p>为了访问结构中的域，编译器产生的代码要将结构的地址加上适当的偏移。</p><h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>链表是由一系列不必再内存中相连的结构组成，每一个结构包含表元素和指向包含该元素后继的结构的指针。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;数组&quot;&gt;&lt;a href=&quot;#数组&quot; class=&quot;headerlink&quot; title=&quot;数组&quot;&gt;&lt;/a&gt;数组&lt;/h2&gt;&lt;p&gt;C中的数组是一种将标量类型数据聚集成更大数据类型的方式。&lt;/p&gt;
+&lt;h3 id=&quot;基本规则&quot;&gt;&lt;a href=&quot;#基本规则&quot; class=&quot;
+      
+    
+    </summary>
+    
+    
+      <category term="数组 链表" scheme="http://yoursite.com/tags/%E6%95%B0%E7%BB%84-%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>Python源码剖析多线程机制</title>
@@ -465,30 +489,6 @@
     
     
       <category term="JavaScript babel" scheme="http://yoursite.com/tags/JavaScript-babel/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JavaScript一个困惑已久的语法</title>
-    <link href="http://yoursite.com/2017/12/19/JavaScript%E4%B8%80%E4%B8%AA%E5%9B%B0%E6%83%91%E5%B7%B2%E4%B9%85%E7%9A%84%E8%AF%AD%E6%B3%95/"/>
-    <id>http://yoursite.com/2017/12/19/JavaScript一个困惑已久的语法/</id>
-    <published>2017-12-19T04:09:41.000Z</published>
-    <updated>2018-02-08T17:52:07.471Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前在写React的时候，关于state的一种写法一直没有看懂。</p><p>正常这样写：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>() &#123;</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">x</span>: <span class="number">1</span>,</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">this</span>.aa = <span class="keyword">this</span>.aa.bind(<span class="keyword">this</span>)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.x)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p><p>困惑的情形：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  state = &#123;</div><div class="line">    <span class="attr">x</span>: <span class="number">1</span>,</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  aa = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.x);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p><p>经过我的一番搜索，终于找到了答案，这是ES的一种新提案，并没有普及，使用的时候需要使用插件，叫做babel-plugin-transform-class-properties，它将原来将类属性写在constructor的写法简化为写在类中就可以了。</p><p>相关参考：</p><ul><li><a href="http://babeljs.io/docs/plugins/transform-class-properties" target="_blank" rel="external">http://babeljs.io/docs/plugins/transform-class-properties</a></li><li><a href="https://github.com/tc39/proposal-class-fields" target="_blank" rel="external">https://github.com/tc39/proposal-class-fields</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;之前在写React的时候，关于state的一种写法一直没有看懂。&lt;/p&gt;
-&lt;p&gt;正常这样写：&lt;br&gt;&lt;figure class=&quot;highl
-      
-    
-    </summary>
-    
-    
-      <category term="ES6" scheme="http://yoursite.com/tags/ES6/"/>
     
   </entry>
   

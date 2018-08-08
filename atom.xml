@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-08-07T17:13:44.938Z</updated>
+  <updated>2018-08-08T01:39:15.109Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>解析Python的lambda表达式</title>
+    <link href="http://yoursite.com/2018/08/08/%E8%A7%A3%E6%9E%90Python%E7%9A%84lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    <id>http://yoursite.com/2018/08/08/解析Python的lambda表达式/</id>
+    <published>2018-08-08T01:23:16.000Z</published>
+    <updated>2018-08-08T01:39:15.109Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="什么是lambda表达式？"><a href="#什么是lambda表达式？" class="headerlink" title="什么是lambda表达式？"></a>什么是lambda表达式？</h2><blockquote><p>lambda表达式也叫匿名函数，返回可调用的函数对象。</p></blockquote><p>匿名函数本质上就是一个函数，它所抽象出来的东西是一组运算，可以配合其他高阶函数使用如map、reduce、filter。<br><br></p><h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul><li>lambda表达式的定义体必须和声明放在同一行。<br><br></li></ul><h2 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h2><ul><li>使用lambda可以省去定义函数的过程，减少了一个污染环境的函数名，让代码更加精简。</li><li>在非多次调用的函数的情况下，lambda表达式即用既得，提高性能<br><br></li></ul><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.douban.com/note/311252412/" target="_blank" rel="external">https://www.douban.com/note/311252412/</a><br><a href="https://www.zhihu.com/question/20125256" target="_blank" rel="external">https://www.zhihu.com/question/20125256</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;什么是lambda表达式？&quot;&gt;&lt;a href=&quot;#什么是lambda表达式？&quot; class=&quot;headerlink&quot; title=&quot;什么是lambda表达式？&quot;&gt;&lt;/a&gt;什么是lambda表达式？&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;lambda表达式也叫匿名
+      
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
     <title>数组与链表</title>
     <link href="http://yoursite.com/2018/08/03/%E6%95%B0%E7%BB%84%E4%B8%8E%E9%93%BE%E8%A1%A8/"/>
     <id>http://yoursite.com/2018/08/03/数组与链表/</id>
     <published>2018-08-02T18:12:08.000Z</published>
-    <updated>2018-08-07T17:13:44.938Z</updated>
+    <updated>2018-08-08T00:03:35.629Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>数组与链表都属于数据结构中线性表结构。同一线性表中的元素必定具有相同特性，且相邻数据元素之间存在着一对一关系（前驱，后继）。</p></blockquote><p>我认为存在线性表这种数据结构的意义是，它可以以一定的顺序进行遍历，方便迭代所有的数据，且在查找的时候可以轻松的利用邻居元素一对一的关系，获取到某个数据。</p><p>动态查找表：不仅仅是顺序查找，动态查找表的特点是表结构本身在查找过程中动态生成,即对给定的关键字key，若表中存在其关键字等于key的记录，则查找成功返回，否则插入关键字等于key的记录。<br><br></p><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>C中的数组是一种将标量类型数据聚集成更大数据类型的方式。</p><h4 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a>基本规则</h4><p>对于数据类型T和整数N，声明<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">T A[N]</div></pre></td></tr></table></figure></p><p>有两个效果。</p><ul><li>首先，在存储器中分配了L*N字节的连续区域（L是数据类型T的大小），我们用a来表示起始位置。</li><li>其次，引入标识符A，作为指向数组开头的指针，指针的值是a。数组元素i的地址为a+L*i。</li></ul><h4 id="动态分配的数组"><a href="#动态分配的数组" class="headerlink" title="动态分配的数组"></a>动态分配的数组</h4><p>在许多应用程序中，我们需要代码能够对动态分配的任意大小的数组进行操作。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> * var_matrix;</div><div class="line"><span class="function">var matrix <span class="title">new_var_matrix</span><span class="params">(<span class="keyword">int</span> n)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> (var_matrix)<span class="built_in">calloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>), n * n)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p><p>注意：在C中，堆（一个可以用来存放数据结构的存储池）中的存储分配是用的库函数malloc或calloc。它们要求程度用free函数来释放已分配的空间。在Java中是由gc的进程自动完成的。<br><br></p><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p>C中的struct声明创建一个结构数据类型，将可能不同类型的对象聚合到一个对象中。</p><h4 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rec</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> i;</div><div class="line">    <span class="keyword">int</span> j;</div><div class="line">    <span class="keyword">int</span> a[<span class="number">3</span>];</div><div class="line">    <span class="keyword">int</span> *p;</div><div class="line">&#125;;</div></pre></td></tr></table></figure><p>这个结构包含四个域————两个整数、一个数组和一个指针。</p><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>    <span class="number">4</span>    <span class="number">8</span>                <span class="number">20</span></div><div class="line">-----------------------------------</div><div class="line">|  i |  j | a[<span class="number">0</span>] a[<span class="number">1</span>] a[<span class="number">2</span>] |  p   |</div><div class="line">-----------------------------------</div></pre></td></tr></table></figure><p>指向结构的指针就是结构第一个字节的地址，为了访问结构中的域，编译器产生的代码要将结构的地址加上适当的偏移。<br><br></p><h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>链表是由一系列不必在内存中相连的结构组成，每一个结构包含表元素和指向包含该元素后继的结构的指针。<br><br></p><h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>分配内存：</p><ul><li>数组：静态数组内存的分配是由栈完成的，它的内存的分配和释放都是有计算机自己处理。</li><li>链表：链表的内存的分配是由堆完成的，它的内存的分配和释放都是有程序员手动处理。</li></ul><p>内存中的状态：</p><ul><li>数组：在内存中是一段连续的区域。</li><li>链表：在内存中是非连续的。</li></ul><p>大小：</p><ul><li>数组：固定。</li><li>链表：不固定。</li></ul><p>操作：</p><ul><li>数组：查找O(1)，增加、删除O(n)。</li><li>链表：查找O(n)，增加、删除O(1)。<br><br></li></ul><h2 id="跳跃链表"><a href="#跳跃链表" class="headerlink" title="跳跃链表"></a>跳跃链表</h2><p><a href="https://lfkdsk.github.io/2017/09/11/quick-learn-skip-list/" target="_blank" rel="external">https://lfkdsk.github.io/2017/09/11/quick-learn-skip-list/</a><br><br></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>《数据结构——C语言版》严蔚敏<br>《数据机构与算法分析——C语言描述》韦斯<br>《深入理解计算机系统》</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>数组与链表都属于数据结构中线性表结构。同一线性表中的元素必定具有相同特性，且相邻数据元素之间存在着一对一关系（前驱，后继）。</p></blockquote><p>我认为存在线性表这种数据结构的意义是，它可以以一定的顺序进行遍历，方便迭代所有的数据，且在查找的时候可以轻松的利用邻居元素一对一的关系，获取到某个数据。</p><p>动态查找表：不仅仅是顺序查找，动态查找表的特点是表结构本身在查找过程中动态生成,即对给定的关键字key，若表中存在其关键字等于key的记录，则查找成功返回，否则插入关键字等于key的记录。<br><br></p><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>C中的数组是一种将标量类型数据聚集成更大数据类型的方式。</p><h4 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a>基本规则</h4><p>对于数据类型T和整数N，声明<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">T A[N]</div></pre></td></tr></table></figure></p><p>有两个效果。</p><ul><li>首先，在存储器中分配了L*N字节的连续区域（L是数据类型T的大小），我们用a来表示起始位置。</li><li>其次，引入标识符A，作为指向数组开头的指针，指针的值是a。数组元素i的地址为a+L*i。</li></ul><h4 id="动态分配的数组"><a href="#动态分配的数组" class="headerlink" title="动态分配的数组"></a>动态分配的数组</h4><p>在许多应用程序中，我们需要代码能够对动态分配的任意大小的数组进行操作。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> * var_matrix;</div><div class="line"><span class="function">var matrix <span class="title">new_var_matrix</span><span class="params">(<span class="keyword">int</span> n)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> (var_matrix)<span class="built_in">calloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>), n * n)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p><p>注意：在C中，堆（一个可以用来存放数据结构的存储池）中的存储分配是用的库函数malloc或calloc。它们要求程度用free函数来释放已分配的空间。在Java中是由gc的进程自动完成的。<br><br></p><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p>C中的struct声明创建一个结构数据类型，将可能不同类型的对象聚合到一个对象中。</p><h4 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rec</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> i;</div><div class="line">    <span class="keyword">int</span> j;</div><div class="line">    <span class="keyword">int</span> a[<span class="number">3</span>];</div><div class="line">    <span class="keyword">int</span> *p;</div><div class="line">&#125;;</div></pre></td></tr></table></figure><p>这个结构包含四个域————两个整数、一个数组和一个指针。</p><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>    <span class="number">4</span>    <span class="number">8</span>                <span class="number">20</span></div><div class="line">-----------------------------------</div><div class="line">|  i |  j | a[<span class="number">0</span>] a[<span class="number">1</span>] a[<span class="number">2</span>] |  p   |</div><div class="line">-----------------------------------</div></pre></td></tr></table></figure><p>指向结构的指针就是结构第一个字节的地址，为了访问结构中的域，编译器产生的代码要将结构的地址加上适当的偏移。<br><br></p><h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>链表是由一系列不必在内存中相连的结构组成，每一个结构包含表元素和指向包含该元素后继的结构的指针。</p><p>链表在许多语言的内存管理、垃圾回收策略中有着广泛的应用，如Python的内存管理、标记-清除垃圾回收策略、分代收集策略。<br><br></p><h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>分配内存：</p><ul><li>数组：静态数组内存的分配是由栈完成的，它的内存的分配和释放都是有计算机自己处理。</li><li>链表：链表的内存的分配是由堆完成的，它的内存的分配和释放都是有程序员手动处理。</li></ul><p>内存中的状态：</p><ul><li>数组：在内存中是一段连续的区域。</li><li>链表：在内存中是非连续的。</li></ul><p>大小：</p><ul><li>数组：固定。</li><li>链表：不固定。</li></ul><p>操作：</p><ul><li>数组：查找O(1)，增加、删除O(n)。</li><li>链表：查找O(n)，增加、删除O(1)。<br><br></li></ul><h2 id="跳跃链表"><a href="#跳跃链表" class="headerlink" title="跳跃链表"></a>跳跃链表</h2><p><a href="https://lfkdsk.github.io/2017/09/11/quick-learn-skip-list/" target="_blank" rel="external">https://lfkdsk.github.io/2017/09/11/quick-learn-skip-list/</a><br><br></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>《数据结构——C语言版》严蔚敏<br>《数据机构与算法分析——C语言描述》韦斯<br>《深入理解计算机系统》</p>]]></content>
     
     <summary type="html">
     
@@ -207,29 +231,6 @@
   </entry>
   
   <entry>
-    <title>React Diff Algorithm</title>
-    <link href="http://yoursite.com/2018/04/03/React-Diff-Algorithm/"/>
-    <id>http://yoursite.com/2018/04/03/React-Diff-Algorithm/</id>
-    <published>2018-04-03T05:02:16.000Z</published>
-    <updated>2018-04-03T05:05:51.688Z</updated>
-    
-    <content type="html"><![CDATA[<p>这个hexo博客加图片实在是太麻烦，这里就贴个链接，忘了的时候多看看吧。<br><a href="https://calendar.perfplanet.com/2013/diff/" target="_blank" rel="external">https://calendar.perfplanet.com/2013/diff/</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;这个hexo博客加图片实在是太麻烦，这里就贴个链接，忘了的时候多看看吧。&lt;br&gt;&lt;a href=&quot;https://calendar.perfplanet.com/2013/diff/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://calen
-      
-    
-    </summary>
-    
-    
-      <category term="React" scheme="http://yoursite.com/tags/React/"/>
-    
-  </entry>
-  
-  <entry>
     <title>igraph报错cannot_import_name_Graph/module_has_no_attribute_Graph</title>
     <link href="http://yoursite.com/2018/03/31/igraph%E6%8A%A5%E9%94%99cannot-import-name-Graph-module-has-no-attribute-Graph/"/>
     <id>http://yoursite.com/2018/03/31/igraph报错cannot-import-name-Graph-module-has-no-attribute-Graph/</id>
@@ -273,29 +274,6 @@
     
     
       <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>flex</title>
-    <link href="http://yoursite.com/2018/03/14/Flex/"/>
-    <id>http://yoursite.com/2018/03/14/Flex/</id>
-    <published>2018-03-13T18:08:45.000Z</published>
-    <updated>2018-03-13T18:09:59.406Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://segmentfault.com/a/1190000002910324" target="_blank" rel="external">https://segmentfault.com/a/1190000002910324</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex</a><br><a href="https://www.w3cplus.com/css3/flexbox-basics.html" target="_blank" rel="external">https://www.w3cplus.com/css3/flexbox-basics.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000002910324&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://segmentfault.com/a/1190000002910324&lt;/a&gt;&lt;br&gt;&lt;
-      
-    
-    </summary>
-    
-    
-      <category term="CSS" scheme="http://yoursite.com/tags/CSS/"/>
     
   </entry>
   
@@ -470,25 +448,49 @@
   </entry>
   
   <entry>
-    <title>babel学习</title>
-    <link href="http://yoursite.com/2018/01/08/Babel%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://yoursite.com/2018/01/08/Babel学习/</id>
-    <published>2018-01-08T03:50:06.000Z</published>
-    <updated>2018-01-08T04:04:13.436Z</updated>
+    <title>JavaScript一个困惑已久的语法</title>
+    <link href="http://yoursite.com/2017/12/19/JavaScript%E4%B8%80%E4%B8%AA%E5%9B%B0%E6%83%91%E5%B7%B2%E4%B9%85%E7%9A%84%E8%AF%AD%E6%B3%95/"/>
+    <id>http://yoursite.com/2017/12/19/JavaScript一个困惑已久的语法/</id>
+    <published>2017-12-19T04:09:41.000Z</published>
+    <updated>2018-02-08T17:52:07.471Z</updated>
     
-    <content type="html"><![CDATA[<p><a href="https://github.com/thejameskyle/babel-handbook/blob/master/translations/zh-Hans/user-handbook.md" target="_blank" rel="external">https://github.com/thejameskyle/babel-handbook/blob/master/translations/zh-Hans/user-handbook.md</a></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前在写React的时候，关于state的一种写法一直没有看懂。</p><p>正常这样写：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>() &#123;</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">x</span>: <span class="number">1</span>,</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">this</span>.aa = <span class="keyword">this</span>.aa.bind(<span class="keyword">this</span>)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.x)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p><p>困惑的情形：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  state = &#123;</div><div class="line">    <span class="attr">x</span>: <span class="number">1</span>,</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  aa = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.x);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p><p>经过我的一番搜索，终于找到了答案，这是ES的一种新提案，并没有普及，使用的时候需要使用插件，叫做babel-plugin-transform-class-properties，它将原来将类属性写在constructor的写法简化为写在类中就可以了。</p><p>相关参考：</p><ul><li><a href="http://babeljs.io/docs/plugins/transform-class-properties" target="_blank" rel="external">http://babeljs.io/docs/plugins/transform-class-properties</a></li><li><a href="https://github.com/tc39/proposal-class-fields" target="_blank" rel="external">https://github.com/tc39/proposal-class-fields</a></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;&lt;a href=&quot;https://github.com/thejameskyle/babel-handbook/blob/master/translations/zh-Hans/user-handbook.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;之前在写React的时候，关于state的一种写法一直没有看懂。&lt;/p&gt;
+&lt;p&gt;正常这样写：&lt;br&gt;&lt;figure class=&quot;highl
       
     
     </summary>
     
     
-      <category term="JavaScript babel" scheme="http://yoursite.com/tags/JavaScript-babel/"/>
+      <category term="ES6" scheme="http://yoursite.com/tags/ES6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React-ref属性</title>
+    <link href="http://yoursite.com/2017/12/18/React-ref%E5%B1%9E%E6%80%A7/"/>
+    <id>http://yoursite.com/2017/12/18/React-ref属性/</id>
+    <published>2017-12-18T04:13:15.000Z</published>
+    <updated>2018-02-08T17:52:28.886Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="ref属性介绍"><a href="#ref属性介绍" class="headerlink" title="ref属性介绍"></a>ref属性介绍</h2><p>在React典型的数据流中，修改子组件都是通过重新渲染新的props来完成的。但是，当你想要在数据流之外修改子组件，就需要React提供的ref属性。</p><p>ref在元素中声明，代表着该元素提供了可以操作的DOM操作（React组件中提供的是虚拟DOM操作）。</p><h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul><li>处理focus、text selection</li><li>处理交互动画</li><li>与第三方DOM库集成</li></ul><h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><ol><li>使用回调函数<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTextInput</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="keyword">this</span>.focusTextInput = <span class="keyword">this</span>.focusTextInput.bind(<span class="keyword">this</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  focusTextInput() &#123;</div><div class="line">    <span class="keyword">this</span>.textInput.focus();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;input</div><div class="line">          type="text"</div><div class="line">          ref=&#123;(input) =&gt; &#123; this.textInput = input; &#125;&#125; /&gt;</div><div class="line">        &lt;input</div><div class="line">          type="button"</div><div class="line">          value="Focus the text input"</div><div class="line">          onClick=&#123;this.focusTextInput&#125;</div><div class="line">        /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li></ol><p>点击按钮后，input输入框会focus。</p><p>React会在组件加载后调用ref回调函数，在componentDidMount函数周期之前invoke或在componentDidUpdate周期中执行。</p><p>需要注意的是，由于 this.refs.[refName] 属性获取的是真实 DOM ，所以必须等到虚拟 DOM 插入文档以后，才能使用这个属性，否则会报错。</p><ol><li>使用ref属性名<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</div><div class="line">  <span class="attr">handleClick</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.refs.myTextInput.focus();</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">render</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;input type="text" ref="myTextInput" /&gt;</div><div class="line">        &lt;input type="button" value="Focus the text input" onClick=&#123;this.handleClick&#125; /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></li></ol><p>React不建议用refs，因为有许多弊端。<a href="https://github.com/facebook/react/pull/8333#issuecomment-271648615" target="_blank" rel="external">https://github.com/facebook/react/pull/8333#issuecomment-271648615</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;ref属性介绍&quot;&gt;&lt;a href=&quot;#ref属性介绍&quot; class=&quot;headerlink&quot; title=&quot;ref属性介绍&quot;&gt;&lt;/a&gt;ref属性介绍&lt;/h2&gt;&lt;p&gt;在React典型的数据流中，修改子组件都是通过重新渲染新的props来完成的。但是，当你想要在数据流
+      
+    
+    </summary>
+    
+    
+      <category term="React" scheme="http://yoursite.com/tags/React/"/>
     
   </entry>
   

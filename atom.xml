@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-08-08T01:39:15.109Z</updated>
+  <updated>2018-08-08T19:55:45.106Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,20 +17,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>解析Python的lambda表达式</title>
-    <link href="http://yoursite.com/2018/08/08/%E8%A7%A3%E6%9E%90Python%E7%9A%84lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    <id>http://yoursite.com/2018/08/08/解析Python的lambda表达式/</id>
-    <published>2018-08-08T01:23:16.000Z</published>
-    <updated>2018-08-08T01:39:15.109Z</updated>
+    <title>Python源码剖析——垃圾回收机制</title>
+    <link href="http://yoursite.com/2018/08/08/Python%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E2%80%94%E2%80%94%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/"/>
+    <id>http://yoursite.com/2018/08/08/Python源码剖析——垃圾回收机制/</id>
+    <published>2018-08-08T05:31:30.000Z</published>
+    <updated>2018-08-08T19:55:45.106Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="什么是lambda表达式？"><a href="#什么是lambda表达式？" class="headerlink" title="什么是lambda表达式？"></a>什么是lambda表达式？</h2><blockquote><p>lambda表达式也叫匿名函数，返回可调用的函数对象。</p></blockquote><p>匿名函数本质上就是一个函数，它所抽象出来的东西是一组运算，可以配合其他高阶函数使用如map、reduce、filter。<br><br></p><h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul><li>lambda表达式的定义体必须和声明放在同一行。<br><br></li></ul><h2 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h2><ul><li>使用lambda可以省去定义函数的过程，减少了一个污染环境的函数名，让代码更加精简。</li><li>在非多次调用的函数的情况下，lambda表达式即用既得，提高性能<br><br></li></ul><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.douban.com/note/311252412/" target="_blank" rel="external">https://www.douban.com/note/311252412/</a><br><a href="https://www.zhihu.com/question/20125256" target="_blank" rel="external">https://www.zhihu.com/question/20125256</a></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h4 id="内存管理架构"><a href="#内存管理架构" class="headerlink" title="内存管理架构"></a>内存管理架构</h4><p>在Python中，内存管理机制被抽象成一种层次似的结果。</p><ul><li><span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">第0层</span>，是操作系统提供的内存管理接口，比如C运行时所提供的malloc和free接口。这一层由操作系统实现并管理。</li><li><span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">第1层</span>，是Python基于第0层操作系统的内存管理接口包装而成的，因为虽然操作系统都提供了ANSI C标准所定义的内存管理接口，但是对于某些特殊的情况不同的操作系统有不同的行为。</li><li><span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">第2层</span>，第一层所提供的内存管理接口其功能是有限的，加入要创建一个PyIntObject对象，还需要许多额外的工作，如设置对象的类型，初始化对象的引用计数值等。为了简化Python自身的开发，Python在比第一层更高的抽象层次上提供了第二层管理接口，主要提供了创建Python对象的接口。</li><li><span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">第3层</span>，主要是对象缓冲池机制。<br><br></li></ul><h4 id="小块空间的内存池"><a href="#小块空间的内存池" class="headerlink" title="小块空间的内存池"></a>小块空间的内存池</h4><p>在Python中，许多时候申请的内存都是小块的内存，申请后很快又会被释放，它们不是为了创建对象，没有对象一级的内存池机制。意味着会大量执行malloc和free操作，影响Python的执行效率。</p><p>为了提高执行效率，Python引入一个<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">内存池机制</span>，管理小块内存的申请和释放。</p><p>Python默认小块内存与大块内存的分界点定在256个字节，也就是说，当申请的内存小于256字节时PyObject_Malloc会在内存池中申请内存；当申请内存大于256字节时PyObject_Malloc的行为蜕化为malloc的行为。<br><br></p><h2 id="垃圾收集机制"><a href="#垃圾收集机制" class="headerlink" title="垃圾收集机制"></a>垃圾收集机制</h2><p>在Python中，大多数对象的声明周期都是通过对象的<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">引用计数</span>来管理的。但循环引用这种状态不同通过引用计数来回收内存，需要配合另外两种垃圾收集技术，<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">标记——清除</span>和<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">分代收集</span>。<br><br></p><h4 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h4><p>当一个对象的引用被创建或者复制时，对象的引用计数加1；当一个对象的引用被销毁（退出作用域、被del删除）时，对象的引用计数减1。如果对象的引用计数为0，那么释放其所占用的内存。</p><p>引用计数有一个问题，就是可能会产生<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">循环引用</span>，看一段代码：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>l1 = []</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l2 = []</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l1.append(l2)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l2.append(l1)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l1</div><div class="line">[[[...]]]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l2</div><div class="line">[[[...]]]</div></pre></td></tr></table></figure></p><p>要想回收l1的内存需要先将其引用计数置为0，其引用为l2即需要先释放l2的内存。同时，回收l2的内存需要先将其引用计数置为0，其引用为l1即需要先释放l1的内存，此时造成了循环引用的状态，这些对象所占用内存永远不会被回收。</p><p>为了解决这个问题需要，Python引用了标记-清除和分代回收技术。<br><br></p><h4 id="标记——清除"><a href="#标记——清除" class="headerlink" title="标记——清除"></a>标记——清除</h4><p>其简要工作过程如下：</p><ol><li>寻找根对象（root object）的集合，<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">root object</span>即是一些全局引用和函数栈中的引用。这些引用所用的对象是不可被删除的。</li><li>从root object集合出发，沿着root object集合中的每一个引用，如果能到达某个对象A，则A称为<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">可达的</span>，可达的对象也不可删除。这个阶段就是垃圾检测阶段。</li><li>当垃圾检测阶段结束后，所有的对象分为了可达的和<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">不可达的</span>两部分，对所有不可达的对象占用的内存将被回收，这就是垃圾回收阶段。<br><br></li></ol><p>Python中的循环引用总是发生在<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">container</span>对象之间，所谓container对象即是内部可持有对其他对象的引用的对象，如list、dict、class、instance等。Python的垃圾收集机制运行时，只需要区检查这些container对象。</p><p>Python中使用链表来存储可收集对象。<br><br></p><h4 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h4><p>将系统中的所有内存块根据其存活时间划分为不同的集合，每一个集合称为一个<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">“代”</span>，代的存活时间越长，就越可能不是垃圾，应该越少去收集。衡量存活时间的标准就是经过了几次垃圾收集动作。每一个“代”用链表实现。<br><br></p><h4 id="Python中的标记——清除方法"><a href="#Python中的标记——清除方法" class="headerlink" title="Python中的标记——清除方法"></a>Python中的标记——清除方法</h4><ol><li>Python会将比其“年轻”的所有代的内存链表整个连接到当前代链表之后，如第0代放在第1代之后。</li><li>寻找root object集合。通过<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">有效引用计数</span>方法将循环引用标记清除</li><li>垃圾标记。获得不可达的链表。</li><li>垃圾回收。将不可达的链表中的对象销毁。</li></ol><p><br></p><h2 id="Python中的gc模块"><a href="#Python中的gc模块" class="headerlink" title="Python中的gc模块"></a>Python中的gc模块</h2>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h2 id=&quot;什么是lambda表达式？&quot;&gt;&lt;a href=&quot;#什么是lambda表达式？&quot; class=&quot;headerlink&quot; title=&quot;什么是lambda表达式？&quot;&gt;&lt;/a&gt;什么是lambda表达式？&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;lambda表达式也叫匿名
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;h4 id=&quot;内存管理架构&quot;&gt;&lt;a href=&quot;#内存管理架构&quot; class=&quot;headerlink&quot; title=&quot;内存管理架构&quot;&gt;&lt;/a&gt;内
+      
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解析Python的lambda表达式</title>
+    <link href="http://yoursite.com/2018/08/08/%E8%A7%A3%E6%9E%90Python%E7%9A%84lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    <id>http://yoursite.com/2018/08/08/解析Python的lambda表达式/</id>
+    <published>2018-08-08T01:23:16.000Z</published>
+    <updated>2018-08-08T03:34:52.272Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="什么是lambda表达式？"><a href="#什么是lambda表达式？" class="headerlink" title="什么是lambda表达式？"></a>什么是lambda表达式？</h2><p>lambda表达式也叫匿名函数，返回可调用的函数对象。</p><p>匿名函数本质上就是一个函数，它所抽象出来的东西是一组运算，可以配合其他高阶函数使用如map、reduce、filter。<br><br></p><h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>lambda表达式的定义体必须和声明放在同一行。<br><br></p><h2 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h2><p>使用lambda可以省去定义函数的过程，减少了一个污染环境的函数名，让代码更加精简。</p><p>在非多次调用的函数的情况下，lambda表达式即用既得，提高性能<br><br></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.douban.com/note/311252412/" target="_blank" rel="external">https://www.douban.com/note/311252412/</a><br><a href="https://www.zhihu.com/question/20125256" target="_blank" rel="external">https://www.zhihu.com/question/20125256</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;什么是lambda表达式？&quot;&gt;&lt;a href=&quot;#什么是lambda表达式？&quot; class=&quot;headerlink&quot; title=&quot;什么是lambda表达式？&quot;&gt;&lt;/a&gt;什么是lambda表达式？&lt;/h2&gt;&lt;p&gt;lambda表达式也叫匿名函数，返回可调用的函数对象
       
     
     </summary>
@@ -66,8 +88,8 @@
   
   <entry>
     <title>Python源码剖析多线程机制</title>
-    <link href="http://yoursite.com/2018/07/17/Python%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%9C%BA%E5%88%B6/"/>
-    <id>http://yoursite.com/2018/07/17/Python源码剖析多线程机制/</id>
+    <link href="http://yoursite.com/2018/07/17/Python%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%9C%BA%E5%88%B6/"/>
+    <id>http://yoursite.com/2018/07/17/Python源码剖析——多线程机制/</id>
     <published>2018-07-17T04:46:24.000Z</published>
     <updated>2018-07-18T23:47:01.616Z</updated>
     
@@ -468,29 +490,6 @@
     
     
       <category term="ES6" scheme="http://yoursite.com/tags/ES6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React-ref属性</title>
-    <link href="http://yoursite.com/2017/12/18/React-ref%E5%B1%9E%E6%80%A7/"/>
-    <id>http://yoursite.com/2017/12/18/React-ref属性/</id>
-    <published>2017-12-18T04:13:15.000Z</published>
-    <updated>2018-02-08T17:52:28.886Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="ref属性介绍"><a href="#ref属性介绍" class="headerlink" title="ref属性介绍"></a>ref属性介绍</h2><p>在React典型的数据流中，修改子组件都是通过重新渲染新的props来完成的。但是，当你想要在数据流之外修改子组件，就需要React提供的ref属性。</p><p>ref在元素中声明，代表着该元素提供了可以操作的DOM操作（React组件中提供的是虚拟DOM操作）。</p><h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul><li>处理focus、text selection</li><li>处理交互动画</li><li>与第三方DOM库集成</li></ul><h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><ol><li>使用回调函数<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomTextInput</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="keyword">this</span>.focusTextInput = <span class="keyword">this</span>.focusTextInput.bind(<span class="keyword">this</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  focusTextInput() &#123;</div><div class="line">    <span class="keyword">this</span>.textInput.focus();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;input</div><div class="line">          type="text"</div><div class="line">          ref=&#123;(input) =&gt; &#123; this.textInput = input; &#125;&#125; /&gt;</div><div class="line">        &lt;input</div><div class="line">          type="button"</div><div class="line">          value="Focus the text input"</div><div class="line">          onClick=&#123;this.focusTextInput&#125;</div><div class="line">        /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li></ol><p>点击按钮后，input输入框会focus。</p><p>React会在组件加载后调用ref回调函数，在componentDidMount函数周期之前invoke或在componentDidUpdate周期中执行。</p><p>需要注意的是，由于 this.refs.[refName] 属性获取的是真实 DOM ，所以必须等到虚拟 DOM 插入文档以后，才能使用这个属性，否则会报错。</p><ol><li>使用ref属性名<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</div><div class="line">  <span class="attr">handleClick</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.refs.myTextInput.focus();</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">render</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;input type="text" ref="myTextInput" /&gt;</div><div class="line">        &lt;input type="button" value="Focus the text input" onClick=&#123;this.handleClick&#125; /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></li></ol><p>React不建议用refs，因为有许多弊端。<a href="https://github.com/facebook/react/pull/8333#issuecomment-271648615" target="_blank" rel="external">https://github.com/facebook/react/pull/8333#issuecomment-271648615</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;ref属性介绍&quot;&gt;&lt;a href=&quot;#ref属性介绍&quot; class=&quot;headerlink&quot; title=&quot;ref属性介绍&quot;&gt;&lt;/a&gt;ref属性介绍&lt;/h2&gt;&lt;p&gt;在React典型的数据流中，修改子组件都是通过重新渲染新的props来完成的。但是，当你想要在数据流
-      
-    
-    </summary>
-    
-    
-      <category term="React" scheme="http://yoursite.com/tags/React/"/>
     
   </entry>
   

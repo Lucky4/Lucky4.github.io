@@ -12,21 +12,28 @@
 <h4 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h4><p>当一个对象的引用被创建或者复制时，对象的引用计数加1；当一个对象的引用被销毁（退出作用域、被del删除）时，对象的引用计数减1。如果对象的引用计数为0，那么释放其所占用的内存。</p>
 <p>引用计数有一个问题，就是可能会产生<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">循环引用</span>，看一段代码：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>l1 = []</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l2 = []</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l1.append(l2)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l2.append(l1)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l1</div><div class="line">[[[...]]]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>l2</div><div class="line">[[[...]]]</div></pre></td></tr></table></figure></p>
 <p>要想回收l1的内存需要先将其引用计数置为0，其引用为l2即需要先释放l2的内存。同时，回收l2的内存需要先将其引用计数置为0，其引用为l1即需要先释放l1的内存，此时造成了循环引用的状态，这些对象所占用内存永远不会被回收。</p>
-<p>为了解决这个问题需要，Python引用了标记-清除和分代回收技术。<br><br></p>
+<p>Python 中的循环引用总是发发生在container对象之间，所谓container对象即是内部可持有对其他对象引用的对象，比如list、dict、class、instance等等。当Python垃圾回收机制运行时，只会去检查container对象。</p>
+<p>为了解决循环引用这个问题Python引用了标记-清除和分代回收技术。<br><br></p>
 <h4 id="标记——清除"><a href="#标记——清除" class="headerlink" title="标记——清除"></a>标记——清除</h4><p>其简要工作过程如下：</p>
 <ol>
 <li>寻找根对象（root object）的集合，<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">root object</span>即是一些全局引用和函数栈中的引用。这些引用所用的对象是不可被删除的。</li>
 <li>从root object集合出发，沿着root object集合中的每一个引用，如果能到达某个对象A，则A称为<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">可达的</span>，可达的对象也不可删除。这个阶段就是垃圾检测阶段。</li>
 <li>当垃圾检测阶段结束后，所有的对象分为了可达的和<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">不可达的</span>两部分，对所有不可达的对象占用的内存将被回收，这就是垃圾回收阶段。<br><br></li>
 </ol>
-<p>Python中的循环引用总是发生在<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">container</span>对象之间，所谓container对象即是内部可持有对其他对象的引用的对象，如list、dict、class、instance等。Python的垃圾收集机制运行时，只需要区检查这些container对象。</p>
+<p>Python中的循环引用总是发生在<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">container</span>对象之间，所谓container对象即是内部可持有对其他对象的引用的对象，如list、dict、class、instance等。Python的垃圾收集机制运行时，只需要去检查这些container对象。</p>
 <p>Python中使用链表来存储可收集对象。<br><br></p>
-<h4 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h4><p>将系统中的所有内存块根据其存活时间划分为不同的集合，每一个集合称为一个<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">“代”</span>，代的存活时间越长，就越可能不是垃圾，应该越少去收集。衡量存活时间的标准就是经过了几次垃圾收集动作。每一个“代”用链表实现。<br><br></p>
-<h4 id="Python中的标记——清除方法"><a href="#Python中的标记——清除方法" class="headerlink" title="Python中的标记——清除方法"></a>Python中的标记——清除方法</h4><ol>
-<li>Python会将比其“年轻”的所有代的内存链表整个连接到当前代链表之后，如第0代放在第1代之后。</li>
-<li>寻找root object集合。通过<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">有效引用计数</span>方法将循环引用标记清除</li>
-<li>垃圾标记。获得不可达的链表。</li>
-<li>垃圾回收。将不可达的链表中的对象销毁。</li>
-</ol>
+<h4 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h4><p>将系统中的所有内存块根据其存活时间划分为不同的集合，每一个集合称为一个<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">“代”</span>，代的存活时间越长，就越可能不是垃圾，应该越少去收集。衡量存活时间的标准就是经过了几次垃圾收集动作。每一个“代”用链表实现。</p>
+<img src="/2018/08/08/Python源码剖析——垃圾回收机制/gc1.jpg" alt="分代清除" title="分代清除">
 <p><br></p>
-<h2 id="Python中的gc模块"><a href="#Python中的gc模块" class="headerlink" title="Python中的gc模块"></a>Python中的gc模块</h2></div></article></div></main><footer><div class="paginator"><a href="/2018/08/15/Python源码剖析——Python内建对象/" class="prev">PREV</a><a href="/2018/08/08/解析Python的lambda表达式/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+<h4 id="Python中的标记——清除方法"><a href="#Python中的标记——清除方法" class="headerlink" title="Python中的标记——清除方法"></a>Python中的标记——清除方法</h4><p>一个垃圾回收的例子：<br><img src="/2018/08/08/Python源码剖析——垃圾回收机制/gc2.jpg" alt="分代清除" title="分代清除"></p>
+<ol>
+<li>Python采用三代的分代收集机制，如收集第一代，会将比其“年轻”的所有代的内存链表整个连接到当前代链表之后，则会将比其年轻的第0代放在第1代之后。</li>
+<li>寻找root object集合。通过<span style="color: #FF6600; font-style: italic; font-size: 5px; font-family: FangSong; font-weight: bold;">有效引用计数</span>方法将循环引用标记清除<img src="/2018/08/08/Python源码剖析——垃圾回收机制/gc3.jpg" alt="分代清除" title="分代清除"></li>
+<li>垃圾标记。获得不可达的链表。<img src="/2018/08/08/Python源码剖析——垃圾回收机制/gc4.jpg" alt="分代清除" title="分代清除"></li>
+<li>垃圾回收。将不可达的链表中的对象销毁。<br><br></li>
+</ol>
+<h2 id="Python中的垃圾回收机制为什么使用链表数据结构？"><a href="#Python中的垃圾回收机制为什么使用链表数据结构？" class="headerlink" title="Python中的垃圾回收机制为什么使用链表数据结构？"></a>Python中的垃圾回收机制为什么使用链表数据结构？</h2><ul>
+<li>垃圾回收的过程中必然要涉及到频繁的插入（分代回收，如第0代放在第1代之后）、删除（标记清除，删除不可达节点）的过程，使用双向链表等结构可以使插入、删除等操作时间复杂度达到为O(1)；相比于链表，如果使用树型的数据结构，那么插入和删除的时间复杂度会达到O(logN),同时由于树的父子间的复杂关系，在删除的时候会进行大量操作。</li>
+<li>container对象的内存分布中有三部分，一块用于垃圾回收机制，一块是PyObject_HEAD和自身数据，Python使用双向链表结构将container对象连接起来。在标记的过程中，根据链表结构一对一的对关系，一次完全遍历和一次简答的遍历就可以完成标记任务；如果使用树型结构，由于树的性质，每个节点需要保存2个至多个子代信息，需要额外的资源，在者，树的遍历要比链表的遍历麻烦的多。</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/08/15/Python源码剖析——Python内建对象/" class="prev">上一篇</a><a href="/2018/08/08/解析Python的lambda表达式/" class="next">下一篇</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

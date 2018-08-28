@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Python源码剖析——Dict对象 · Lucky4</title><meta name="description" content="Python源码剖析——Dict对象 - Lucky4"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Lucky4"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Python源码剖析——Dict对象</h1><div class="post-info">Aug 28, 2018</div><div class="post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现代的编程语言都在语言级或标准库中提供某种<code>关联式的容器</code>，容器中的元素通常是以(key,value)的形式存在的。</p>
+<p>关联式容器总会极大地关注键的搜索效率，其实现都会基于良好的数据结构，如C++中的map的实现基于红黑树，搜索时间复杂度为O(logN)。</p>
+<p>Python中的关联容器<code>PyDictObject</code>即dict是基于<code>散列表</code>实现的。Dict对搜索的效率要求很高，因为Python本身的实现中dict被大量的使用，如Python字节码的运行环境，其中存放变量名和变量值，通过查找变量名获得变量值。因此dict的实现没有采用平衡二叉树，而是采用了散列表，最优情况下散列表的搜索复杂度为O(1)。<br><br></p>
+<h2 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h2><p>Python在处理哈希冲突的时候采用<code>开放地址法</code>，在删除散列表中的元素的时候，不能进行真正的删除，因为会导致冲突探测链的探测过早的结束，所以Python采用一种<code>伪删除</code>的方式。<br><br></p>
+<h2 id="PyDictObject"><a href="#PyDictObject" class="headerlink" title="PyDictObject"></a>PyDictObject</h2><h4 id="关联容器的entry"><a href="#关联容器的entry" class="headerlink" title="关联容器的entry"></a>关联容器的entry</h4><p>关联容器中的一个(key,value)元素称为一个<code>entry</code>或slot。Python中，一个entry定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// dictobject.h</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></div><div class="line">    <span class="comment">/* Cached hash code of me_key.  Note that hash codes are C longs.</span></div><div class="line">     * We have to use Py_ssize_t instead because dict_popitem() abuses</div><div class="line">     * me_hash to hold a search finger.</div><div class="line">     */</div><div class="line">    Py_ssize_t me_hash;</div><div class="line">    PyObject *me_key;</div><div class="line">    PyObject *me_value;</div><div class="line">&#125; PyDictEntry;</div></pre></td></tr></table></figure>
+<p>PyDictObject存放的是PyObject*，可以存放任何Python对象。<code>me_hash</code>域存储的是<code>me_key</code>的散列值。</p>
+<p>PyDictObject中entry可以在3种状态间转换：</p>
+<ul>
+<li><code>Unused态</code>：该entry从现在到之前都没有存储过(key,value)对。</li>
+<li><code>Active态</code>：存储了一个(key,value)对entry便传化为Active态。</li>
+<li><code>Dummy态</code> ： entry中的(key,value)对被“伪删除”后，进入Dummy态。</li>
+</ul>
+<img src="/2018/08/28/Python源码剖析——Dict对象/pic1.jpg" alt="entry三种状态" title="entry三种状态">
+<p><br></p>
+<h4 id="关联容器的实现"><a href="#关联容器的实现" class="headerlink" title="关联容器的实现"></a>关联容器的实现</h4><p>关联容器PyDictObject是一大堆entry的集合，集合结构如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// dictobject.j</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">dictobject</span> &#123;</span></div><div class="line">    PyObject_HEAD</div><div class="line">    Py_ssize_t ma_fill;  <span class="comment">/* # Active + # Dummy */</span></div><div class="line">    Py_ssize_t ma_used;  <span class="comment">/* # Active */</span></div><div class="line"></div><div class="line">    <span class="comment">/* The table contains ma_mask + 1 slots, and that's a power of 2.</span></div><div class="line">     * We store the mask instead of the size because the mask is more</div><div class="line">     * frequently needed.</div><div class="line">     */</div><div class="line">    Py_ssize_t ma_mask;</div><div class="line"></div><div class="line">    <span class="comment">/* ma_table points to ma_smalltable for small tables, else to</span></div><div class="line">     * additional malloc'ed memory.  ma_table is never NULL!  This rule</div><div class="line">     * saves repeated runtime null-tests in the workhorse getitem and</div><div class="line">     * setitem calls.</div><div class="line">     */</div><div class="line">    PyDictEntry *ma_table;</div><div class="line">    PyDictEntry *(*ma_lookup)(PyDictObject *mp, PyObject *key, <span class="keyword">long</span> hash);</div><div class="line">    PyDictEntry ma_smalltable[PyDict_MINSIZE];</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>当PyDictObject中的entry数量超过<code>8</code>个时，Python会认为这是一个大dict了，将会申请额外内存空间，并将<code>ma_table</code>指向这块空间。</p>
+<img src="/2018/08/28/Python源码剖析——Dict对象/pic2.jpg" alt="entry三种状态" title="entry三种状态">
+<p><br></p>
+<h4 id="PyDictObject中元素搜索"><a href="#PyDictObject中元素搜索" class="headerlink" title="PyDictObject中元素搜索"></a>PyDictObject中元素搜索</h4><p>PyDictObject提供两种搜索策略，<code>lookdict</code>和<code>lookdict_string</code>，Python默认搜索方式为<code>lookdict_string<code>。</code></code></p>
+<p>Python获取冲突链上的第一个entry的过程采用，将hash值（我认为是元素序号）与entry的数量做一个与操作，结果自然会落在entry的数量之下。</p>
+<p><code>freeslot</code>正是用来指向探测序列中第一个处于Dummy态的entry，如果搜索失败，freeslot会提供一个处于Dummy态的entry。<br><br></p>
+<p>根据hash值获得的冲突探测链上<code>第一个entry</code>与待查找的元素的比较：</p>
+<ol>
+<li>根据hash值获得entry的索引，是冲突探测链上的第一个entry的索引。</li>
+<li>在两种情况下搜索结束：<ul>
+<li>entry处于Unused态，表明冲突探测链搜索完成，搜索失败；</li>
+<li>ep-&gt;me_key == key，表明entry的key与待搜索的key匹配，搜索成功。</li>
+</ul>
+</li>
+<li>若当前entry处于Dummy态，这是freeslot。</li>
+<li>检查Active态entry中的key与待查找的key是否“值相同”，若成立，搜索成功。</li>
+</ol>
+<p><code>遍历探测链</code>时发生的lookdict所进行的操作：</p>
+<ol>
+<li>根据Python所采用的探测函数，获得探测链中的下一个待检查的entry。</li>
+<li>检查到一个Unused态entry，表明搜索失败，这时有两种结果：<ul>
+<li>如果freeslot不为空，则返回freeslot所指entry。</li>
+<li>如果freeslot为空，则返回该Unused态entry。</li>
+</ul>
+</li>
+<li>检查entry中的key与带查找的key是否符合“引用相同”规则。</li>
+<li>检查entry中的key与待查找的key是否符合“值相同”规则。</li>
+<li>遍历过程中，如果发现Dummy态entry，且freeslot未设置，则设置freeslot。<br><br></li>
+</ol>
+<h4 id="PyDictObject插入"><a href="#PyDictObject插入" class="headerlink" title="PyDictObject插入"></a>PyDictObject插入</h4><p>搜索成功，返回处于Active的entry，直接替换me_value。<br>搜索失败，返回Unused或Dummy的entry，完整设置me_key、me_hash和me_value。</p>
+<p>如果table的装载率大于<code>2/3</code>时，后续的插入动作遭遇到冲突的可能性会非常大，在装载率大于或等于<code>2/3</code>时需要改变table的大小。<br><br></p>
+<h4 id="PyDictObject的删除"><a href="#PyDictObject的删除" class="headerlink" title="PyDictObject的删除"></a>PyDictObject的删除</h4><p>先计算hash值，搜索相应的entry，删除entry维护的元素，将entry从Active态变换为Dummy态，调整PyDictObject对象中维护table使用情况的变量。</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/08/21/堆和栈的区别/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

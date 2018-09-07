@@ -7,10 +7,8 @@
 <li>树的根的儿子数在2和M之间。</li>
 <li>除根外，所有非树叶节点的儿子树在M/2（向上取整）和M之间。</li>
 <li>所有的树叶都在相同的深度上。</li>
-<li>每个节点存放至少2个，至多M个关键字。</li>
+<li>每个节点存放至少2个，至多M个关键字。<br><br></li>
 </ul>
-<p><br></p>
-<p>插入的过程中需要自动调层，下面是3阶B-树的完整插入过程。<br><br>插入18，<br><br>插入1，<br><br>插入19，<br><br><br>插入28，<br><br><br><br></p>
 <p>B-树深度最多是logM/2(N)向上取整，Insert和Delete操作复杂度为O(MlogM(N))，Find操作复杂度为O(logN)。<br><br></p>
 <h2 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B+树"></a>B+树</h2><p>B+树与B-树向比，增加了以下特性：</p>
 <ul>

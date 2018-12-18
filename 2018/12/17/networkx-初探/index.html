@@ -7,7 +7,7 @@
 <li><a href="#有向图">有向图</a><br><br></li>
 </ul>
 <p>在撰写论文的时候经常需要画类似网络连接图，networkx 是一个常用的网络分析包，我们使用它结合 matplotlib 来完成画图任务，下面介绍 networkx 的一些基本概念。</p>
-<h3 id="创建一个图"><a href="#创建一个图" class="headerlink" title="创建一个图"></a>创建一个图</h3><p>创建一个没有节点和边的图：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> networkx <span class="keyword">as</span> nx</div><div class="line">	&gt;&gt;&gt; G=nx.Graph()</div></pre></td></tr></table></figure></p>
+<h3 id="创建一个图"><a href="#创建一个图" class="headerlink" title="创建一个图"></a>创建一个图</h3><p>创建一个没有节点和边的图：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> networkx <span class="keyword">as</span> nx</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>G=nx.Graph()</div></pre></td></tr></table></figure></p>
 <p>在 networkx 中 nodes 可以是任何可哈希的对象，包括 string/image/xml/graph等。</p>
 <h3 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h3><p>向图中添加，读取节点有多种方式。</p>
 <p>常用的方式添加节点：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>G.add_node(<span class="number">1</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>G.add_nodes_from([<span class="number">2</span>,<span class="number">3</span>])</div></pre></td></tr></table></figure></p>

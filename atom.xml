@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-05-03T06:05:11.386Z</updated>
+  <updated>2020-05-03T15:39:12.854Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《Linux命令行大全》阅读笔记3</title>
+    <link href="http://yoursite.com/2020/05/03/%E3%80%8ALinux%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%A4%A7%E5%85%A8%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B03/"/>
+    <id>http://yoursite.com/2020/05/03/《Linux命令行大全》阅读笔记3/</id>
+    <published>2020-05-03T14:07:52.000Z</published>
+    <updated>2020-05-03T15:39:12.854Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、软件包管理"><a href="#一、软件包管理" class="headerlink" title="一、软件包管理"></a>一、软件包管理</h2><p>软件包管理是一种在系统上安装、维护软件的方法。可以通过 Lunux 经销商发布的软件包来安装，也可通过自行下载源代码，进行编译安装。<br><br></p><h5 id="软件包系统"><a href="#软件包系统" class="headerlink" title="软件包系统"></a>软件包系统</h5><p>不同的 Linux 发行版用的是不同的软件包系统，不同的软件包系统使用了不同的技术，即 Debian 的 .deb 技术和 Red Hat 的 .rpm 技术。下面列出了两个基本软件包系统：</p><ul><li>Debian 类（.deb 技术）：发行版本包括 ubuntu 等。</li><li>Red Hat 类（.rpm 技术）：发行版本包括 CentOS、Fedora、Red Hat 等。<br><br></li></ul><h4 id="软件包的工作方式"><a href="#软件包的工作方式" class="headerlink" title="软件包的工作方式"></a>软件包的工作方式</h4><p>软件包文件<br>一个压缩文件，包括安装文件、文本说明以及安装脚本等文件。</p><p>库<br>一个中心库或者第三方库包含了成千上万个软件包。</p><p>高级和低级软件工具<br>软件包管理系统通常包含两类工具————执行安装、删除软件包文件等任务的高级工具和进行元数据搜索及提供依赖性解决的低级工具。低级如 dpkg，rpm；高级如 apt-get，yum。<br><br></p><h4 id="常见软件包管理任务"><a href="#常见软件包管理任务" class="headerlink" title="常见软件包管理任务"></a>常见软件包管理任务</h4><p>在库里面查找软件包<br>下面的代码例子都以 Debian 系统为例。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; apt-get update</div><div class="line">&gt; apt-cache search search_string</div></pre></td></tr></table></figure><p>安装库中的软件包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; apt-get update</div><div class="line">&gt; apt-get install package_name</div></pre></td></tr></table></figure></p><p>安装软件包文件中的软件包<br>如果软件包文件并不是从库源中下载的，那么我们就可用低级工具直接安装。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; dpkg --install package_file</div></pre></td></tr></table></figure><p>删除软件包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; apt-get remove package_name</div></pre></td></tr></table></figure></p><p>更新库中的软件包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; apt-get update</div><div class="line">&gt; apt-get upgrade</div></pre></td></tr></table></figure></p><p>更新软件包文件的软件包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; dpkg --install package_name</div></pre></td></tr></table></figure></p><p>列出已安装的软件包列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; dpkg --list</div></pre></td></tr></table></figure></p><p>判断软件包是否已安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; dpkg --status package_name</div></pre></td></tr></table></figure></p><p>显示已安装软件包的相关信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; apt-cache show package_name</div></pre></td></tr></table></figure></p><p><br></p><h2 id="编译程序"><a href="#编译程序" class="headerlink" title="编译程序"></a>编译程序</h2><p>介绍如何通过源代码生成可执行程序。为什么要编译软件？有如下两个原因：</p><ul><li>库中的程序不能够满足用户的所有需求。</li><li>库中的版本不一定存在最新的版本。<br><br></li></ul><h4 id="什么是编译"><a href="#什么是编译" class="headerlink" title="什么是编译"></a>什么是编译</h4><p>编译是一个将源代码翻译成计算机处理器能够识别的语言的过程。</p><p>计算机的发展过程中经历了一下几个变化：</p><ol><li>机器语言（数值代码）</li><li>汇编语言</li><li>高级编程语言</li></ol><p>高级语言编写的程序通过编译器转换为机器语言，有些编译器将高级语言先转换为汇编语言，然后在把汇编语言转换为机器语言。</p><p>链接器程序可以实现编译器的输出与编译程序所需要的库之间的链接。该操作可以生成一个可执行文件。<br><br></p><h4 id="编译一个-C-程序"><a href="#编译一个-C-程序" class="headerlink" title="编译一个 C 程序"></a>编译一个 C 程序</h4><p>1.获取程序，如：diction-1.11.tar.gz<br>2.解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; tar -xzf diction-1.11.tar.gz</div></pre></td></tr></table></figure></p><p>3.生成程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; ./configure</div><div class="line">&gt; make</div><div class="line">&gt; make install</div></pre></td></tr></table></figure></p><p>4.查看程序是否可执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; which diction</div></pre></td></tr></table></figure></p><p><br><br>在上面的步骤中，每个步骤都做了什么呢，我们具体分析一下。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、软件包管理&quot;&gt;&lt;a href=&quot;#一、软件包管理&quot; class=&quot;headerlink&quot; title=&quot;一、软件包管理&quot;&gt;&lt;/a&gt;一、软件包管理&lt;/h2&gt;&lt;p&gt;软件包管理是一种在系统上安装、维护软件的方法。可以通过 Lunux 经销商发布的软件包来安装，也可通
+      
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>MySQL学习（一）安装环境</title>
@@ -461,29 +484,6 @@
     
     
       <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>igraph报错cannot_import_name_Graph/module_has_no_attribute_Graph</title>
-    <link href="http://yoursite.com/2018/03/31/igraph%E6%8A%A5%E9%94%99cannot-import-name-Graph-module-has-no-attribute-Graph/"/>
-    <id>http://yoursite.com/2018/03/31/igraph报错cannot-import-name-Graph-module-has-no-attribute-Graph/</id>
-    <published>2018-03-31T03:51:32.000Z</published>
-    <updated>2018-03-31T17:12:53.070Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在学习使用Python的igraph包进行网络分析，在使用igraph.Graph创建图的过程中，总是报错“module has no attribute Graph”，开始以为是windows不行，换了Linux，发现Linux同样不行，最后发现了原因，就是因为我把要运行的代码文件命名为了igraph.py，导致Python解释器认为我的igraph.py是一个模块，igraph.py当然没有Graph模块了，所以会报错。经过这次这个教训，我决定复习下Python的模块机制<br><br></p><h2 id="模块是程序"><a href="#模块是程序" class="headerlink" title="模块是程序"></a>模块是程序</h2><p>任何Python程序都可以作为模块导入。例如，你定义了一个hello.py文件，同时设置了环境变量，那么你就可以导入该模块。</p><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>sys.path.append(<span class="string">'/文件hello.py路径'</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> hello</div></pre></td></tr></table></figure><p>注意：导入模块“只导入一次”，导入模块并不意味着在导入时执行某些操作，它们主要用于定义，比如变量、函数、类。只导入一次可以避免导入的无线循环。<br><br></p><h2 id="模块用于定义"><a href="#模块用于定义" class="headerlink" title="模块用于定义"></a>模块用于定义</h2><p>模块在第一次导入到程序中时被执行。它们保持自己的作用域，其中定义的类、函数、变量都成为了模块的特性。</p><h4 id="在模块中定义函数"><a href="#在模块中定义函数" class="headerlink" title="在模块中定义函数"></a>在模块中定义函数</h4><p>如我在a.py中定义了helllo函数，同时在b.py中定义了hello函数，我们来看一看调用的区别。</p><p>a.py<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"a.py"</span></div></pre></td></tr></table></figure></p><p>b.py<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"b.py"</span></div></pre></td></tr></table></figure></p><p>体会模块保持自己的作用域<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> a <span class="keyword">import</span> *</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> b <span class="keyword">import</span> *</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>hello()</div><div class="line"><span class="comment"># 输出b.py，b覆盖了a</span></div></pre></td></tr></table></figure></p><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> a <span class="keyword">import</span> *</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> b <span class="keyword">import</span> *</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>a.hello()</div><div class="line"><span class="comment"># 输出a.py</span></div></pre></td></tr></table></figure><h4 id="在模块中增加测试代码"><a href="#在模块中增加测试代码" class="headerlink" title="在模块中增加测试代码"></a>在模块中增加测试代码</h4><p>我们可以设置模块本身是作为程序运行还是导入到其他程序。</p><p>为此，我们可以使用Python中的变量<strong>name</strong>，在“主程序”（包括解释器的交互提示符在内）中，变量<strong>name</strong>的值是”<strong>main</strong>“，而在导入的模块中，这个值被设定为模块的名字。</p><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"Hello world!"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></div><div class="line">    hello()</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>: test()</div></pre></td></tr></table></figure><p><br></p><h2 id="让你的模块可用"><a href="#让你的模块可用" class="headerlink" title="让你的模块可用"></a>让你的模块可用</h2><p>导入模块，执行程序时，解释器在sys.path的路径列表中查找模块。有两种方式可以让你的模块被查找。</p><p>1.将模块放置在合适的位置，只需要找出Python解释器在哪里查找模块。可以将模块放到下面输出位置中。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys, pprint</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>pprint.pprint(sys.path)</div><div class="line">[<span class="string">'C:\\Python27\\Lib'</span>,</div><div class="line"><span class="string">'xxx'</span></div><div class="line"><span class="string">'xxx'</span></div><div class="line">]</div></pre></td></tr></table></figure></p><p>2.在PYTHONPATH环境变量中包含模块所在目录。</p><p>3.临时解决方案：sys.pat.append(“/xxx”)</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近在学习使用Python的igraph包进行网络分析，在使用igraph.Graph创建图的过程中，总是报错“module has no 
-      
-    
-    </summary>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
     
   </entry>
   

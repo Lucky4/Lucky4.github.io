@@ -35,13 +35,13 @@
 <p>高级语言编写的程序通过编译器转换为机器语言，有些编译器将高级语言先转换为汇编语言，然后在把汇编语言转换为机器语言。</p>
 <p>链接器程序可以实现编译器的输出与编译程序所需要的库之间的链接。该操作可以生成一个可执行文件。<br><br></p>
 <h4 id="编译一个-C-程序"><a href="#编译一个-C-程序" class="headerlink" title="编译一个 C 程序"></a>编译一个 C 程序</h4><p>1.获取程序，如：diction-1.11.tar.gz<br>2.解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; tar -xzf diction-1.11.tar.gz</div></pre></td></tr></table></figure></p>
-<p>3.生成程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; ./configure</div><div class="line">&gt; make</div><div class="line">&gt; make install</div></pre></td></tr></table></figure></p>
+<p>3.生成程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; ./configure</div><div class="line">&gt; make</div><div class="line">&gt; sudo make install</div></pre></td></tr></table></figure></p>
 <p>4.查看程序是否可执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; which diction</div></pre></td></tr></table></figure></p>
 <p><br><br>在上面的步骤中，每个步骤都做了什么呢，我们具体分析一下。</p>
 <ol>
 <li>configure 程序其实是源代码树下的一个 shell 脚本，它的任务就是分析生成环境，适应不同的环境来生成可执行程序，同时还会校验当前系统是否安装了必要的外部工具和组件。</li>
-<li>Makefile 是 configure 在源目录生成的文件，描述了生成最后可执行程序时的各部件之间的联系及依赖关系，它的作用是指导 make 命令如何生成可执行成的配置文件。</li>
-<li>make 程序的作用其实就是输入 Makefile 。</li>
+<li>Makefile 是 configure 在源目录生成的文件，描述了生成最后可执行程序时的各部件之间的联系及依赖关系，它的作用是指导 make 命令如何生成可执行成的配置文件, make 是 Linux 提供的一个程序，该程序的作用其实就是输入 Makefile 编译最终的程序。</li>
+<li>打包好的源代码一般包含一个特殊的 make 目标程序，它便是 install（install 是在当前 make 文件夹下生成的目标文件），该目标程序将会在系统目录下安装最后生成的可执行程序，通常会主动安装在 /usr/local/bin 目录下，为了获得执行权限，需要使用 sudo 命令来运行安装可执行程序。</li>
 </ol>
 <p>补充：make 会生成需要生成的文件，如果没有改动，就不会执行任何操作。可用于维护目标文件的更新。</p>
 </div></article></div></main><footer><div class="paginator"><a href="/2020/05/04/《Linux命令行大全》阅读笔记2/" class="prev">PREV</a><a href="/2020/05/03/MySQL学习（一）安装环境/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

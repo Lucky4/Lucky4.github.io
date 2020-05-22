@@ -37,14 +37,14 @@
 <h4 id="编译一个-C-程序"><a href="#编译一个-C-程序" class="headerlink" title="编译一个 C 程序"></a>编译一个 C 程序</h4><p>1.获取程序，如：diction-1.11.tar.gz<br>2.解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; tar -xzf diction-1.11.tar.gz</div></pre></td></tr></table></figure></p>
 <p>3.生成程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; ./configure</div><div class="line">&gt; make</div><div class="line">&gt; sudo make install</div></pre></td></tr></table></figure></p>
 <p>4.查看程序是否可执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; which diction</div></pre></td></tr></table></figure></p>
-<p><br><br>在上面的步骤中，每个步骤都做了什么呢，我们具体分析一下。</p>
+<p>在上面的步骤中，每个步骤都做了什么呢，我们具体分析一下。</p>
 <ol>
 <li>configure 程序其实是源代码树下的一个 shell 脚本，它的任务就是分析生成环境，适应不同的环境来生成可执行程序，同时还会校验当前系统是否安装了必要的外部工具和组件。</li>
 <li>Makefile 是 configure 在源目录生成的文件，描述了生成最后可执行程序时的各部件之间的联系及依赖关系，它的作用是指导 make 命令如何生成可执行成的配置文件, make 是 Linux 提供的一个程序，该程序的作用其实就是输入 Makefile 编译最终的程序。</li>
 <li>打包好的源代码一般包含一个特殊的 make 目标程序，它便是 install（install 是在当前 make 文件夹下生成的目标文件），该目标程序将会在系统目录下安装最后生成的可执行程序，通常会主动安装在 /usr/local/bin 目录下，为了获得执行权限，需要使用 sudo 命令来运行安装可执行程序。</li>
 </ol>
 <p>补充：make 会生成需要生成的文件，如果没有改动，就不会执行任何操作。可用于维护目标文件的更新。<br><br></p>
-<h2 id="三、文件搜索和grep"><a href="#三、文件搜索和grep" class="headerlink" title="三、文件搜索和grep"></a>三、文件搜索和grep</h2><p>在日常的 Linux 操作中，常常需要搜索文件或者匹配一些文件或内容，这就需要几个常用的搜索命令，主要包括 find、grep 等，接下来详细介绍下使用。</p>
+<h2 id="三、文件搜索和grep"><a href="#三、文件搜索和grep" class="headerlink" title="三、文件搜索和grep"></a>三、文件搜索和grep</h2><p>在日常的 Linux 操作中，常常需要搜索文件或者匹配一些文件或内容，这就需要几个常用的搜索命令，主要包括 find、grep 等，接下来详细介绍下使用。<br><br></p>
 <h4 id="文件搜索"><a href="#文件搜索" class="headerlink" title="文件搜索"></a>文件搜索</h4><p><code>locate</code> 命令，通过快速搜索数据库，寻找路径名与给定字符串相匹配的文件。</p>
 <p>查找 bin 目录下，以 zip 开头的程序。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; locate bin/zip</div></pre></td></tr></table></figure></p>
 <p>补充：locate 的数据库的内容是通过每天的定时任务获得，不保证实时性，为了实时更新，可以手动执行 updatedb 程序。</p>
@@ -79,7 +79,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; find ~ -type f -name &quot;foo*&quot; -ok ls -l &apos;&#123;&#125;&apos; &apos;;&apos;</div></pre></td></tr></table></figure>
 <p>其中，{} 花括号代表的是当前路径，分号为必须得分隔符表示命令结束。该例子中每次找到匹配的文件后执行 ls -l 命令，-ok 会在执行前询问。</p>
 <p>该命令的缺点就是匹配到文件后就会执行一次命令，用户更希望只调用一次就完成所有操作。可以使用 xargs 来提高效率。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; find ~ -type f -name &quot;foo*&quot; -print | xargs ls -l</div></pre></td></tr></table></figure></p>
-<p>find 命令执行结果直接作为 xargs 输入，xargs 将其转化为 ls 命令的输入参数列表，执行 ls 操作。在 xargs 命令后添加 –show-limits 可查看最大输入参数数量。</p>
+<p>find 命令执行结果直接作为 xargs 输入，xargs 将其转化为 ls 命令的输入参数列表，执行 ls 操作。在 xargs 命令后添加 –show-limits 可查看最大输入参数数量。<br><br></p>
 <h4 id="grep文本搜索"><a href="#grep文本搜索" class="headerlink" title="grep文本搜索"></a>grep文本搜索</h4><p><code>grep</code>名字源于“global regular expression print”，grep 搜索文本文件中与指定正则表达式匹配的行，并将结果送至标准输出。</p>
 <p>语法：<br>grep [optins] regex [file…]</p>
 <p>grep 常用选：</p>

@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 《MySQL必知必会》阅读笔记 · Lucky4</title><meta name="description" content="《MySQL必知必会》阅读笔记 - Lucky4"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Lucky4"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">《MySQL必知必会》阅读笔记</h1><div class="post-info">May 22, 2020</div><div class="post-content"><ul>
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 《MySQL必知必会》阅读笔记 · Lucky4</title><meta name="description" content="《MySQL必知必会》阅读笔记 - Lucky4"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Lucky4"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">《MySQL必知必会》阅读笔记</h1><div class="post-info">May 22, 2020</div><div class="post-content"><p>目录：</p>
+<ul>
 <li><a href="#4-检索数据">4 检索数据</a><ul>
 <li><a href="#检索不同的行">检索不同的行</a></li>
 <li><a href="#限制结果">限制结果</a></li>
@@ -28,16 +29,23 @@
 <li><a href="#组合聚集函数">组合聚集函数</a></li>
 </ul>
 </li>
-<li><p><a href="#13-分组数据">13 分组数据</a></p>
-<ul>
+<li><a href="#13-分组数据">13 分组数据</a><ul>
 <li><a href="#创建分组">创建分组</a></li>
 <li><a href="#过滤分组">过滤分组</a></li>
 <li><a href="#分组和排序">分组和排序</a></li>
 <li><a href="#SELECT-子句顺序">SELECT 子句顺序</a></li>
 </ul>
 </li>
-<li><p><a href="#22-使用视图">22 使用视图</a></p>
-<ul>
+<li><a href="#14-使用子查询">14 使用子查询</a><ul>
+<li><a href="#利用子查询进行过滤">利用子查询进行过滤</a></li>
+<li><a href="#作为计算字段使用子查询">作为计算字段使用子查询</a></li>
+</ul>
+</li>
+<li><a href="#15-联结">15 联结</a><ul>
+<li><a href="#创建联结">创建联结</a></li>
+</ul>
+</li>
+<li><a href="#22-使用视图">22 使用视图</a><ul>
 <li><a href="#视图">视图</a></li>
 <li><a href="#使用视图">使用视图</a></li>
 </ul>
@@ -62,15 +70,7 @@
 <p>对 prod_price 降序，对 prod_name 升序。</p>
 <p>ORDER BY 位于 FROM 之后，LIMIT 之前。</p>
 <p><br></p>
-<h2 id="6-过滤数据"><a href="#6-过滤数据" class="headerlink" title="6 过滤数据"></a>6 过滤数据</h2><p>WHERE 子句的操作符：</p>
-<ul>
-<li>=</li>
-<li>&lt;&gt;</li>
-<li>!= </li>
-<li>&lt;</li>
-<li>&lt;=</li>
-<li>BETWEEN</li>
-</ul>
+<h2 id="6-过滤数据"><a href="#6-过滤数据" class="headerlink" title="6 过滤数据"></a>6 过滤数据</h2><p>WHERE 子句的操作符：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- =</div><div class="line">- &lt;&gt;</div><div class="line">- != </div><div class="line">- &lt;</div><div class="line">- &lt;=</div><div class="line">- BETWEEN</div></pre></td></tr></table></figure></p>
 <h4 id="空值检查"><a href="#空值检查" class="headerlink" title="空值检查"></a>空值检查</h4><p>在建表时,表设计人员可以指定其中的列是否可以不包含。在一个列不包含值时,称其为包含空值 <code>NULL</code>。</p>
 <p>可以使用 IS NULL 子句来判断：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> prod_name</div><div class="line"><span class="keyword">FROM</span> products</div><div class="line"><span class="keyword">WHERE</span> prod_price <span class="keyword">IS</span> <span class="literal">NULL</span>;</div></pre></td></tr></table></figure></p>
 <p><br></p>
@@ -109,7 +109,38 @@
 <p><br></p>
 <h2 id="13-分组数据"><a href="#13-分组数据" class="headerlink" title="13 分组数据"></a>13 分组数据</h2><p>如果要查询每个产品的供应商供应数目，WHERE 子句不能满足要求，可以使用分组，把数据分成多个逻辑组，对每个组进行计算。</p>
 <h4 id="创建分组"><a href="#创建分组" class="headerlink" title="创建分组"></a>创建分组</h4><p>分组使用 <code>GROUP BY</code> 子句。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> vend_id, <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> num_prods</div><div class="line"><span class="keyword">FROM</span> products</div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> vend_id;</div></pre></td></tr></table></figure></p>
-<h4 id="过滤分组"><a href="#过滤分组" class="headerlink" title="过滤分组"></a>过滤分组</h4><h4 id="分组和排序"><a href="#分组和排序" class="headerlink" title="分组和排序"></a>分组和排序</h4><h4 id="SELECT-子句顺序"><a href="#SELECT-子句顺序" class="headerlink" title="SELECT 子句顺序"></a>SELECT 子句顺序</h4><p><br></p>
+<p>使用 GROUP BY 子句的一些重要规定：</p>
+<ul>
+<li>GROUP BY 子句中列出的每个列必须是检索列或有效表达式。如果在 SELECT 中使用表达式，则必须在 GROUP BY 子句中指定相同的表达式，不能使用别名。</li>
+<li>除聚集计算外，SELECT 语句中的每个列都必须在 GROUP BY 子句给出。</li>
+<li>如果分组中具有 NULL 值，则 NULL 将作为一个分组返回，如果列中有多行 NULL 值，它们将分为一组。</li>
+<li>GROUP BY 子句必须出现在 WHERE 子句之后，ORDER BY 子句之前。</li>
+</ul>
+<h4 id="过滤分组"><a href="#过滤分组" class="headerlink" title="过滤分组"></a>过滤分组</h4><p>使用 <code>HAVING</code> 过滤分组。WHERE 过滤行，HAVING 过滤分组。</p>
+<p>HAVING 和 WHERE 的区别，WHERE 在分组前进行过滤，HAVING 在分组后进行过滤。</p>
+<p>一个例子，过滤 12 个月内两个以上的订单的顾客：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> vend_id, <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> num_prods</div><div class="line"><span class="keyword">FROM</span> products</div><div class="line"><span class="keyword">WHERE</span> prod_price &gt;= <span class="number">10</span></div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> vend_id</div><div class="line"><span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(*) &gt;=<span class="number">2</span>;</div></pre></td></tr></table></figure></p>
+<h4 id="分组和排序"><a href="#分组和排序" class="headerlink" title="分组和排序"></a>分组和排序</h4><p>GROUP BY 具有排序功能，但如果是有排序需求的话，必须加上 ORDER BY。</p>
+<h4 id="SELECT-子句顺序"><a href="#SELECT-子句顺序" class="headerlink" title="SELECT 子句顺序"></a>SELECT 子句顺序</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1. <span class="keyword">SELECT</span></div><div class="line"><span class="number">2.</span> <span class="keyword">FROM</span></div><div class="line"><span class="number">3.</span> <span class="keyword">WHERE</span></div><div class="line"><span class="number">4.</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span></div><div class="line"><span class="number">5.</span> <span class="keyword">HAVING</span></div><div class="line"><span class="number">6.</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span></div><div class="line"><span class="number">7.</span> <span class="keyword">LIMIT</span></div></pre></td></tr></table></figure>
+<p><br></p>
+<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><p>子查询即嵌套在其他查询中的查询。</p>
+<h4 id="利用子查询进行过滤"><a href="#利用子查询进行过滤" class="headerlink" title="利用子查询进行过滤"></a>利用子查询进行过滤</h4><p>一个例子，列出订购物品 TNT2 的所有客户：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> cust_id</div><div class="line"><span class="keyword">FROM</span> orders</div><div class="line"><span class="keyword">WHERE</span> order_num <span class="keyword">IN</span> (<span class="keyword">SELECT</span> order_num</div><div class="line">                    <span class="keyword">FROM</span> orderitems</div><div class="line">                    <span class="keyword">WHERE</span> prod_id = <span class="string">'TNT2'</span>);</div></pre></td></tr></table></figure></p>
+<p>查询由内向外进行处理。</p>
+<h4 id="作为计算字段使用子查询"><a href="#作为计算字段使用子查询" class="headerlink" title="作为计算字段使用子查询"></a>作为计算字段使用子查询</h4><p>一个例子，求 customers 表中每个客户的订单总数。订单与客户id 存储在 order 表中。</p>
+<p>首先对客户 10001 的订单进行计数：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*)</div><div class="line"><span class="keyword">FROM</span> orders</div><div class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10001</span>;</div></pre></td></tr></table></figure></p>
+<p>为了对每个客户执行 COUNT(<em>) 计算,应该将 COUNT(</em>) 作为一个字查询:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> cust_name,</div><div class="line">       cust_state,</div><div class="line">       (<span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*)</div><div class="line">        <span class="keyword">FROM</span> orders</div><div class="line">        <span class="keyword">WHERE</span> orders.cust_id = customers.cust_id) <span class="keyword">AS</span> orders</div><div class="line"><span class="keyword">FROM</span> customers</div><div class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> cust_name;</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="联结表"><a href="#联结表" class="headerlink" title="联结表"></a>联结表</h2><p>联结是一种机制，用来在一条 SELECT 语句中关联表，可以联结多个表返回一组输出。</p>
+<p>联结在实际的数据库表中不存在，存在于查询的执行当中。</p>
+<h4 id="创建联结"><a href="#创建联结" class="headerlink" title="创建联结"></a>创建联结</h4><p>创建一个简单联结：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> vend_name, prod_name, prod_price</div><div class="line"><span class="keyword">FROM</span> vendors, products</div><div class="line"><span class="keyword">WHERE</span> vendors.vend_id = products.vend_id</div><div class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> vend_name, prod_name;</div></pre></td></tr></table></figure></p>
+<p>注意 SQL 语句中 WHERE 子句的重要性，如果没有 WHERE 子句，那么将会导致笛卡尔积数量的结果。</p>
+<p>内联结：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> vend_name, prod_name, prod_price</div><div class="line"><span class="keyword">FROM</span> vendors <span class="keyword">INNER</span> <span class="keyword">JOIN</span> products</div><div class="line"><span class="keyword">ON</span> vendors.vend_id = products.vend_id;</div></pre></td></tr></table></figure></p>
+<p>相比上面的查询，具有明确的语法，联结条件使用 ON 子句而不是使用 WHERE。</p>
+<p><em>表联结和子查询可以实现相同的功能。</em></p>
+<p><br></p>
+<h2 id="创建高级联结"><a href="#创建高级联结" class="headerlink" title="创建高级联结"></a>创建高级联结</h2><h4 id="自联结"><a href="#自联结" class="headerlink" title="自联结"></a>自联结</h4><p>使用表别名的原因是能在单条 SELECT 语句中不止一次引用相同的表。</p>
+<p>如果物品（ID 为 DTNTR）存在问题，想知道该供应商的其它物品是否有问题。可以使用如下子查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> prod_id, prod_name</div><div class="line"><span class="keyword">FROM</span> products</div><div class="line"><span class="keyword">WHERE</span> vend_id = (<span class="keyword">SELECT</span> vend_id</div><div class="line">                 <span class="keyword">FROM</span> products</div><div class="line">                 <span class="keyword">WHERE</span> prod_id = <span class="string">'DTNTR'</span>);</div></pre></td></tr></table></figure></p>
+<p>使用自联结同样可以实现该查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> p1.prod_id, p1.prod_name</div><div class="line"><span class="keyword">FROM</span> products <span class="keyword">AS</span> p1, products <span class="keyword">AS</span> p2</div><div class="line"><span class="keyword">WHERE</span> p1.vend_id = p2.vend_id</div><div class="line">  <span class="keyword">AND</span> p2.prod_id = <span class="string">'DTNTR'</span>;</div></pre></td></tr></table></figure></p>
+<p><br></p>
 <h2 id="22-使用视图"><a href="#22-使用视图" class="headerlink" title="22 使用视图"></a>22 使用视图</h2><p>视图是虚拟的表。只包含使用时动态检索数据的查询。</p>
 <h4 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h4><p>一个例子，可以把如下查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> cust_name, cust_contact</div><div class="line"><span class="keyword">FROM</span> customers, orders, orderitems</div><div class="line"><span class="keyword">WHERE</span> customers.cust_id = orders.cust_id</div><div class="line">  <span class="keyword">AND</span> orderitems.order_num = order.order_num</div><div class="line">  <span class="keyword">AND</span> prod_id = <span class="string">'abc'</span>;</div></pre></td></tr></table></figure></p>
 <p>包装为一个名为 productcustomers 的虚拟表：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> cust_name, cust_contact</div><div class="line"><span class="keyword">FROM</span> productcustomers</div><div class="line"><span class="keyword">WHERE</span> prod_id = <span class="string">'abc'</span>;</div></pre></td></tr></table></figure></p>
@@ -132,10 +163,7 @@
 <li>视图不能索引。</li>
 <li>可以和表一起使用。</li>
 </ul>
-<h4 id="使用视图"><a href="#使用视图" class="headerlink" title="使用视图"></a>使用视图</h4><p>利用视图简化复杂的联结：</p>
-<p>利用视图格式化检索的数据：</p>
-<p>利用视图过滤不想要的数据：</p>
-<p>使用视图与计算字段：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> orderitemsexpanded <span class="keyword">AS</span></div><div class="line"><span class="keyword">SELECT</span> order_num,</div><div class="line">       prod_id,</div><div class="line">       quantity,</div><div class="line">       item_price,</div><div class="line">       quantity * item_price <span class="keyword">AS</span> expanded_price</div><div class="line"><span class="keyword">FROM</span> orderitems;z</div></pre></td></tr></table></figure></p>
+<h4 id="使用视图"><a href="#使用视图" class="headerlink" title="使用视图"></a>使用视图</h4><p>使用视图与计算字段：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> orderitemsexpanded <span class="keyword">AS</span></div><div class="line"><span class="keyword">SELECT</span> order_num,</div><div class="line">       prod_id,</div><div class="line">       quantity,</div><div class="line">       item_price,</div><div class="line">       quantity * item_price <span class="keyword">AS</span> expanded_price</div><div class="line"><span class="keyword">FROM</span> orderitems;</div></pre></td></tr></table></figure></p>
 <p>使用：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> *</div><div class="line"><span class="keyword">FROM</span> orderitemsexpanded</div><div class="line"><span class="keyword">WHERE</span> order_num = <span class="number">25</span>;</div></pre></td></tr></table></figure></p>
 <p>更新视图，视图可更新，会对基表进行操作。</p>
 <p><br></p>

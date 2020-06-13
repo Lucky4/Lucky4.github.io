@@ -1,13 +1,66 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 《高性能的MySQL》阅读笔记 · Lucky4</title><meta name="description" content="《高性能的MySQL》阅读笔记 - Lucky4"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Lucky4"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">《高性能的MySQL》阅读笔记</h1><div class="post-info">Jun 6, 2020</div><div class="post-content"><h1 id="MySQL-架构与历史"><a href="#MySQL-架构与历史" class="headerlink" title="MySQL 架构与历史"></a>MySQL 架构与历史</h1><h2 id="MySQL-逻辑架构"><a href="#MySQL-逻辑架构" class="headerlink" title="MySQL 逻辑架构"></a>MySQL 逻辑架构</h2><p>MySQL 逻辑架构图：<br><img src="/2020/06/06/《高性能的MySQL》阅读笔记/MySQL逻辑架构.jpg" alt="MySQL逻辑架构" title="MySQL逻辑架构"></p>
-<p>最上层的服务负责连接管理，授权认证，安全等。</p>
-<p>第二层包含了 MySQL 的核心功能。包括：解析、分析、优化、缓存及所有内置函数（日期，时间等），跨存存储引擎功能：存储过程、触发器、视图等。</p>
-<p>第三层包含了存储引擎。存储迎请类似 UNIX 的文件系统，服务器通过 API 与存储引擎通信。存储引擎 API 包含了几十个底层函数，用于执行如：“开始一个事务”，“根据主键提取一行记录”等操作。存储引擎不解析 SQL 。</p>
-<h5 id="连接管理与安全"><a href="#连接管理与安全" class="headerlink" title="连接管理与安全"></a>连接管理与安全</h5><p>每个客户端连接都会在服务器进程拥有一个线程，这个连接的查询只会在这个单独的线程中执行。服务器会缓存线程或使用线程池，无需手动销毁每个连接的线程。</p>
-<h5 id="优化与执行"><a href="#优化与执行" class="headerlink" title="优化与执行"></a>优化与执行</h5><p>MySQL 会解析查询，并创建内部数据结构（解析树），然后对其进行各种优化，包括重写查询，表读取顺序，选择合适的索引等。</p>
-<h2 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h2><p>无论何时，只要有多个查询需要在同一时刻修改数据，都会产生并发控制问题。MySQL 在两个层面对并发控制进行了处理：服务器层和存储引擎层，接下来主要讨论 MySQL 如何控制并发读写。</p>
-<h5 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h5><p>在处理并发读写时，可以通过实现一个由两种类型的锁组成的锁系统来解决问题。即共享锁和排他锁，又称读锁和写锁。</p>
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 《高性能的MySQL》阅读笔记 · Lucky4</title><meta name="description" content="《高性能的MySQL》阅读笔记 - Lucky4"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Lucky4"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">《高性能的MySQL》阅读笔记</h1><div class="post-info">Jun 6, 2020</div><div class="post-content"><p>目录：</p>
+<ul>
+<li><a href="#1-MySQL-架构与历史">1 MySQL 架构与历史</a><ul>
+<li><a href="#MySQL-逻辑架构">MySQL 逻辑架构</a></li>
+<li><a href="#并发控制">并发控制</a></li>
+<li><a href="#事务">事务</a></li>
+<li><a href="#死锁">死锁</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="1-MySQL-架构与历史"><a href="#1-MySQL-架构与历史" class="headerlink" title="1 MySQL 架构与历史"></a>1 MySQL 架构与历史</h2><h4 id="MySQL-逻辑架构"><a href="#MySQL-逻辑架构" class="headerlink" title="MySQL 逻辑架构"></a>MySQL 逻辑架构</h4><p>MySQL 逻辑架构图：<br><img src="/2020/06/06/《高性能的MySQL》阅读笔记/MySQL逻辑架构.jpg" alt="MySQL逻辑架构" title="MySQL逻辑架构"></p>
+<ul>
+<li><p>最上层的服务负责连接管理，授权认证，安全等。</p>
+</li>
+<li><p>第二层包含了 MySQL 的核心功能。包括：解析、分析、优化、缓存及所有内置函数（日期，时间等），跨存存储引擎功能：存储过程、触发器、视图等。</p>
+</li>
+<li><p>第三层包含了存储引擎。存储迎请类似 UNIX 的文件系统，服务器通过 API 与存储引擎通信。存储引擎 API 包含了几十个底层函数，用于执行如：“开始一个事务”，“根据主键提取一行记录”等操作。存储引擎不解析 SQL 。</p>
+</li>
+</ul>
+<p><strong>连接管理与安全</strong><br>每个客户端连接都会在服务器进程拥有一个线程，这个连接的查询只会在这个单独的线程中执行。服务器会缓存线程或使用线程池，无需手动销毁每个连接的线程。</p>
+<p><strong>优化与执行</strong><br>MySQL 会解析查询，并创建内部数据结构（解析树），然后对其进行各种优化，包括重写查询，表读取顺序，选择合适的索引等。</p>
+<p><br></p>
+<h4 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h4><p>无论何时，只要有多个查询需要在同一时刻修改数据，都会产生并发控制问题。MySQL 在两个层面对并发控制进行了处理：服务器层和存储引擎层，接下来主要讨论 MySQL 如何控制并发读写。</p>
+<p><strong>读写锁</strong><br>在处理并发读写时，可以通过实现一个由两种类型的锁组成的锁系统来解决问题。即共享锁和排他锁，又称读锁和写锁。</p>
 <p>读锁是共享的，写锁是排他的，会阻塞其他写锁和读锁。</p>
-<h5 id="锁粒度"><a href="#锁粒度" class="headerlink" title="锁粒度"></a>锁粒度</h5><p>一种提高共享资源并发性的方式就是让锁定的对象更有选择性。尽量只锁定需要修改的部分，而不是锁住所有资源。锁定的数据量越少，系统的并发程度越高。</p>
+<p><strong>锁粒度</strong><br>一种提高共享资源并发性的方式就是让锁定的对象更有选择性。尽量只锁定需要修改的部分，而不是锁住所有资源。锁定的数据量越少，系统的并发程度越高。</p>
 <p>但加锁也需要消耗资源。锁的各种操作如：获得锁、检查锁是否已经解除、释放锁等，都会增加开销。</p>
-<p>所谓锁策略</p>
+<p>所谓锁策略，就是在锁的开销和数据的安全性之间寻求平衡。大多数商业数据库一般都会在表上施加行级锁。MySQL 的多种存储引擎都可以实现自己的锁策略和锁粒度。</p>
+<p><strong>表锁</strong><br>MySQL 中最基本的，开销最小的锁策略。用户在进行写操作是需获得写锁，阻塞其他用户对该表的读写操作。没有写锁才能获得读锁，读锁之间不相互阻塞。</p>
+<p>MySQL 服务器在执行 ALTER TABLE 之类的语句时会使用表锁。</p>
+<p><strong>行级锁</strong><br>行级锁可以最大程度地支持并发处理，同时开销最大。行级锁只在存储引擎层实现，MySQL 服务器没有实现。</p>
+<p><br></p>
+<h4 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h4><p>事务就是一组原子性的 SQL 查询。事务的 4 个特性包括：</p>
+<ol>
+<li><code>原子性（atomicity）</code></li>
+<li><code>一致性（consistency）</code></li>
+<li><code>隔离性（isolation）</code></li>
+<li><code>持久性（durability）</code></li>
+</ol>
+<p><strong>隔离级别</strong><br>在 SQL 标准定义了四种隔离级别，每一种隔离级别都规定了一个事务中所做的修改，哪些事务是可见的，哪些是不可见的。较低的隔离级别通常可以执行更高的并发，系统的开销更低。标准的 4 种隔离级别如下：</p>
+<ol>
+<li><code>READ UNCOMMITTED(未提交读)</code>：在该隔离级别下，事务中的修改，即使没有提交，对其他事务也是可见的。会产生脏读问题。</li>
+<li><code>READ COMMITTED(提交读)</code>：一个事务从开始到提交之前，所做的任何修改对其他事务都是不可见的。会产生不可重复读问题。</li>
+<li><code>REPEATABLE READ(可重复读)</code>：该级别保证了同一个事务多次读取同样记录的结果是一样的。会产生幻读问题。</li>
+<li><code>SERIALIZABLE(可串行化)</code>：在读取数据的每一行都加锁。<img src="/2020/06/06/《高性能的MySQL》阅读笔记/隔离级别导致问题.jpg" alt="MySQL逻辑架构" title="MySQL逻辑架构">
+</li>
+</ol>
+<p><code>脏读</code>：事务可以读取未提交的数据。<br><code>不可重复读</code>：执行两次相同的查询，可能会得到不同的结果。<br><code>幻读</code>：事务1读取了某个范围的数据，事务2在该范围又插入了数据，事务1再次读取该范围数据时会产生换行。InnDB 等存储引擎通过 MVCC 解决了该问题。</p>
+<p><br></p>
+<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><p>死锁指两个或多个事务在同一资源上相互占用，并请求锁定对方占用的资源，从而导致的恶性循环现象。多个事务以不同的顺序锁定资源时，就可能产生死锁，多个事务同时锁定一个资源时也会产生死锁。</p>
+<p>死锁的例子：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">事务1</div><div class="line"><span class="keyword">START</span> <span class="keyword">TRANSACTION</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">45.50</span> <span class="keyword">WHERE</span> stock_id = <span class="number">4</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">19.80</span> <span class="keyword">WHERE</span> stock_id = <span class="number">3</span>;</div><div class="line"></div><div class="line">事务2</div><div class="line"><span class="keyword">START</span> <span class="keyword">TRANSACTION</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">20.12</span> <span class="keyword">WHERE</span> stock_id = <span class="number">3</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">47.20</span> <span class="keyword">WHERE</span> stock_id = <span class="number">4</span>;</div></pre></td></tr></table></figure></p>
+<p>此时，陷入了死循环，只有外部因素接触才可能接触死锁。</p>
+<p>为了解决这个问题，数据库系统实现了死锁检测和死锁超时机制。InnoDB 检测到死锁后能立即返回一个错误，并将持有最少行排他锁的事务进行回滚。</p>
+<p>事务型的系统，死锁时不可避免的，程序的设计时应考虑如何处理死锁。</p>
+<p><strong>事务日志</strong><br><br>事务日志可以帮忙提高事务的效率。特点：</p>
+<ul>
+<li>修改行为记录到日志。</li>
+<li>写日志采用顺序 I/O，而非随机 I/O。</li>
+<li>事务日志持久化后，后台慢慢刷回磁盘</li>
+<li>称为预写日志（Write-Ahead Logging），修改数据写两次磁盘。</li>
+</ul>
+<p><strong>MySQL 中的事务</strong><br><br>自动提交（<code>AUTOINCREMENT</code>）：MySQL 默认采用，每个查询都被当做一个事务执行提交。</p>
+<p>查看并设置自动提交模式：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; SHOW VARIABLES LIKE 'AUTOCONMMIT'</div><div class="line">&gt; SET AUTOCOMMIT = 1;</div></pre></td></tr></table></figure></p>
+<p>设置事务的隔离级别：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITABLE;</div></pre></td></tr></table></figure></p>
+<p><strong>隐式和显示锁定</strong><br><br>InooDB 采用两阶段锁定协议。事务在执行过程中随时可能会锁定，只有在 COMMIT 或 ROLLBACK 的时候才会释放，所有锁都会释放。<br>InnoDB 的显式锁定：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; SELECT ... LOCK IN SHARE MODE</div><div class="line">&gt; SELECT ... FOR UPDATE</div></pre></td></tr></table></figure></p>
 </div></article></div></main><footer><div class="paginator"><a href="/2020/05/30/小demo记录/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

@@ -45,7 +45,11 @@
 <li><code>SERIALIZABLE(可串行化)</code>：在读取数据的每一行都加锁。<img src="/2020/06/06/《高性能的MySQL》阅读笔记/隔离级别导致问题.jpg" alt="MySQL逻辑架构" title="MySQL逻辑架构">
 </li>
 </ol>
-<p><code>脏读</code>：事务可以读取未提交的数据。<br><code>不可重复读</code>：执行两次相同的查询，可能会得到不同的结果。<br><code>幻读</code>：事务1读取了某个范围的数据，事务2在该范围又插入了数据，事务1再次读取该范围数据时会产生换行。InnDB 等存储引擎通过 MVCC 解决了该问题。</p>
+<ul>
+<li><code>脏读</code>：事务可以读取未提交的数据。</li>
+<li><code>不可重复读</code>：执行两次相同的查询，可能会得到不同的结果。</li>
+<li><code>幻读</code>：事务1读取了某个范围的数据，事务2在该范围又插入了数据，事务1再次读取该范围数据时会产生换行。InnDB 等存储引擎通过 MVCC 解决了该问题。</li>
+</ul>
 <p><br></p>
 <h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><p>死锁指两个或多个事务在同一资源上相互占用，并请求锁定对方占用的资源，从而导致的恶性循环现象。多个事务以不同的顺序锁定资源时，就可能产生死锁，多个事务同时锁定一个资源时也会产生死锁。</p>
 <p>死锁的例子：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">事务1</div><div class="line"><span class="keyword">START</span> <span class="keyword">TRANSACTION</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">45.50</span> <span class="keyword">WHERE</span> stock_id = <span class="number">4</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">19.80</span> <span class="keyword">WHERE</span> stock_id = <span class="number">3</span>;</div><div class="line"></div><div class="line">事务2</div><div class="line"><span class="keyword">START</span> <span class="keyword">TRANSACTION</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">20.12</span> <span class="keyword">WHERE</span> stock_id = <span class="number">3</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">47.20</span> <span class="keyword">WHERE</span> stock_id = <span class="number">4</span>;</div></pre></td></tr></table></figure></p>

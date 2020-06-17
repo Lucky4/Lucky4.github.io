@@ -11,4 +11,25 @@
 <ul>
 <li>应用的名字不要和pyton的模块重名，比如 email 这种都会报错。</li>
 </ul>
-</div></article></div></main><footer><div class="paginator"><a href="/2020/06/06/《高性能的MySQL》阅读笔记/" class="prev">PREV</a><a href="/2020/05/22/《MySQL必知必会》阅读笔记/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+<h2 id="解决安装-MySQLdb-问题"><a href="#解决安装-MySQLdb-问题" class="headerlink" title="解决安装 MySQLdb 问题"></a>解决安装 MySQLdb 问题</h2><ol>
+<li>pip3 install PyMySQL</li>
+<li>修改 pymsql/<strong>init</strong>.py 中的内容，调用 install_as_MySQLdb() 函数</li>
+<li>在 python 的 site-package 包中创建 MySQLdb.py</li>
+<li>在 MySQLdb.py 中 import pymysql</li>
+</ol>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.zhihu.com/question/58175718" target="_blank" rel="external">https://www.zhihu.com/question/58175718</a></li>
+<li><a href="https://stackoverflow.com/questions/4960048/how-can-i-connect-to-mysql-in-python-3-on-windows?answertab=votes#tab-top" target="_blank" rel="external">https://stackoverflow.com/questions/4960048/how-can-i-connect-to-mysql-in-python-3-on-windows?answertab=votes#tab-top</a></li>
+</ul>
+<h2 id="MySQL-connetion-refused"><a href="#MySQL-connetion-refused" class="headerlink" title="MySQL connetion refused"></a>MySQL connetion refused</h2><p>修改 /etc/mysql/<em>*</em>/mysqld.cnf</p>
+<h2 id="调试刚写好的-Model"><a href="#调试刚写好的-Model" class="headerlink" title="调试刚写好的 Model"></a>调试刚写好的 Model</h2><ol>
+<li>先 export APP_CONFIG_FILE=<code>pwd</code>/config.py</li>
+<li>然后输入 python 进入 shell</li>
+<li>调用相关 model</li>
+</ol>
+<h2 id="发送邮件时总是无法登陆"><a href="#发送邮件时总是无法登陆" class="headerlink" title="发送邮件时总是无法登陆"></a>发送邮件时总是无法登陆</h2><ul>
+<li>改成SMTP_SSL发送</li>
+<li>端口改成465</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/06/06/《高性能的MySQL》阅读笔记/" class="prev">上一篇</a><a href="/2020/05/22/《MySQL必知必会》阅读笔记/" class="next">下一篇</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

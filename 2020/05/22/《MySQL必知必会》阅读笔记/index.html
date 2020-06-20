@@ -59,6 +59,13 @@
 <li><a href="#创建组合查询">创建组合查询</a></li>
 </ul>
 </li>
+<li><a href="#21-创建和操纵表">21 创建和操纵表</a><ul>
+<li><a href="#创建表">创建表</a></li>
+<li><a href="#更新表">更新表</a></li>
+<li><a href="#删除表">删除表</a></li>
+<li><a href="#重命名表">重命名表</a></li>
+</ul>
+</li>
 <li><a href="#22-使用视图">22 使用视图</a><ul>
 <li><a href="#视图">视图</a></li>
 <li><a href="#使用视图">使用视图</a></li>
@@ -182,6 +189,15 @@
 <p><code>UNION</code> 默认去重，如果不想去重，可以使用 <code>UNION ALL</code>。</p>
 <p>如果想对结果排序，可以在最后加 <code>ORDER BY</code>。</p>
 <p><br></p>
+<h2 id="创建和操纵表"><a href="#创建和操纵表" class="headerlink" title="创建和操纵表"></a>创建和操纵表</h2><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><p><strong>使用 NULL 值</strong><br><br>每列后添加 <code>NOT NULL</code> 关键字。</p>
+<p><strong>主键</strong><br><br>多个列也可以做为主键，但必须唯一。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">order</span></div><div class="line">(</div><div class="line">    order_num  <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">    order_item <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</div><div class="line">    PRIMARY <span class="keyword">KEY</span>(order_num, order_item)</div><div class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</div></pre></td></tr></table></figure></p>
+<p><strong>使用 AUTO_INCREMENT</strong><br><br>每执行 INSERT 操作后，会对该列自动增量，给出下一个可用的值。这样给每行唯一的一个 id ，可用作主键。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cust_id int NOT NULL AUTO_INCREMENT,</div></pre></td></tr></table></figure>
+<p>每个表只允许一个 <code>AUTO INCREMENT</code> 列，并且必须被索引（设置主键）。</p>
+<p>获得下一个可用的 id：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="keyword">last_insert_id</span>()</div></pre></td></tr></table></figure></p>
+<p><strong>指定默认值</strong><br>在 CREATE TABLE 语句的列定义中使用 <code>DEFAULT</code> 关键字。</p>
+<p><strong>引擎类型</strong><br>在建表语句 CREATE_TABLE 后添加，ENGINE=InnDB 。 </p>
+<p><br></p>
 <h2 id="22-使用视图"><a href="#22-使用视图" class="headerlink" title="22 使用视图"></a>22 使用视图</h2><p>视图是虚拟的表。只包含使用时动态检索数据的查询。</p>
 <h4 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h4><p>一个例子，可以把如下查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> cust_name, cust_contact</div><div class="line"><span class="keyword">FROM</span> customers, orders, orderitems</div><div class="line"><span class="keyword">WHERE</span> customers.cust_id = orders.cust_id</div><div class="line">  <span class="keyword">AND</span> orderitems.order_num = order.order_num</div><div class="line">  <span class="keyword">AND</span> prod_id = <span class="string">'abc'</span>;</div></pre></td></tr></table></figure></p>
 <p>包装为一个名为 productcustomers 的虚拟表：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> cust_name, cust_contact</div><div class="line"><span class="keyword">FROM</span> productcustomers</div><div class="line"><span class="keyword">WHERE</span> prod_id = <span class="string">'abc'</span>;</div></pre></td></tr></table></figure></p>
@@ -238,4 +254,4 @@
 <p>可以使用 UNION 代替 OR。</p>
 <p>索引改善查询的性能，伤害插入、删除的性能，不经常被搜索不需加索引。</p>
 <p>最重要，每条规则都在某些条件下会打破。</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2020/05/30/小demo记录/" class="prev">上一篇</a><a href="/2020/05/04/《Linux命令行大全》阅读笔记2/" class="next">下一篇</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/05/30/小demo记录/" class="prev">PREV</a><a href="/2020/05/04/《Linux命令行大全》阅读笔记2/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

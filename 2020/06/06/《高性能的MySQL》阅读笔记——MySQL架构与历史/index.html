@@ -22,6 +22,7 @@
 <p><strong>优化与执行</strong><br>MySQL 会解析查询，并创建内部数据结构（解析树），然后对其进行各种优化，包括重写查询，表读取顺序，选择合适的索引等。</p>
 <p><br></p>
 <h4 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h4><p>无论何时，只要有多个查询需要在同一时刻修改数据，都会产生并发控制问题。MySQL 在两个层面对并发控制进行了处理：服务器层和存储引擎层，接下来主要讨论 MySQL 如何控制并发读写。</p>
+<p><br></p>
 <p><strong>读写锁</strong><br>在处理并发读写时，可以通过实现一个由两种类型的锁组成的锁系统来解决问题。即共享锁和排他锁，又称读锁和写锁。</p>
 <p>读锁是共享的，写锁是排他的，会阻塞其他写锁和读锁。</p>
 <p><strong>锁粒度</strong><br>一种提高共享资源并发性的方式就是让锁定的对象更有选择性。尽量只锁定需要修改的部分，而不是锁住所有资源。锁定的数据量越少，系统的并发程度越高。</p>
@@ -68,6 +69,7 @@
 <p>查看并设置自动提交模式：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'AUTOCONMMIT'</span></div><div class="line"><span class="keyword">SET</span> AUTOCOMMIT = <span class="number">1</span>;</div></pre></td></tr></table></figure></p>
 <p>设置事务的隔离级别：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SET</span> <span class="keyword">SESSION</span> <span class="keyword">TRANSACTION</span> <span class="keyword">ISOLATION</span> <span class="keyword">LEVEL</span> <span class="keyword">READ</span> COMMITABLE;</div></pre></td></tr></table></figure></p>
 <p><strong>隐式和显示锁定</strong><br><br>InooDB 采用两阶段锁定协议。事务在执行过程中随时可能会锁定，只有在 COMMIT 或 ROLLBACK 的时候才会释放，所有锁都会释放。<br>InnoDB 的显式锁定：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> ... <span class="keyword">LOCK</span> <span class="keyword">IN</span> <span class="keyword">SHARE</span> <span class="keyword">MODE</span></div><div class="line"><span class="keyword">SELECT</span> ... <span class="keyword">FOR</span> <span class="keyword">UPDATE</span></div></pre></td></tr></table></figure></p>
+<p><br></p>
 <h4 id="多版本并发控制"><a href="#多版本并发控制" class="headerlink" title="多版本并发控制"></a>多版本并发控制</h4><p>MySQL 的大多数事务型存储引擎实现的都不是简单的行级锁，它们一般都实现了多版本并发控制（MVCC）。可以认为 MVCC 是行级锁的一个变种，但是它在很多情况下避免了加锁操作，因此开销更低。</p>
 <p><strong>实现原理</strong><br><br>通过保存数据在某个时间点的快照（InnoDB 的 undo 段）来实现。不管事务执行多长时间，每个事务看到的数据都是一致的。根据事务的开始时间不同，每个事务对同一张表，同一时刻看到的数据可能是不一样的。</p>
 <p><strong>InnoDB 的 MVCC</strong><br><br>InnoDB <code>MVCC</code> 是通过在每行记录后面保存两个隐藏的列实现的。一个保存的是开始时间，一个保存的是过期时间，时间指的是版本号。每新开始一个事务，系统版本号会递增，做为该事务的事务版本号，用来和查询到的每行记录做比较。</p>

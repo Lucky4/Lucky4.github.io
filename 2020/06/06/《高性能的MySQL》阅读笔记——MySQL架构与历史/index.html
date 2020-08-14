@@ -15,7 +15,7 @@
 </li>
 <li><p>第二层包含了 MySQL 的核心功能。包括：解析、分析、优化、缓存及所有内置函数（日期，时间等），跨存存储引擎功能：存储过程、触发器、视图等。</p>
 </li>
-<li><p>第三层包含了存储引擎。存储迎请类似 UNIX 的文件系统，服务器通过 API 与存储引擎通信。存储引擎 API 包含了几十个底层函数，用于执行如：“开始一个事务”，“根据主键提取一行记录”等操作。存储引擎不解析 SQL 。</p>
+<li><p>第三层包含了存储引擎。存储引擎类似 UNIX 的文件系统，服务器通过 API 与存储引擎通信。存储引擎 API 包含了几十个底层函数，用于执行如：“开始一个事务”，“根据主键提取一行记录”等操作。存储引擎不解析 SQL 。</p>
 </li>
 </ul>
 <p><strong>连接管理与安全</strong><br>每个客户端连接都会在服务器进程拥有一个线程，这个连接的查询只会在这个单独的线程中执行。服务器会缓存线程或使用线程池，无需手动销毁每个连接的线程。</p>
@@ -50,12 +50,12 @@
 <ul>
 <li><code>脏读</code>：事务可以读取未提交的数据。</li>
 <li><code>不可重复读</code>：执行两次相同的查询，可能会得到不同的结果。</li>
-<li><code>幻读</code>：事务1读取了某个范围的数据，事务2在该范围又插入了数据，事务1再次读取该范围数据时会产生换行。InnDB 等存储引擎通过 MVCC 解决了该问题。</li>
+<li><code>幻读</code>：事务1读取了某个范围的数据，事务2在该范围又插入了数据，事务1再次读取该范围数据时会产生幻行。InnDB 等存储引擎通过 MVCC 解决了该问题。</li>
 </ul>
 <p><br></p>
 <h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><p>死锁指两个或多个事务在同一资源上相互占用，并请求锁定对方占用的资源，从而导致的恶性循环现象。多个事务以不同的顺序锁定资源时，就可能产生死锁，多个事务同时锁定一个资源时也会产生死锁。</p>
 <p>死锁的例子：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">事务1</div><div class="line"><span class="keyword">START</span> <span class="keyword">TRANSACTION</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">45.50</span> <span class="keyword">WHERE</span> stock_id = <span class="number">4</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">19.80</span> <span class="keyword">WHERE</span> stock_id = <span class="number">3</span>;</div><div class="line"></div><div class="line">事务2</div><div class="line"><span class="keyword">START</span> <span class="keyword">TRANSACTION</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">20.12</span> <span class="keyword">WHERE</span> stock_id = <span class="number">3</span>;</div><div class="line"><span class="keyword">UPDATE</span> StockPrice <span class="keyword">SET</span> <span class="keyword">close</span> = <span class="number">47.20</span> <span class="keyword">WHERE</span> stock_id = <span class="number">4</span>;</div></pre></td></tr></table></figure></p>
-<p>此时，陷入了死循环，只有外部因素接触才可能接触死锁。</p>
+<p>此时，陷入了死循环，只有外部因素接触才可能解除死锁。</p>
 <p>为了解决这个问题，数据库系统实现了死锁检测和死锁超时机制。InnoDB 检测到死锁后能立即返回一个错误，并将持有最少行排他锁的事务进行回滚。</p>
 <p>事务型的系统，死锁时不可避免的，程序的设计时应考虑如何处理死锁。</p>
 <p><strong>事务日志</strong><br><br>事务日志可以帮忙提高事务的效率。特点：</p>
@@ -95,4 +95,4 @@
 </ul>
 <p>使用 MVCC 使得大多数读操作不需要加锁，提高读取数据性能，但是同时需要额外的存储空间，用来检查维护工作。</p>
 <p>MVCC 只在 REPEATABLE READ 和 READ COMMITED 两个隔离级别下工作。</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2020/06/22/《MySQL技术内幕》阅读笔记——索引与算法/" class="prev">PREV</a><a href="/2020/05/30/小demo记录/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/06/22/《MySQL技术内幕》阅读笔记——索引与算法/" class="prev">上一篇</a><a href="/2020/05/30/小demo记录/" class="next">下一篇</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

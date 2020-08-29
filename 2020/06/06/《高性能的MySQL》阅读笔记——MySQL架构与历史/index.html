@@ -6,6 +6,7 @@
 <li><a href="#事务">事务</a></li>
 <li><a href="#死锁">死锁</a></li>
 <li><a href="#多版本并发控制">多版本并发控制</a></li>
+<li><a href="#MySQL-的存储引擎">MySQL 的存储引擎</a></li>
 </ul>
 </li>
 </ul>
@@ -95,4 +96,14 @@
 </ul>
 <p>使用 MVCC 使得大多数读操作不需要加锁，提高读取数据性能，但是同时需要额外的存储空间，用来检查维护工作。</p>
 <p>MVCC 只在 REPEATABLE READ 和 READ COMMITED 两个隔离级别下工作。</p>
+<p><br></p>
+<h4 id="MySQL-的存储引擎"><a href="#MySQL-的存储引擎" class="headerlink" title="MySQL 的存储引擎"></a>MySQL 的存储引擎</h4><p>在文件系统中，MySQL 将每个数据库（也可称为 schema）保存为数据目录下的一个子目录。创建表时，MySQL会在数据库子目录下创建一个和表同名的 <code>.frm</code> 文件保存表的定义。</p>
+<p>可以使用 <code> SHOW TABLE STATUS </code> 显示表的相关信息。</p>
+<p><br></p>
+<p><strong>InnDB 存储引擎</strong><br>InoDB 是 MySQL 的默认 <code>事务型存储引擎</code> 。它被设计用来处理大量的短期事务。</p>
+<p>InnoDB 的数据存储在 <code>表空间</code> 中，表空间是由 InnoDB 管理的一个黑盒子，由一系列的数据文件组成。在高版本的 MySQL 中，InnoDB 可以将每个表的数据和索引存放在单独的文件中。</p>
+<p>InnoDB 采用 <code>MVCC</code> 来支持高并发，并且通过 <code>间隙锁</code> 策略防止幻读的出现。</p>
+<p>InnoDB 做了很多内部优化，包括从磁盘读取数据时采用的<code> 可预测性预读 </code>，能够自动在内存中创建<code> 自适应哈希索引 </code>，以及能够加速插入操作的<code> 插入缓冲区 </code>等。</p>
+<p>支持热备份，有相应的工具。</p>
+<p><strong>MyISAM 存储引擎</strong><br>MyISAM 提供了大量特性，包括全文索引，压缩，空间函数等（GIS）。但 MyISAM 不支持事务和行级锁，而且崩溃后无法恢复。</p>
 </div></article></div></main><footer><div class="paginator"><a href="/2020/06/22/《MySQL技术内幕》阅读笔记——索引与算法/" class="prev">上一篇</a><a href="/2020/05/30/小demo记录/" class="next">下一篇</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

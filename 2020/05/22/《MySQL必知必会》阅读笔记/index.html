@@ -246,7 +246,7 @@
 <h2 id="30-改善性能"><a href="#30-改善性能" class="headerlink" title="30 改善性能"></a>30 改善性能</h2><p>MySQL 是用一系列的默认设置预先配置的，但使用过程中需要经常调整内存、缓冲区大小等。为查看当前设置，可使用：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span>;</div></pre></td></tr></table></figure></p>
 <p>或<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SHOW</span> <span class="keyword">STATUS</span>;</div></pre></td></tr></table></figure></p>
 <p>MySQL 是一个多用户多线程的 DBMS，经常同时执行多个任务，如果某一个执行缓慢，则所有都会执行缓慢，可使用：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SHOW</span> <span class="keyword">PROCESSLIST</span>;</div></pre></td></tr></table></figure></p>
-<p>显示所有活动进程，还可使用 KILL 命令终结特定进程。</p>
+<p>显示所有活动线程（数据库实例是一个进程，每个进程又有许多线程连接），还可使用 KILL 命令终结特定贤线程。<br>具体语法可以参考 MySQL 官网。</p>
 <p>使用 <code>EXPLAIN</code> 语句让 MySQL 解释它将如何执行一条 SELECT 语句。</p>
 <p>决不要检索比需求还多的数据，如 SELECT *。</p>
 <p>使用正确的数据类型。</p>

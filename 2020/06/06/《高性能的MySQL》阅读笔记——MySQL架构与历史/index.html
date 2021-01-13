@@ -49,7 +49,7 @@
 </li>
 </ol>
 <ul>
-<li><code>脏读</code>：事务可以读取未提交的数据。</li>
+<li><code>脏读</code>：事务可以读取未提交的数据，如：T1 修改一个数据但未提交，T2 随后读取这个数据。如果 T1 撤销了这次修改，那么 T2 读取的数据是脏数据。</li>
 <li><code>不可重复读</code>：执行两次相同的查询，可能会得到不同的结果。</li>
 <li><code>幻读</code>：事务1读取了某个范围的数据，事务2在该范围又插入了数据，事务1再次读取该范围数据时会产生幻行。InnDB 等存储引擎通过 MVCC 解决了该问题。</li>
 </ul>
@@ -94,7 +94,7 @@
 </ul>
 </li>
 </ul>
-<p>使用 MVCC 使得大多数读操作不需要加锁，提高读取数据性能，但是同时需要额外的存储空间，用来检查维护工作。</p>
+<p>使用 MVCC 使得大多数读操作不需要加锁，提高读取数据性能，但是同时需要额外的存储空间，用来检查维护工作。有时需要在并发（行锁比表锁并发程度更高）和系统开销（获取锁，释放锁，锁检测耗费CPU）上做权衡。</p>
 <p>MVCC 只在 REPEATABLE READ 和 READ COMMITED 两个隔离级别下工作。</p>
 <p><br></p>
 <h4 id="MySQL-的存储引擎"><a href="#MySQL-的存储引擎" class="headerlink" title="MySQL 的存储引擎"></a>MySQL 的存储引擎</h4><p>在文件系统中，MySQL 将每个数据库（也可称为 schema）保存为数据目录下的一个子目录。创建表时，MySQL会在数据库子目录下创建一个和表同名的 <code>.frm</code> 文件保存表的定义。</p>
@@ -106,4 +106,4 @@
 <p>InnoDB 做了很多内部优化，包括从磁盘读取数据时采用的<code> 可预测性预读 </code>，能够自动在内存中创建<code> 自适应哈希索引 </code>，以及能够加速插入操作的<code> 插入缓冲区 </code>等。</p>
 <p>支持热备份，有相应的工具。</p>
 <p><strong>MyISAM 存储引擎</strong><br>MyISAM 提供了大量特性，包括全文索引，压缩，空间函数等（GIS）。但 MyISAM 不支持事务和行级锁，而且崩溃后无法恢复。</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2020/06/22/《MySQL技术内幕》阅读笔记——索引与算法/" class="prev">PREV</a><a href="/2020/05/30/小demo记录/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/06/22/《MySQL技术内幕》阅读笔记——索引与算法/" class="prev">PREV</a><a href="/2020/05/30/小demo记录/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2021 <a href="http://yoursite.com">Lucky4</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
